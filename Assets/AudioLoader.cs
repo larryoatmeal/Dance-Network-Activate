@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.ComponentModel;
 
-public class AudioLoader : IAudioLoader 
+public class AudioLoader 
 {
 
 	public static Stream loadFileFromStreamingAssets (string file){		//
