@@ -6,21 +6,15 @@ using System.Threading;
 using System.ComponentModel;
 
 
-
-
-
 public class AudioStreamReader: IDisposable{
-	Stream stream;
 	BinaryReader reader;
 	public readonly AudioMeta audioMeta;
-	//	int bytesLeft;
 	int samplesLeft;
 
 	private AudioStreamReader(){
 	}
 	public AudioStreamReader (Stream stream)
 	{
-		this.stream = stream;
 		reader = new BinaryReader (stream);
 		audioMeta = obtainMetaData ();
 		//		bytesLeft = audioMeta.numBytes;
@@ -89,48 +83,6 @@ public class AudioStreamReader: IDisposable{
 	public void Dispose ()
 	{
 		reader.Close();
-	}
-
-	public void runAsyncPrintBytes(){
-		var bw = new BackgroundWorker ();
-		bw.DoWork += new DoWorkEventHandler (printBytes);
-		bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler (printBytesCompleted);
-		bw.ProgressChanged += new ProgressChangedEventHandler (printProgressChanged);
-		bw.WorkerReportsProgress = true;
-		bw.RunWorkerAsync ();
-	}
-
-	private void printBytesCompleted(object sender, RunWorkerCompletedEventArgs e){
-		Debug.Log ("Bytes completed printing");
-	}
-
-	private void printProgressChanged(object sender, ProgressChangedEventArgs e){
-		Debug.LogFormat ("Progress {0}%", e.ProgressPercentage);
-	}
-
-	private void printBytes(object sender, DoWorkEventArgs e){
-		BackgroundWorker worker = sender as BackgroundWorker;
-
-		Debug.LogFormat ("Number of samples {0}", audioMeta.numSamplesPerChannel);
-		int samplesPerPercent = audioMeta.numSamplesPerChannel / 100;
-		int counter = 0;
-		int percent = 0;
-		worker.ReportProgress (0);
-		for (int i = 0; i < audioMeta.numSamplesPerChannel; i++) {
-			readSampleOneChannel();
-			counter += 1;
-			if (counter > samplesPerPercent) {
-				percent += 1;
-				counter = 0;
-				worker.ReportProgress (percent);
-			}
-		}
-	}
-
-	public static void test(){
-		Stream stream = AudioLoader.loadFileFromStreamingAssets ("gravy_final_final_16.wav");
-		AudioStreamReader testReader = new AudioStreamReader (stream);
-		testReader.runAsyncPrintBytes();
 	}
 }
 

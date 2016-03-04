@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
 public class Tester : MonoBehaviourThreading {
 
 	public RawImage rawImage;
@@ -42,8 +44,20 @@ public class Tester : MonoBehaviourThreading {
 ////		audioLoader.loadFileFromStreamingAssets ("gravy_final.wav");
 //		audioLoader.testReader("gravy_final.wav");
 //		AudioStreamReader.test();
-		AudioVisualizer audioVisualizer = new AudioVisualizer (new StandardVisualizer(this, DrawToRawImage));
-		audioVisualizer.analyzeFile ("gravy_final_final_16.wav");
+
+
+
+
+
+//
+//
+//		AudioVisualizer audioVisualizer = new AudioVisualizer (new StandardVisualizer(this, DrawToRawImage));
+//		audioVisualizer.analyzeFile ("gravy_final_final_16.wav");
+		Stream stream = AudioLoader.loadFileFromStreamingAssets ("gravy_final_final_16.wav");
+		AudioStreamReader audioStreamReader = new AudioStreamReader (stream);
+
+		StandardVisualizer2 vis = new StandardVisualizer2 (this, DrawToRawImage, audioStreamReader);
+		vis.start ();
 
 	}
 }

@@ -15,7 +15,6 @@ public interface AudioVisualizerHandler{
 }
 
 
-
 public class AudioVisualizer{
 
 	readonly AudioVisualizerHandler handler;
@@ -32,23 +31,24 @@ public class AudioVisualizer{
 
 	private void runAsyncPrintBytes(AudioStreamReader audioStreamReader){
 		var bw = new BackgroundWorker ();
-		bw.DoWork += new DoWorkEventHandler (printBytes);
-		bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler (printBytesCompleted);
-		bw.ProgressChanged += new ProgressChangedEventHandler (printProgressChanged);
+		bw.DoWork += new DoWorkEventHandler (process);
+		bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler (onComplete);
+		bw.ProgressChanged += new ProgressChangedEventHandler (onProgressChange);
 		bw.WorkerReportsProgress = true;
-
 		bw.RunWorkerAsync (audioStreamReader);
 	}
 
-	private void printBytesCompleted(object sender, RunWorkerCompletedEventArgs e){
+	//does not run on main thread as expected
+	private void onComplete(object sender, RunWorkerCompletedEventArgs e){
 		handler.onComplete ();
 	}
 
-	private void printProgressChanged(object sender, ProgressChangedEventArgs e){
+	//does not run on main thread as expected
+	private void onProgressChange(object sender, ProgressChangedEventArgs e){
 		handler.progressChanged(e.ProgressPercentage);
 	}
 
-	private void printBytes(object sender, DoWorkEventArgs e){
+	private void process(object sender, DoWorkEventArgs e){
 		BackgroundWorker worker = sender as BackgroundWorker;
 		AudioStreamReader reader = e.Argument as AudioStreamReader;
 		handler.process (reader, worker);
