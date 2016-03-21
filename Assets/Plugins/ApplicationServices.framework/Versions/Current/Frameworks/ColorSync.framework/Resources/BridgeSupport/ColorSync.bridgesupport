@@ -1,0 +1,418 @@
+<?xml version='1.0'?>
+<!DOCTYPE signatures SYSTEM "file://localhost/System/Library/DTDs/BridgeSupport.dtd">
+<signatures version='1.0'>
+<depends_on path='/System/Library/Frameworks/CoreServices.framework'/>
+<depends_on path='/System/Library/Frameworks/Security.framework'/>
+<depends_on path='/System/Library/Frameworks/CoreGraphics.framework'/>
+<depends_on path='/System/Library/Frameworks/CoreFoundation.framework'/>
+<depends_on path='/System/Library/Frameworks/IOKit.framework'/>
+<struct name='ColorSyncMD5' type='{_ColorSyncMD5=&quot;digest&quot;[16C]}'/>
+<cftype gettypeid_func='ColorSyncCMMGetTypeID' name='ColorSyncCMMRef' tollfree='__NSCFType' type='^{ColorSyncCMM=}'/>
+<cftype gettypeid_func='ColorSyncProfileGetTypeID' name='ColorSyncMutableProfileRef' tollfree='__NSCFType' type='^{ColorSyncProfile=}'/>
+<cftype gettypeid_func='ColorSyncProfileGetTypeID' name='ColorSyncProfileRef' tollfree='__NSCFType' type='^{ColorSyncProfile=}'/>
+<cftype gettypeid_func='ColorSyncTransformGetTypeID' name='ColorSyncTransformRef' tollfree='__NSCFType' type='^{ColorSyncTransform=}'/>
+<constant name='kCMMApplyTransformProcName' type='^{__CFString=}'/>
+<constant name='kCMMCreateTransformPropertyProcName' type='^{__CFString=}'/>
+<constant name='kCMMInitializeLinkProfileProcName' type='^{__CFString=}'/>
+<constant name='kCMMInitializeTransformProcName' type='^{__CFString=}'/>
+<constant name='kColorSyncACESCGLinearProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncAdobeRGB1998Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncBestQuality' type='^{__CFString=}'/>
+<constant name='kColorSyncBlackPointCompensation' type='^{__CFString=}'/>
+<constant name='kColorSyncCameraDeviceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncConversion1DLut' type='^{__CFString=}'/>
+<constant name='kColorSyncConversion3DLut' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionBPC' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionChannelID' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionGridPoints' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionInpChan' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionMatrix' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionNDLut' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionOutChan' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionParamCurve0' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionParamCurve1' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionParamCurve2' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionParamCurve3' type='^{__CFString=}'/>
+<constant name='kColorSyncConversionParamCurve4' type='^{__CFString=}'/>
+<constant name='kColorSyncConvertQuality' type='^{__CFString=}'/>
+<constant name='kColorSyncConvertThreadCount' type='^{__CFString=}'/>
+<constant name='kColorSyncConvertUseVectorUnit' type='^{__CFString=}'/>
+<constant name='kColorSyncCustomProfiles' type='^{__CFString=}'/>
+<constant name='kColorSyncDCIP3Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceDefaultProfileID' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceDescription' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceDescriptions' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceHostScope' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceID' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceModeDescription' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceModeDescriptions' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfileID' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfileIsCurrent' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfileIsDefault' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfileIsFactory' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfileURL' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceProfilesNotification' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceRegisteredNotification' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceUnregisteredNotification' type='^{__CFString=}'/>
+<constant name='kColorSyncDeviceUserScope' type='^{__CFString=}'/>
+<constant name='kColorSyncDisplayDeviceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncDisplayDeviceProfilesNotification' type='^{__CFString=}'/>
+<constant name='kColorSyncDisplayP3Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncDraftQuality' type='^{__CFString=}'/>
+<constant name='kColorSyncFactoryProfiles' type='^{__CFString=}'/>
+<constant name='kColorSyncFixedPointRange' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericCMYKProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericGrayGamma22Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericGrayProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericLabProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericRGBProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncGenericXYZProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncITUR2020Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncITUR709Profile' type='^{__CFString=}'/>
+<constant name='kColorSyncNormalQuality' type='^{__CFString=}'/>
+<constant name='kColorSyncPreferredCMM' type='^{__CFString=}'/>
+<constant name='kColorSyncPrinterDeviceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileClass' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileColorSpace' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileComputerDomain' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileDescription' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileHeader' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileHostScope' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileMD5Digest' type='^{__CFString=}'/>
+<constant name='kColorSyncProfilePCS' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileURL' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileUserDomain' type='^{__CFString=}'/>
+<constant name='kColorSyncProfileUserScope' type='^{__CFString=}'/>
+<constant name='kColorSyncROMMRGBProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntent' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntentAbsolute' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntentPerceptual' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntentRelative' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntentSaturation' type='^{__CFString=}'/>
+<constant name='kColorSyncRenderingIntentUseProfileHeader' type='^{__CFString=}'/>
+<constant name='kColorSyncSRGBProfile' type='^{__CFString=}'/>
+<constant name='kColorSyncScannerDeviceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigAToB0Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigAToB1Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigAToB2Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigAbstractClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigBToA0Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigBToA1Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigBToA2Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigBlueColorantTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigBlueTRCTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigCmykData' type='^{__CFString=}'/>
+<constant name='kColorSyncSigColorSpaceClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigCopyrightTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigDeviceMfgDescTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigDeviceModelDescTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigDisplayClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigGamutTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigGrayData' type='^{__CFString=}'/>
+<constant name='kColorSyncSigGrayTRCTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigGreenColorantTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigGreenTRCTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigInputClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigLabData' type='^{__CFString=}'/>
+<constant name='kColorSyncSigLinkClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigMediaBlackPointTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigMediaWhitePointTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigNamedColor2Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigNamedColorClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigOutputClass' type='^{__CFString=}'/>
+<constant name='kColorSyncSigPreview0Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigPreview1Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigPreview2Tag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigProfileDescriptionTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigProfileSequenceDescTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigRedColorantTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigRedTRCTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigRgbData' type='^{__CFString=}'/>
+<constant name='kColorSyncSigTechnologyTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigViewingCondDescTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigViewingConditionsTag' type='^{__CFString=}'/>
+<constant name='kColorSyncSigXYZData' type='^{__CFString=}'/>
+<constant name='kColorSyncTranformInfo' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformCodeFragmentType' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformCreator' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformDeviceToDevice' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformDeviceToPCS' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformDstSpace' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformFullConversionData' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformGamutCheck' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformPCSToDevice' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformPCSToPCS' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformParametricConversionData' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformSimplifiedConversionData' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformSrcSpace' type='^{__CFString=}'/>
+<constant name='kColorSyncTransformTag' type='^{__CFString=}'/>
+<string_constant name='COLORSYNC_PROFILE_INSTALL_ENTITLEMENT' value='com.apple.developer.ColorSync.profile.install'/>
+<enum name='COLORSYNC_MD5_LENGTH' value='16'/>
+<enum name='kColorSync10BitInteger' value='8'/>
+<enum name='kColorSync16BitFloat' value='4'/>
+<enum name='kColorSync16BitInteger' value='3'/>
+<enum name='kColorSync1BitGamut' value='1'/>
+<enum name='kColorSync32BitFloat' value='7'/>
+<enum name='kColorSync32BitInteger' value='5'/>
+<enum name='kColorSync32BitNamedColorIndex' value='6'/>
+<enum name='kColorSync8BitInteger' value='2'/>
+<enum name='kColorSyncAlphaFirst' value='4'/>
+<enum name='kColorSyncAlphaInfoMask' value='31'/>
+<enum name='kColorSyncAlphaLast' value='3'/>
+<enum name='kColorSyncAlphaNone' value='0'/>
+<enum name='kColorSyncAlphaNoneSkipFirst' value='6'/>
+<enum name='kColorSyncAlphaNoneSkipLast' value='5'/>
+<enum name='kColorSyncAlphaPremultipliedFirst' value='2'/>
+<enum name='kColorSyncAlphaPremultipliedLast' value='1'/>
+<enum name='kColorSyncByteOrder16Big' value='12288'/>
+<enum name='kColorSyncByteOrder16Little' value='4096'/>
+<enum name='kColorSyncByteOrder32Big' value='16384'/>
+<enum name='kColorSyncByteOrder32Little' value='8192'/>
+<enum name='kColorSyncByteOrderDefault' value='0'/>
+<enum name='kColorSyncByteOrderMask' value='28672'/>
+<function name='CGDisplayCreateUUIDFromDisplayID'>
+<arg type='I'/>
+<retval already_retained='true' type='^{__CFUUID=}'/>
+</function>
+<function name='CGDisplayGetDisplayIDFromUUID'>
+<arg type='^{__CFUUID=}'/>
+<retval type='I'/>
+</function>
+<function name='ColorSyncCMMCopyCMMIdentifier'>
+<arg type='^{ColorSyncCMM=}'/>
+<retval already_retained='true' type='^{__CFString=}'/>
+</function>
+<function name='ColorSyncCMMCopyLocalizedName'>
+<arg type='^{ColorSyncCMM=}'/>
+<retval already_retained='true' type='^{__CFString=}'/>
+</function>
+<function name='ColorSyncCMMCreate'>
+<arg type='^{__CFBundle=}'/>
+<retval already_retained='true' type='^{ColorSyncCMM=}'/>
+</function>
+<function name='ColorSyncCMMGetBundle'>
+<arg type='^{ColorSyncCMM=}'/>
+<retval type='^{__CFBundle=}'/>
+</function>
+<function name='ColorSyncCMMGetTypeID'>
+<retval type='L' type64='Q'/>
+</function>
+<function name='ColorSyncDeviceCopyDeviceInfo'>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFUUID=}'/>
+<retval already_retained='true' type='^{__CFDictionary=}'/>
+</function>
+<function name='ColorSyncDeviceSetCustomProfiles'>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFUUID=}'/>
+<arg type='^{__CFDictionary=}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncIterateDeviceProfiles'>
+<arg function_pointer='true' type='^?'>
+<arg type='^{__CFDictionary=}'/>
+<arg type='^v'/>
+<retval type='B'/>
+</arg>
+<arg type='^v'/>
+</function>
+<function name='ColorSyncIterateInstalledCMMs'>
+<arg function_pointer='true' type='^?'>
+<arg type='^{ColorSyncCMM=}'/>
+<arg type='^v'/>
+<retval type='B'/>
+</arg>
+<arg type='^v'/>
+</function>
+<function name='ColorSyncIterateInstalledProfiles'>
+<arg function_pointer='true' type='^?'>
+<arg type='^{__CFDictionary=}'/>
+<arg type='^v'/>
+<retval type='B'/>
+</arg>
+<arg type='^I'/>
+<arg type='^v'/>
+<arg type='^^{__CFError}'/>
+</function>
+<function name='ColorSyncProfileContainsTag'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFString=}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncProfileCopyData'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^^{__CFError}'/>
+<retval already_retained='true' type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileCopyDescriptionString'>
+<arg type='^{ColorSyncProfile=}'/>
+<retval already_retained='true' type='^{__CFString=}'/>
+</function>
+<function name='ColorSyncProfileCopyHeader'>
+<arg type='^{ColorSyncProfile=}'/>
+<retval already_retained='true' type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileCopyTag'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFString=}'/>
+<retval already_retained='true' type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileCopyTagSignatures'>
+<arg type='^{ColorSyncProfile=}'/>
+<retval already_retained='true' type='^{__CFArray=}'/>
+</function>
+<function name='ColorSyncProfileCreate'>
+<arg type='^{__CFData=}'/>
+<arg type='^^{__CFError}'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateDeviceProfile'>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFUUID=}'/>
+<arg type='@'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateDisplayTransferTablesFromVCGT'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^I' type64='^Q'/>
+<retval already_retained='true' type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileCreateLink'>
+<arg type='^{__CFArray=}'/>
+<arg type='^{__CFDictionary=}'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateMutable'>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateMutableCopy'>
+<arg type='^{ColorSyncProfile=}'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateWithDisplayID'>
+<arg type='I'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateWithName'>
+<arg type='^{__CFString=}'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileCreateWithURL'>
+<arg type='^{__CFURL=}'/>
+<arg type='^^{__CFError}'/>
+<retval already_retained='true' type='^{ColorSyncProfile=}'/>
+</function>
+<function name='ColorSyncProfileEstimateGamma'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^^{__CFError}'/>
+<retval type='f'/>
+</function>
+<function name='ColorSyncProfileEstimateGammaWithDisplayID'>
+<arg type='i'/>
+<arg type='^^{__CFError}'/>
+<retval type='f'/>
+</function>
+<function name='ColorSyncProfileGetDisplayTransferFormulaFromVCGT'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<arg type='^f'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncProfileGetMD5'>
+<arg type='^{ColorSyncProfile=}'/>
+<retval type='{_ColorSyncMD5=[16C]}'/>
+</function>
+<function name='ColorSyncProfileGetTypeID'>
+<retval type='L' type64='Q'/>
+</function>
+<function name='ColorSyncProfileGetURL'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^^{__CFError}'/>
+<retval type='^{__CFURL=}'/>
+</function>
+<function name='ColorSyncProfileInstall'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFString=}'/>
+<arg type='^^{__CFError}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncProfileRemoveTag'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFString=}'/>
+</function>
+<function name='ColorSyncProfileSetHeader'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileSetTag'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFData=}'/>
+</function>
+<function name='ColorSyncProfileUninstall'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^^{__CFError}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncProfileVerify'>
+<arg type='^{ColorSyncProfile=}'/>
+<arg type='^^{__CFError}'/>
+<arg type='^^{__CFError}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncRegisterDevice'>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFUUID=}'/>
+<arg type='^{__CFDictionary=}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncTransformConvert'>
+<arg type='^{ColorSyncTransform=}'/>
+<arg type='L' type64='Q'/>
+<arg type='L' type64='Q'/>
+<arg type='^v'/>
+<arg type='i'/>
+<arg type='I'/>
+<arg type='L' type64='Q'/>
+<arg type='^v'/>
+<arg type='i'/>
+<arg type='I'/>
+<arg type='L' type64='Q'/>
+<arg type='^{__CFDictionary=}'/>
+<retval type='B'/>
+</function>
+<function name='ColorSyncTransformCopyProperty'>
+<arg type='^{ColorSyncTransform=}'/>
+<arg type='@'/>
+<arg type='^{__CFDictionary=}'/>
+<retval already_retained='true' type='@'/>
+</function>
+<function name='ColorSyncTransformCreate'>
+<arg type='^{__CFArray=}'/>
+<arg type='^{__CFDictionary=}'/>
+<retval already_retained='true' type='^{ColorSyncTransform=}'/>
+</function>
+<function name='ColorSyncTransformGetTypeID'>
+<retval type='L' type64='Q'/>
+</function>
+<function name='ColorSyncTransformSetProperty'>
+<arg type='^{ColorSyncTransform=}'/>
+<arg type='@'/>
+<arg type='@'/>
+</function>
+<function name='ColorSyncUnregisterDevice'>
+<arg type='^{__CFString=}'/>
+<arg type='^{__CFUUID=}'/>
+<retval type='B'/>
+</function>
+</signatures>

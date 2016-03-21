@@ -1,12 +1,6 @@
 ﻿using System;
 
-namespace AssemblyCSharp
+public static class MessengerKeys
 {
-	public class MessengerKeys
-	{
-		public MessengerKeys ()
-		{
-		}
-	}
+	public const string EVENT_VANISH =  "EVENT_VANISH";
 }
-

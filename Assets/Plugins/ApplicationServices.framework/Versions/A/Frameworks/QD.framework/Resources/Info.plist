@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>QD</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.QD</string>
+	<key>CFBundleName</key>
+	<string>Quickdraw</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.12</string>
+	<key>SourceVersion</key>
+	<string>302</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>CarbonLazyValues</key>
+	<dict>
+		<key>Gestalt</key>
+		<dict>
+			<key>dplv</key>
+			<integer>262144</integer>
+			<key>dply</key>
+			<integer>153</integer>
+			<key>qd  </key>
+			<integer>816</integer>
+			<key>qdrw</key>
+			<integer>47</integer>
+			<key>qdtf</key>
+			<integer>127</integer>
+			<key>qdtx</key>
+			<integer>512</integer>
+			<key>uisv</key>
+			<integer>524288</integer>
+			<key>uisf</key>
+			<integer>63</integer>
+		</dict>
+		<key>CodeFragmentManager</key>
+		<dict>
+			<key>QD</key>
+			<string>CFMPriv_QD</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

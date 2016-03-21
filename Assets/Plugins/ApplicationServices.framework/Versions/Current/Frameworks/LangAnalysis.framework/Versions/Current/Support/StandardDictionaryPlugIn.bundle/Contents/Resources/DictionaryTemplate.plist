@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>dict</string>
+	<key>CFBundleSignature</key>
+	<string>lam </string>
+	<key>DCMAccessMethodName</key>
+	<string>DAM:Apple Backward Trie Access Method</string>
+	<key>MyDictionaryFile1</key>
+	<string>dictionary_1</string>
+	<key>MyDictionaryFile2</key>
+	<string>dictionary_2</string>
+</dict>
+</plist>

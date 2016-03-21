@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>15A178l</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>StandardDictionaryPlugIn</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.DictionaryAccessMethod</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>StandardDictionaryPlugIn</string>
+	<key>CFBundlePackageType</key>
+	<string>dam+</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.6.0</string>
+	<key>CFBundleSignature</key>
+	<string>lam </string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1.6.0</string>
+	<key>CFPlugInDynamicRegistration</key>
+	<string>NO</string>
+	<key>CFPlugInFactories</key>
+	<dict>
+		<key>BDF09150-1136-11D4-B344-0030653D66C8</key>
+		<string>MyFactoryForBackwardTrie</string>
+		<key>BDF09151-1136-11D4-B344-0030653D66C8</key>
+		<string>MyFactoryForForwardTrie</string>
+		<key>BDF09152-1136-11D4-B344-0030653D66C8</key>
+		<string>MyFactoryForCompatible</string>
+	</dict>
+	<key>CFPlugInTypes</key>
+	<dict>
+		<key>CCA4068C-1136-11D4-BDE1-0030653D66C8</key>
+		<array>
+			<string>BDF09150-1136-11D4-B344-0030653D66C8</string>
+			<string>BDF09151-1136-11D4-B344-0030653D66C8</string>
+			<string>BDF09152-1136-11D4-B344-0030653D66C8</string>
+		</array>
+	</dict>
+	<key>DCMAccessMethodName</key>
+	<array>
+		<string>com.apple.DictionaryAccessMethod.BackwardTrie</string>
+		<string>com.apple.DictionaryAccessMethod.ForwardTrie</string>
+		<string>DAM:Apple Backward Trie Access Method</string>
+	</array>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>7A176g</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>15A273</string>
+	<key>DTSDKName</key>
+	<string>macosx10.11internal</string>
+	<key>DTXcode</key>
+	<string>0700</string>
+	<key>DTXcodeBuild</key>
+	<string>7A176g</string>
+	<key>MyOldReverseDictExtension</key>
+	<string>-逆引</string>
+</dict>
+</plist>

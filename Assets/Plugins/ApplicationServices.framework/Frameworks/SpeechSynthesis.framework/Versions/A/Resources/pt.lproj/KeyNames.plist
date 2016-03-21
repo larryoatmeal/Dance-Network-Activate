@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>KeyNames</key>
+	<array>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>($0A)</string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>Retorno</string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>Tabulação</string>
+		<string>Espaço</string>
+		<string></string>
+		<string>Apagar</string>
+		<string>($34)</string>
+		<string>Esc</string>
+		<string>Controle</string>
+		<string>Comando</string>
+		<string>Maiúsculas</string>
+		<string>Fixar Maiúsculas</string>
+		<string>Opção</string>
+		<string>Controle</string>
+		<string>Maiúsculas</string>
+		<string>Opção</string>
+		<string>Controle</string>
+		<string>($3F)</string>
+		<string>F17</string>
+		<string>. (Teclado Numérico)</string>
+		<string>($42)</string>
+		<string>* (Teclado Numérico)</string>
+		<string>($44)</string>
+		<string>+ (Teclado Numérico)</string>
+		<string>($46)</string>
+		<string>Limpar</string>
+		<string>($48)</string>
+		<string>($49)</string>
+		<string>($4A)</string>
+		<string>/ (Teclado Numérico)</string>
+		<string>Introduzir</string>
+		<string>($4D)</string>
+		<string>- (Teclado Numérico)</string>
+		<string>F18</string>
+		<string>F19</string>
+		<string>= (Teclado Numérico)</string>
+		<string>0 (Teclado Numérico)</string>
+		<string>1 (Teclado Numérico)</string>
+		<string>2 (Teclado Numérico)</string>
+		<string>3 (Teclado Numérico)</string>
+		<string>4 (Teclado Numérico)</string>
+		<string>5 (Teclado Numérico)</string>
+		<string>6 (Teclado Numérico)</string>
+		<string>7 (Teclado Numérico)</string>
+		<string>($5A)</string>
+		<string>8 (Teclado Numérico)</string>
+		<string>9 (Teclado Numérico)</string>
+		<string>($5D)</string>
+		<string>($5E)</string>
+		<string>($5F)</string>
+		<string>F5</string>
+		<string>F6</string>
+		<string>F7</string>
+		<string>F3</string>
+		<string>F8</string>
+		<string>F9</string>
+		<string>($66)</string>
+		<string>F11</string>
+		<string>($68)</string>
+		<string>F13</string>
+		<string>F16</string>
+		<string>F14</string>
+		<string>($6C)</string>
+		<string>F10</string>
+		<string>($6E)</string>
+		<string>F12</string>
+		<string>Gravar</string>
+		<string>F15</string>
+		<string>Ajuda</string>
+		<string>Início</string>
+		<string>Retroceder Página</string>
+		<string>Apag.</string>
+		<string>F4</string>
+		<string>Fim</string>
+		<string>F2</string>
+		<string>Avançar Página</string>
+		<string>F1</string>
+		<string>Seta Esquerda</string>
+		<string>Seta Direita</string>
+		<string>Seta Abaixo</string>
+		<string>Seta Acima</string>
+		<string>Iniciar</string>
+	</array>
+	<key>ModifierKeyNames</key>
+	<array>
+		<string>Comando+</string>
+		<string>Maiúsculas+</string>
+		<string>Fixar Maiúsculas+</string>
+		<string>Opção+</string>
+		<string>Controle+</string>
+	</array>
+	<key>ValidListenKeys</key>
+	<array>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+	</array>
+</dict>
+</plist>

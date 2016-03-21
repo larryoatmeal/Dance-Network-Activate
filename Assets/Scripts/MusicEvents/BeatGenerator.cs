@@ -26,12 +26,14 @@ public class BeatGenerator{
 				type = MusicEventTypes.Up;
 			}
 
-			MusicEvent musicEvent = new MusicEvent (type, time);
+			//set all to down for now
+			MusicEvent musicEvent = new MusicEvent (MusicEventTypes.Down, time);
 			events.Add (musicEvent);
 		}
 
 		return events;
 	}
+
 	private long bpmToMillisecondsPerBeat(double bpm){
 		int millisecondsPerBeat = 60 * 1000;
 		return (long)(millisecondsPerBeat / bpm);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.similarKanji.dict</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>部品の共通な漢字を検索</string>
+	<key>CFBundlePackageType</key>
+	<string>dict</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.2.0</string>
+	<key>CFBundleSignature</key>
+	<string>lam </string>
+	<key>DCMAccessMethodName</key>
+	<string>com.apple.DictionaryAccessMethod.LSM</string>
+	<key>DataTag</key>
+	<string>yomi</string>
+	<key>DataType</key>
+	<string>utxt</string>
+	<key>DictionaryClass</key>
+	<string>Optional(opened)</string>
+	<key>KeyTag</key>
+	<string>hyok</string>
+	<key>KeyType</key>
+	<string>utxt</string>
+	<key>LSMFixedMapPath</key>
+	<string>./dictionary_1</string>
+	<key>LSMSearchMethod</key>
+	<array>
+		<string>=   </string>
+	</array>
+</dict>
+</plist>

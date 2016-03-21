@@ -15,6 +15,9 @@ public class Pattern{
 	public void Stop(){
 		started = false;
 	}
+
+
+
 	public Pattern (List<MusicEvent> events)
 	{
 		this.events = events;

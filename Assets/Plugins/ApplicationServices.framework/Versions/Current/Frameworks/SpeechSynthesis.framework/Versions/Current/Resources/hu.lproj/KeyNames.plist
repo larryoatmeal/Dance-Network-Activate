@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>KeyNames</key>
+	<array>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>($0A)</string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>Enter</string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>Tabulátor</string>
+		<string>Szóköz</string>
+		<string></string>
+		<string>Delete</string>
+		<string>($34)</string>
+		<string>Esc</string>
+		<string>Control</string>
+		<string>Command</string>
+		<string>Shift</string>
+		<string>Váltózár</string>
+		<string>Alt</string>
+		<string>Control</string>
+		<string>Shift</string>
+		<string>Alt</string>
+		<string>Control</string>
+		<string>($3F)</string>
+		<string>F17</string>
+		<string>. (Gombok)</string>
+		<string>($42)</string>
+		<string>* (Gombok)</string>
+		<string>($44)</string>
+		<string>+ (Gombok)</string>
+		<string>($46)</string>
+		<string>Törlés</string>
+		<string>($48)</string>
+		<string>($49)</string>
+		<string>($4A)</string>
+		<string>/ (Gombok)</string>
+		<string>Enter</string>
+		<string>($4D)</string>
+		<string>- (Gombok)</string>
+		<string>F18</string>
+		<string>F19</string>
+		<string>= (Gombok)</string>
+		<string>0 (Gombok)</string>
+		<string>1 (Gombok)</string>
+		<string>2 (Gombok)</string>
+		<string>3 (Gombok)</string>
+		<string>4 (Gombok)</string>
+		<string>5 (Gombok)</string>
+		<string>6 (Gombok)</string>
+		<string>7 (Gombok)</string>
+		<string>($5A)</string>
+		<string>8 (Gombok)</string>
+		<string>9 (Gombok)</string>
+		<string>($5D)</string>
+		<string>($5E)</string>
+		<string>($5F)</string>
+		<string>F5</string>
+		<string>F6</string>
+		<string>F7</string>
+		<string>F3</string>
+		<string>F8</string>
+		<string>F9</string>
+		<string>($66)</string>
+		<string>F11</string>
+		<string>($68)</string>
+		<string>F13</string>
+		<string>F16</string>
+		<string>F14</string>
+		<string>($6C)</string>
+		<string>F10</string>
+		<string>($6E)</string>
+		<string>F12</string>
+		<string>Felvétel</string>
+		<string>F15</string>
+		<string>Súgó</string>
+		<string>Főgomb</string>
+		<string>Lap fel</string>
+		<string>Del</string>
+		<string>F4</string>
+		<string>End</string>
+		<string>F2</string>
+		<string>Lap le</string>
+		<string>F1</string>
+		<string>Balra nyíl</string>
+		<string>Jobbra nyíl</string>
+		<string>Lefelé nyíl</string>
+		<string>Felfelé nyíl</string>
+		<string>Indítás</string>
+	</array>
+	<key>ModifierKeyNames</key>
+	<array>
+		<string>Command+</string>
+		<string>Shift+</string>
+		<string>Váltózár+</string>
+		<string>Alt+</string>
+		<string>Control+</string>
+	</array>
+	<key>ValidListenKeys</key>
+	<array>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+	</array>
+</dict>
+</plist>
