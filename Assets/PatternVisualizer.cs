@@ -38,8 +38,10 @@ public class PatternVisualizer : MonoBehaviour {
 	}
 
 	private void removeMusicEvent(MusicEvent e){
-		Destroy (musicEvents [e]);
-		musicEvents.Remove (e);
+		if (musicEvents.ContainsKey (e)) {
+			Destroy (musicEvents [e]);
+			musicEvents.Remove (e);
+		}
 	}
 
 	// Update is called once per frame
@@ -56,7 +58,7 @@ public class PatternVisualizer : MonoBehaviour {
 				//			Debug.Log (delta);
 
 
-				if (delta < -1000) {
+				if (delta < -100) {
 					events.Add (e);
 				}
 
@@ -74,6 +76,7 @@ public class PatternVisualizer : MonoBehaviour {
 			foreach (MusicEvent e in events) {
 				Destroy (musicEvents [e]);
 				musicEvents.Remove (e);
+				Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_OUT_OF_RANGE, e);
 			}
 			//		foreach (var e in musicEvents) {			
 			//			long delta = e.startTime + patternMaster.startTime - timeMaster.GetTime ();
