@@ -3,7 +3,14 @@ using System.Collections;
 
 public class GameManager : Singleton<GameManager> {
 
-	public string musicFile = "Audio/wave";
+	public string musicFile = "wave";
+
+
+	public void SetMusicFile(string fileName){
+
+
+	}
+
 
 	protected override void Init(){
 		Debug.Log ("[GameManager] init");

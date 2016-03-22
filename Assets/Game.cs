@@ -82,7 +82,9 @@ public class Game : MonoBehaviourThreading {
 			this.printKeyDown);
 	}
 
-
+	public void MainMenu(){
+		Application.LoadLevel ("SongBrowser");
+	}
 
 
 

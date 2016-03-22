@@ -9,9 +9,9 @@ public class MainMusic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audioSource = gameObject.GetComponent<AudioSource> ();
-
-		AudioClip clip = Resources.Load(GameManager.Instance.musicFile) as AudioClip;
-		Debug.Log (GameManager.Instance.musicFile);
+		string path = "Audio/" + GameManager.Instance.musicFile;
+		AudioClip clip = Resources.Load(path) as AudioClip;
+		Debug.Log (path);
 
 
 		audioSource.clip = clip;

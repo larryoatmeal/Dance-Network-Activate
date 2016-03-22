@@ -12,16 +12,10 @@ public class SongList : MonoBehaviour {
 		".ogg"
 	};
 
-
-	public List<string> songs = new List<string> ();
-
-
-	// Use this for initialization
-	void Start () {
-	
+	void Awake(){
 		string fullPath = Application.dataPath + audioPath;
 
-//		Debug.Log (fullPath);
+		//		Debug.Log (fullPath);
 
 		DirectoryInfo dir = new DirectoryInfo (fullPath);
 		FileInfo[] info = dir
@@ -31,8 +25,18 @@ public class SongList : MonoBehaviour {
 		foreach (FileInfo f in info){
 			Debug.Log (f.Name);
 			Debug.Log (f.Extension);
-			songs.Add (f.Name);
+			songs.Add (Path.GetFileNameWithoutExtension(f.Name));
 		}
+	}
+
+
+	public List<string> songs = new List<string> ();
+
+
+	// Use this for initialization
+	void Start () {
+	
+
 	}
 	
 	// Update is called once per frame
