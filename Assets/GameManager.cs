@@ -2,15 +2,12 @@
 using System.Collections;
 
 public class GameManager : Singleton<GameManager> {
-
+	
 	public string musicFile = "wave";
-
+	public string patternFile = "demo";
 
 	public void SetMusicFile(string fileName){
-
-
 	}
-
 
 	protected override void Init(){
 		Debug.Log ("[GameManager] init");
@@ -20,7 +17,6 @@ public class GameManager : Singleton<GameManager> {
 	void Start () {
 	
 	}
-	
 	// Update is called once per frame
 	void Update () {
 	

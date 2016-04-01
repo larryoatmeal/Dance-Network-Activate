@@ -5,6 +5,8 @@ public class MusicEvent{
 	public readonly long startTime;
 	long endTime;
 
+	public bool isLastEvent = false;
+
 	public MusicEvent (MusicEventTypes eventType, long startTime, long endTime)
 	{
 		this.eventType = eventType;

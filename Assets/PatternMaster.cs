@@ -51,9 +51,8 @@ public class PatternMaster : MonoBehaviour {
 //	bool started = false;
 	public long startTime;
 	public Pattern pattern;
-
+	public int numQuarters = 30;
 	public bool started = false;
-
 
 	public void Play(){
 		started = true;
@@ -73,25 +72,30 @@ public class PatternMaster : MonoBehaviour {
 		started = true;
 	}
 	void Stop(){
+		started = false;
 		pattern.Stop ();
 	}
 	// Use this for initialization
 	void Start () {
-		pattern = new Pattern (new BeatGenerator ().quarters());
+		pattern = new Pattern (new BeatGenerator ().quarters(numQuarters));
 	}
+
+
+
 	// Update is called once per frame
 	void Update () {
 		if (started) {
 			int time = rhythm.timeMillis ();
+
+
 			long adjustedStartTime = timeMaster.GetTime () - time;
 
 			long delta = adjustedStartTime - pattern.startTime;
 			deltaLp.input ((double)delta);
 
-		
 			float timeSeconds = time / 1000f;
-			debugPanel.log ("MS", time.ToString());
-			debugPanel.log ("Seconds", timeSeconds.ToString());
+			debugPanel.log ("MS", time.ToString ());
+			debugPanel.log ("Seconds", timeSeconds.ToString ());
 
 			if (deltaLp.updateReady ()) {
 				debugPanel.log ("Delta", deltaLp.output ().ToString ());
@@ -100,7 +104,16 @@ public class PatternMaster : MonoBehaviour {
 //			Debug.LogFormat ("Delta: {0}", delta);
 			//in case things go out of since
 //			startTime = timeMaster.GetTime () - time;
+
 			pattern.Process (timeMaster.GetTime (), processEvent);
+
+//			if (pattern.isFinished ()) {
+//				Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
+//				Stop ();
+//			} else {
+//			}
+
+
 		}
 	}
 
@@ -109,10 +122,12 @@ public class PatternMaster : MonoBehaviour {
 		var delta = e.startTime + pattern.startTime -  timeMaster.GetTime ();
 //		Debug.Log (delta/1000f);
 //		soundEffect.PlayScheduled (delta / 1000f);
-
-		scoreCalculator.addEvent (e);
-		patternVisualizer.addEvent (e);
-
+		if (e.eventType == MusicEventTypes.End) {
+			Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
+		} else {
+			scoreCalculator.addEvent (e);
+			patternVisualizer.addEvent (e);
+		}
 	}
 
 	public long absTime(long songTime){

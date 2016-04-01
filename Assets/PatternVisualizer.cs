@@ -13,6 +13,7 @@ public class PatternVisualizer : MonoBehaviour {
 
 	float velocity = 0.2f;
 	public float scale = 5000f;
+	public int ttl = 100;
 	Pad[] padList;
 //	List<MusicEvent> musicEvents = new List<MusicEvent> ();
 
@@ -58,7 +59,7 @@ public class PatternVisualizer : MonoBehaviour {
 				//			Debug.Log (delta);
 
 
-				if (delta < -100) {
+				if (delta < -ttl) {
 					events.Add (e);
 				}
 

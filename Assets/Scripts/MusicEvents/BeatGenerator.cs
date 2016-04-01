@@ -4,12 +4,12 @@ public class BeatGenerator{
 
 	private double bpm = 120.0; 
 
-	public List<MusicEvent> quarters(){
+	public List<MusicEvent> quarters(int numQuarters = 20){
 		List<MusicEvent> events = new List<MusicEvent> ();
-		int numQuarters = 200;
-
+//		int numQuarters = 20;
+		int offset = 4;
 		for (int i = 0; i < numQuarters; i++) {
-			long time = i * bpmToMillisecondsPerBeat (bpm);
+			long time = (i+offset) * bpmToMillisecondsPerBeat (bpm);
 
 			int rand = UnityEngine.Random.Range (0, 4);
 			MusicEventTypes type = MusicEventTypes.Down;

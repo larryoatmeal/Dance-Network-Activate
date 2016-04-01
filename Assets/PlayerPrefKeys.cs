@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace AssemblyCSharp
-{
-	public class EmptyClass
-	{
-		public EmptyClass ()
-		{
-		}
-	}
+public static class PlayerPrefKeys{
+	public static string AudioLatencyOffset = "AUDIO_LATENCY_OFFSET";
+
+
 }
+
+
 

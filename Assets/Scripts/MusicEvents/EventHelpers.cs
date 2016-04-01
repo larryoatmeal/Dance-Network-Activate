@@ -10,6 +10,8 @@ public class EventComparer: IComparer<MusicEvent>
 }
 
 public delegate void HandleEvent(MusicEvent musicEvent);
+public delegate void NoMoreEvents();
+
 
 public class EventIterator{
 	int i = 0;
@@ -70,4 +72,6 @@ public class EventIterator{
 			}
 		}
 	}
+
+
 }

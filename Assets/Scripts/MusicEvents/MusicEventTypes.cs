@@ -1,3 +1,3 @@
 ﻿public enum MusicEventTypes{
-	Left, Right, Up, Down
+	Left, Right, Up, Down, End
 }
