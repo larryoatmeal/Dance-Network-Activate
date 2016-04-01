@@ -9,7 +9,10 @@ using System.Diagnostics;
 
 
 public class RealtimeInput : MonoBehaviour {
-	
+
+	public bool UseRealTimeInput = true;
+
+
 	#if UNITY_EDITOR_OSX
 		[DllImport("ApplicationServices.framework/ApplicationServices")]
 		public static extern long CGEventSourceFlagsState(int keyCode);
@@ -41,7 +44,7 @@ public class RealtimeInput : MonoBehaviour {
 	bool[] keyStates = new bool[0x80];
 
 	void PollKeysMac(){
-		while (true) {
+		while (UseRealTimeInput) {
 			averageTimer.startRecording ();
 
 //			UnityEngine.Debug.Log (timeMaster.GetTime());
@@ -80,24 +83,37 @@ public class RealtimeInput : MonoBehaviour {
 
 
 	void Start () {
-		timeMaster = FindObjectOfType<TimeMaster> ();
-//		debugPanel = FindObjectOfType<DebugPanel> ();
-		averageTimer = timeMaster.CreateAverageTimer (5000, "input");
+		if (UseRealTimeInput) {
+			timeMaster = FindObjectOfType<TimeMaster> ();
+			averageTimer = timeMaster.CreateAverageTimer (5000, "input");
 
-
-		#if UNITY_EDITOR_OSX
-		Thread thread = new Thread (new ThreadStart (PollKeysMac));
-		thread.Start ();
-		#endif
+			#if UNITY_EDITOR_OSX
+			Thread thread = new Thread (new ThreadStart (PollKeysMac));
+			thread.Start ();
+			#endif
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
 		#if UNITY_EDITOR_OSX
-
+		if(!UseRealTimeInput){
+//			UnityEngine.Debug.Log("Here");
+			foreach(int keyCode in listener.keys){
+				KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);
+				if(Input.GetKeyDown(key)){
+					listener.onKeyDown(keyCode, timeMaster.GetTime());
+				}
+				if(Input.GetKeyUp(key)){
+					listener.onKeyUp(keyCode, timeMaster.GetTime());
+				}
+			}
+		}
 		#else
 		for (int i = 0; i < listener.keys.Length; i++) {
 			int keyCode = listener.keys [i];
+
+
 		}
 		#endif
 	}

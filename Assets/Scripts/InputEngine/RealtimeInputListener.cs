@@ -15,11 +15,11 @@ public class RealtimeInputListener{
 		this.onKeyUp = onKeyUp;
 		this.onKeyDown = onKeyDown;
 	}
-		
-	public const int A = 0;
-	public const int S = 1;
-	public const int D = 2;
-	public const int F = 3;
+
+//	public const int A = 0;
+//	public const int S = 1;
+//	public const int D = 2;
+//	public const int F = 3;
 }
 
 
