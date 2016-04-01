@@ -42,7 +42,7 @@ public class RealtimeInput : MonoBehaviour {
 	public DebugPanel debugPanel;
 
 	bool[] keyStates = new bool[0x80];
-
+	#if UNITY_EDITOR_OSX
 	void PollKeysMac(){
 		while (UseRealTimeInput) {
 			averageTimer.startRecording ();
@@ -78,6 +78,7 @@ public class RealtimeInput : MonoBehaviour {
 			Thread.Sleep (sleepTime);
 		}
 	}
+	#endif
 
 	// Use this for initialization
 
@@ -109,8 +110,6 @@ public class RealtimeInput : MonoBehaviour {
 				}
 			}
 		}
-
-
 		#else
 		foreach(int keyCode in listener.keys){
 			KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);

@@ -45,7 +45,7 @@ public class ScoreCalculator: MonoBehaviour
 	public Calibrator calibrator;
 //	public CalibrationScoringModule calibrationScoringModule;
  
-	ScoreCalculatorMode mode = ScoreCalculatorMode.Calibration;
+	public ScoreCalculatorMode mode = ScoreCalculatorMode.Calibration;
 
 	public void setToCalibrationMode(){
 		mode = ScoreCalculatorMode.Calibration;
@@ -56,8 +56,9 @@ public class ScoreCalculator: MonoBehaviour
 
 	public ScoreCalculator ()
 	{
-
+		
 	}
+
 
 	void Awake(){
 		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_OUT_OF_RANGE, EventOutOfRange);
@@ -75,8 +76,6 @@ public class ScoreCalculator: MonoBehaviour
 
 	void EventPatternFinished(){
 		Debug.Log ("Pattern finished");
-
-
 		if (mode == ScoreCalculatorMode.Calibration) {
 			int offset = calibrator.finish ();
 		}
