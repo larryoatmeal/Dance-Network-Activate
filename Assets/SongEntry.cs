@@ -22,7 +22,6 @@ public class SongEntry : MonoBehaviour {
 		Debug.Log (path);
 		GameManager.Instance.musicFile = path;
 		SceneManager.LoadScene ("rhythmTester");
-
 	}
 
 	public void SetPath(string path){

@@ -61,12 +61,11 @@ public class TimeMaster : MonoBehaviour {
 	void Start () {
 		stopwatch.Start ();
 	}
-		
+
 	public AverageTimer CreateAverageTimer(int interval, string name){
 		return new AverageTimer (this, interval, name);
 	}
 
-		
 	public long GetTime(){
 		return stopwatch.ElapsedMilliseconds;
 	}

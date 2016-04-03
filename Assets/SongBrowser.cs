@@ -26,14 +26,21 @@ public class SongBrowser : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		if (songList.songs.Count < entries.Count) {
+			Debug.Log ("Not enough songs");
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (dirty) {
 			for (int i = 0; i < entries.Count; i++) {
-				string songName = songList.songs [i + index];
+				string songName;
+				if (i + index < songList.songs.Count) {
+					songName = songList.songs [i + index];
+				} else {
+					songName = "NO SONG";
+				}
 				entries [i].SetText (songName);
 				entries [i].SetPath (songName);
 			}

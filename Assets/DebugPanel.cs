@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Text;
-public class DebugPanel : MonoBehaviour {
+public class DebugPanel : Singleton<DebugPanel> {
 
 	public Dictionary<string, string> entries = new Dictionary<string, string>();
 	private Text textMesh;
 	private bool dirty = false;
+
+	protected override void Init(){
+		Debug.Log ("[DebugPanel] init");
+		Persist = true;
+	}
 
 	public void log(string key, string entry){
 		if (entries.ContainsKey (key)) {
