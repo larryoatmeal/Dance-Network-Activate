@@ -59,7 +59,6 @@ public class ScoreCalculator: MonoBehaviour
 		
 	}
 
-
 	void Awake(){
 		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_OUT_OF_RANGE, EventOutOfRange);
 		Messenger.AddListener (MessengerKeys.EVENT_PATTERN_FINISHED, EventPatternFinished);

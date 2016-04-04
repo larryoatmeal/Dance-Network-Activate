@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class InputVisualizer : MonoBehaviour {
-	public List<ParticleSystem> particles;
+	public List<GameObject> particles;
 	private Dictionary<StandardControls, int> keyCodeToParticleNumber = new Dictionary<StandardControls, int>();
 
 	// Use this for initialization
@@ -12,25 +12,39 @@ public class InputVisualizer : MonoBehaviour {
 		Messenger<StandardControls>.AddListener (MessengerKeys.EVENT_PAD_PRESSED, padPressed);
 		Messenger<StandardControls>.AddListener (MessengerKeys.EVENT_PAD_RELEASED, padReleased);
 
+
+		Debug.Log ("START");
 		keyCodeToParticleNumber.Add (StandardControls.LEFT, 0);
 		keyCodeToParticleNumber.Add (StandardControls.RIGHT, 1);
 		keyCodeToParticleNumber.Add (StandardControls.UP, 2);
 		keyCodeToParticleNumber.Add (StandardControls.DOWN, 3);
-		particles.ForEach (p => p.gameObject.SetActive (false));
+		particles.ForEach (p => p.SetActive (false));
 	}
 
 	void padPressed(StandardControls control){//integer
 		//		int key = Convert.ToInt32(keycode);	
 		//		Debug.LogFormat ("playing particle");
 		int particleNum = keyCodeToParticleNumber [control];
-		ParticleSystem particle = particles [particleNum];
-		particle.gameObject.SetActive(true);
+
+		GameObject particle = particles [particleNum];
+//		Debug.Log (particle);
+
+
+		if (particle != null) {
+			particle.SetActive(true);
+		}
+
 	} 
 
 	void padReleased(StandardControls control){
 		int particleNum = keyCodeToParticleNumber [control];
-		ParticleSystem particle = particles [particleNum];
-		particle.gameObject.SetActive(false);
+		GameObject particle = particles [particleNum];
+//		particle.gameObject.SetActive(false);
+
+		if (particle != null) {
+			particle.SetActive(false);
+		}
+
 	}
 
 	void OnDispose(){

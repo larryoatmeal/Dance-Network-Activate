@@ -5,7 +5,7 @@ public class Pattern{
 	readonly List<MusicEvent> events;
 	readonly EventIterator iterator;
 	public bool started = false;
-	const int LookAhead = 3000;
+	int LookAhead;
 	public void Play(long time){
 		started = true;
 		startTime = time;
@@ -18,12 +18,13 @@ public class Pattern{
 
 
 
-	public Pattern (List<MusicEvent> events)
+	public Pattern (List<MusicEvent> events, int lookAhead)
 	{
 		this.events = events;
 		events.Add (new MusicEvent (MusicEventTypes.End, events [events.Count - 1].startTime + 4000));
 		this.iterator = new EventIterator (events);
-//		events [events.Count - 1].isLastEvent = true;
+		this.LookAhead = lookAhead;
+		events [events.Count - 1].isLastEvent = true;
 	}
 
 	public bool isFinished(){

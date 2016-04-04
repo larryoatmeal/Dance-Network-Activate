@@ -12,7 +12,7 @@ public class PatternVisualizer : MonoBehaviour {
 	public TimeMaster timeMaster;
 
 	float velocity = 0.2f;
-	public float scale = 5000f;
+	private float scale;
 	public int ttl = 100;
 	Pad[] padList;
 //	List<MusicEvent> musicEvents = new List<MusicEvent> ();
@@ -35,6 +35,7 @@ public class PatternVisualizer : MonoBehaviour {
 
 		padList = pads.GetComponentsInChildren<Pad> ();
 		Debug.Log (padList.Length);
+		scale = GameManager.Instance.lookAhead;
 //		Debug.Log (bottomPosition);
 	}
 

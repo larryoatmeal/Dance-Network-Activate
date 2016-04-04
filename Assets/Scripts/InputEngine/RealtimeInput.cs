@@ -68,19 +68,18 @@ public class RealtimeInput : MonoBehaviour {
 			for (int i = 0; i < trackedKeys.Count; i++) {
 				StandardKeyCodes keyCodeStandard = trackedKeys [i];
 				int keyCode = KeyConverter.ToMacNative (keyCodeStandard);
-					bool keyPressed = CGEventSourceKeyState (1, keyCode);
-					bool prevKeyStatus = keyStates [keyCode];
+				bool keyPressed = CGEventSourceKeyState (1, keyCode);
+				bool prevKeyStatus = keyStates [keyCode];
 //					UnityEngine.Debug.Log (keyPressed);
-					if (keyPressed && !prevKeyStatus) {//going from false to true
+				if (keyPressed && !prevKeyStatus) {//going from false to true
 //						listener.onKeyDown (keyCode, timeMaster.GetTime());
-					keyDowns[keyCodeStandard] = timeMaster.GetTime();
-					} else if (!keyPressed && prevKeyStatus) {
+				keyDowns[keyCodeStandard] = timeMaster.GetTime();
+				} else if (!keyPressed && prevKeyStatus) {
 //						listener.onKeyUp (keyCode, timeMaster.GetTime());
-					keyUps[keyCodeStandard] = timeMaster.GetTime();
-					}
-					keyStates [keyCode] = keyPressed;
+				keyUps[keyCodeStandard] = timeMaster.GetTime();
 				}
-//			}
+				keyStates [keyCode] = keyPressed;
+			}
 
 			long avg = averageTimer.stopRecording ();
 			if (avg != -1) {

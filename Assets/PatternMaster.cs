@@ -79,10 +79,10 @@ public class PatternMaster : MonoBehaviour {
 	void Start () {
 		timeMaster = TimeMaster.Instance;
 		debugPanel = DebugPanel.Instance;
-		pattern = new Pattern (new BeatGenerator ().quarters(numQuarters));
+		PatternLoader patternLoader = new PatternLoader ();
+		pattern = patternLoader.loadPattern (GameManager.Instance.musicFile);
 	}
 		
-
 	// Update is called once per frame
 	void Update () {
 		if (started) {

@@ -34,8 +34,8 @@ public class Game : MonoBehaviourThreading {
 
 	public RealtimeInput inputManager;
 	public TimeMaster timeMaster;
-	public List<ParticleSystem> particles;
-	private Dictionary<int, int> keyCodeToParticleNumber = new Dictionary<int, int>();
+//	public List<ParticleSystem> particles;
+//	private Dictionary<int, int> keyCodeToParticleNumber = new Dictionary<int, int>();
 	public ScoreCalculator scoreCalculator;
 
 //	public RealtimeInputListener listener;
@@ -61,15 +61,15 @@ public class Game : MonoBehaviourThreading {
 //		particle.gameObject.SetActive(true);
 //	}
 
-	void particleDisplay(int keycode){//integer
-//		int key = Convert.ToInt32(keycode);	
-		//		Debug.LogFormat ("playing particle");
-		int particleNum = keyCodeToParticleNumber [keycode];
-		ParticleSystem particle = particles [particleNum];
-		particle.gameObject.SetActive(true);
-	}
-
-
+//	void particleDisplay(int keycode){//integer
+////		int key = Convert.ToInt32(keycode);	
+//		//		Debug.LogFormat ("playing particle");
+//		int particleNum = keyCodeToParticleNumber [keycode];
+//		ParticleSystem particle = particles [particleNum];
+//		particle.gameObject.SetActive(true);
+//	}
+//
+//
 //	void turnOffParticle(object keycode){
 //		int key = Convert.ToInt32(keycode);
 //
@@ -77,12 +77,12 @@ public class Game : MonoBehaviourThreading {
 //		ParticleSystem particle = particles [particleNum];
 //		particle.gameObject.SetActive(false);
 //	}
-	void turnOffParticle(int key){
-		int particleNum = keyCodeToParticleNumber [key];
-		ParticleSystem particle = particles [particleNum];
-		particle.gameObject.SetActive(false);
-	}
-		
+//	void turnOffParticle(int key){
+//		int particleNum = keyCodeToParticleNumber [key];
+//		ParticleSystem particle = particles [particleNum];
+//		particle.gameObject.SetActive(false);
+//	}
+//		
 //	void onKeyUp(int keyCode, long time){
 ////		Debug.LogFormat ("Keyup {0}", keyCode);
 //		callOnMainThread(new Lauren(turnOffParticle, keyCode));
@@ -95,7 +95,7 @@ public class Game : MonoBehaviourThreading {
 //		keyCodeToParticleNumber.Add (StandardKeyCodes.S, 1);
 //		keyCodeToParticleNumber.Add (StandardKeyCodes.D, 2);
 //		keyCodeToParticleNumber.Add (StandardKeyCodes.F, 3);
-		particles.ForEach (p => p.gameObject.SetActive (false));
+//		particles.ForEach (p => p.gameObject.SetActive (false));
 
 //		inputManager.listener = new RealtimeInputListener (
 ////			new int[] {RealtimeInputListener.A,
