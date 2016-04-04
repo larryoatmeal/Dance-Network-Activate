@@ -134,15 +134,14 @@ public class Game : MonoBehaviourThreading {
 
 	void OnKeyDown(StandardKeyCodes key, long time){
 //		particleDisplay (key);
+		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_PRESSED, KeyMappings.keyToControl (key));
 		scoreCalculator.processKey (key, time);
 	}
 
 	void OnKeyUp(StandardKeyCodes key, long time){
 //		turnOffParticle (key);
+		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_RELEASED, KeyMappings.keyToControl (key));
 	}
-
-
-
 
 	public void MainMenu(){
 		Application.LoadLevel ("SongBrowser");
