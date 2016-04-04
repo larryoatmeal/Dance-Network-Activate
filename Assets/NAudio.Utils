@@ -1,0 +1,11 @@
+﻿using System;
+namespace AssemblyCSharp
+{
+	public class NAudio
+	{
+		public NAudio()
+		{
+		}
+	}
+}
+

@@ -51,7 +51,6 @@ public class PatternMaster : MonoBehaviour {
 //	bool started = false;
 //	public long startTime;
 	private Pattern pattern;
-	public int numQuarters = 30;
 	public bool started = false;
 
 	public void Play(){
