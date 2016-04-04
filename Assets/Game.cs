@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System;
 
 public class KeyEvent{
-	public int keycode;
+	public StandardKeyCodes keycode;
 	public long time; 
 
-	public KeyEvent (int keycode, long time)
+	public KeyEvent (StandardKeyCodes keycode, long time)
 	{
 		this.keycode = keycode;
 		this.time = time;
@@ -16,12 +16,20 @@ public class KeyEvent{
 
 public class Game : MonoBehaviourThreading {
 
-	List<int> gameKeys = new List<int> () {
-		StandardKeyCodes.A,
-		StandardKeyCodes.S,
-		StandardKeyCodes.D,
-		StandardKeyCodes.F
+
+	List<StandardControls> controls = new List<StandardControls> () {
+		StandardControls.DOWN,
+		StandardControls.UP,
+		StandardControls.LEFT,
+		StandardControls.RIGHT
 	};
+//
+//	List<StandardKeyCodes> gameKeys = new List<StandardKeyCodes> () {
+//		StandardKeyCodes.A,
+//		StandardKeyCodes.S,
+//		StandardKeyCodes.D,
+//		StandardKeyCodes.F
+//	};
 
 
 	public RealtimeInput inputManager;
@@ -83,12 +91,10 @@ public class Game : MonoBehaviourThreading {
 
 	// Use this for initialization
 	void Start () {
-		keyCodeToParticleNumber.Add (StandardKeyCodes.A, 0);
-		keyCodeToParticleNumber.Add (StandardKeyCodes.S, 1);
-		keyCodeToParticleNumber.Add (StandardKeyCodes.D, 2);
-		keyCodeToParticleNumber.Add (StandardKeyCodes.F, 3);
-
-
+//		keyCodeToParticleNumber.Add (StandardKeyCodes.A, 0);
+//		keyCodeToParticleNumber.Add (StandardKeyCodes.S, 1);
+//		keyCodeToParticleNumber.Add (StandardKeyCodes.D, 2);
+//		keyCodeToParticleNumber.Add (StandardKeyCodes.F, 3);
 		particles.ForEach (p => p.gameObject.SetActive (false));
 
 //		inputManager.listener = new RealtimeInputListener (
@@ -106,13 +112,15 @@ public class Game : MonoBehaviourThreading {
 //			this.onKeyDown);
 
 
-		inputManager.trackedKeys = gameKeys;
+//		inputManager.trackedKeys = gameKeys;
 
 	}
 
 	void Update(){
 //		Debug.Log ("HI");
-		foreach (int key in gameKeys) {
+		foreach (StandardControls control in controls) {
+			StandardKeyCodes key = KeyMappings.controlToKey (control);
+
 			long downTime = inputManager.GetKeyDown (key);
 			if (downTime >= 0) {
 				OnKeyDown (key, downTime);
@@ -124,13 +132,13 @@ public class Game : MonoBehaviourThreading {
 		}
 	}
 
-	void OnKeyDown(int key, long time){
-		particleDisplay (key);
+	void OnKeyDown(StandardKeyCodes key, long time){
+//		particleDisplay (key);
 		scoreCalculator.processKey (key, time);
 	}
 
-	void OnKeyUp(int key, long time){
-		turnOffParticle (key);
+	void OnKeyUp(StandardKeyCodes key, long time){
+//		turnOffParticle (key);
 	}
 
 

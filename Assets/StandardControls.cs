@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace AssemblyCSharp
-{
-	public enum StandardControls
-	{
-	}
-}
 
+public enum StandardControls
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+}

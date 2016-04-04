@@ -3,15 +3,24 @@
 using System.Collections.Generic;
 static public class KeyMappings
 {
-	public static Dictionary<int, MusicEventTypes> map = new Dictionary<int, MusicEventTypes> () {
-		{ StandardKeyCodes.A, MusicEventTypes.Down },
-		{ StandardKeyCodes.S, MusicEventTypes.Up },
-		{ StandardKeyCodes.D, MusicEventTypes.Left },
-		{ StandardKeyCodes.F, MusicEventTypes.Right }
+	public static Dictionary<StandardKeyCodes, StandardControls> map = new Dictionary<StandardKeyCodes, StandardControls> () {
+		{ StandardKeyCodes.A, StandardControls.DOWN },
+		{ StandardKeyCodes.S, StandardControls.UP },
+		{ StandardKeyCodes.D, StandardControls.LEFT },
+		{ StandardKeyCodes.F, StandardControls.RIGHT }
+	};
+	public static Dictionary<StandardControls, StandardKeyCodes> reverseMap = new Dictionary<StandardControls, StandardKeyCodes>(){
+		{ StandardControls.DOWN, StandardKeyCodes.A},
+		{ StandardControls.UP, StandardKeyCodes.S},
+		{ StandardControls.LEFT, StandardKeyCodes.D},
+		{ StandardControls.RIGHT, StandardKeyCodes.F}
 	};
 
-	public static MusicEventTypes keyToEvent(int key){
+	public static StandardControls keyToControl(StandardKeyCodes key){
 		return map[key];
+	}
+	public static StandardKeyCodes controlToKey(StandardControls control){
+		return reverseMap[control];
 	}
 }
 

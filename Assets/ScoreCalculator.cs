@@ -93,12 +93,38 @@ public class ScoreCalculator: MonoBehaviour
 		}
 	}
 
-	public void processKey(int keycode, long downTime){
+	bool actionMatches(StandardControls control, MusicEvent e){
+		if (control == StandardControls.DOWN
+		   && e.eventType == MusicEventTypes.Down) {
+			return true;
+		}
+		if (control == StandardControls.UP
+			&& e.eventType == MusicEventTypes.Up) {
+			return true;
+		}
+		if (control == StandardControls.LEFT
+			&& e.eventType == MusicEventTypes.Left) {
+			return true;
+		}
+		if (control == StandardControls.RIGHT
+		    && e.eventType == MusicEventTypes.Right) {
+			return true;
+		}
+		return false;
+	}
+
+	public void processKey(StandardKeyCodes keycode, long downTime){
 		if (patternMaster.started) {
-			MusicEventTypes eventType = KeyMappings.keyToEvent (keycode);
+			StandardControls eventType = KeyMappings.keyToControl (keycode);
 
 			//find first matching event
-			int index = events.FindIndex (e => e.eventType == eventType);
+			int index = events.FindIndex (e => actionMatches(eventType, e));
+
+
+
+
+
+
 
 			//		Debug.Log (events[0]);
 
