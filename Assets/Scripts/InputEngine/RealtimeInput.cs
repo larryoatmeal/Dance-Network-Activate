@@ -7,12 +7,20 @@ using System.Threading;
 using System.Diagnostics;
 
 
+//Dependencies
+//
 
 public class RealtimeInput : MonoBehaviour {
 
+	public List<int> trackedKeys = new List<int> () {
+		StandardKeyCodes.A,
+		StandardKeyCodes.S,
+		StandardKeyCodes.D,
+		StandardKeyCodes.F
+
+	};
+
 	public bool UseRealTimeInput = true;
-
-
 	#if UNITY_EDITOR_OSX
 		[DllImport("ApplicationServices.framework/ApplicationServices")]
 		public static extern long CGEventSourceFlagsState(int keyCode);
@@ -36,10 +44,15 @@ public class RealtimeInput : MonoBehaviour {
 //	public void addListener(RealtimeInputListener listener){
 //		
 //	}
+
+	public Dictionary<int, long> keyUps = new Dictionary<int, long> ();
+	public Dictionary<int, long> keyDowns = new Dictionary<int, long>();
+	public Dictionary<int, bool> keyCurrentlyPressed = new Dictionary<int, bool>();
+
 	public RealtimeInputListener listener;
-	public TimeMaster timeMaster; 
+	private TimeMaster timeMaster; 
 	public AverageTimer averageTimer;
-	public DebugPanel debugPanel;
+	private DebugPanel debugPanel;
 
 	bool[] keyStates = new bool[0x80];
 	#if UNITY_EDITOR_OSX
@@ -51,21 +64,22 @@ public class RealtimeInput : MonoBehaviour {
 //			bool aPressed = CGEventSourceKeyState (1, 0);
 			//			UnityEngine.Debug.Log (CGEventSourceKeyState(1, 0));
 			//			stopwatch.Reset();
-			if (listener != null) {
+//			if (listener != null) {
 				for (int i = 0; i < listener.keys.Length; i++) {
 					int keyCode = listener.keys [i];
 					bool keyPressed = CGEventSourceKeyState (1, keyCode);
 					bool prevKeyStatus = keyStates [keyCode];
 //					UnityEngine.Debug.Log (keyPressed);
 					if (keyPressed && !prevKeyStatus) {//going from false to true
-						listener.onKeyDown (keyCode, timeMaster.GetTime());
+//						listener.onKeyDown (keyCode, timeMaster.GetTime());
+						keyDowns[keyCode] = timeMaster.GetTime();
 					} else if (!keyPressed && prevKeyStatus) {
-						listener.onKeyUp (keyCode, timeMaster.GetTime());
+//						listener.onKeyUp (keyCode, timeMaster.GetTime());
+						keyUps[keyCode] = timeMaster.GetTime();
 					}
 					keyStates [keyCode] = keyPressed;
 				}
-			}
-
+//			}
 
 			long avg = averageTimer.stopRecording ();
 			if (avg != -1) {
@@ -84,6 +98,9 @@ public class RealtimeInput : MonoBehaviour {
 
 
 	void Start () {
+		debugPanel = DebugPanel.Instance;
+		timeMaster = TimeMaster.Instance;
+
 		if (UseRealTimeInput) {
 			timeMaster = FindObjectOfType<TimeMaster> ();
 			averageTimer = timeMaster.CreateAverageTimer (5000, "input");
@@ -97,29 +114,58 @@ public class RealtimeInput : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		keyUps.Clear ();
+		keyDowns.Clear ();
+
 		#if UNITY_EDITOR_OSX
 		if(!UseRealTimeInput){
 //			UnityEngine.Debug.Log("Here");
-			foreach(int keyCode in listener.keys){
+			foreach(int keyCode in trackedKeys){
 				KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);
 				if(Input.GetKeyDown(key)){
-					listener.onKeyDown(keyCode, timeMaster.GetTime());
+					long time = timeMaster.GetTime();
+//					listener.onKeyDown(keyCode, time);
+					keyDowns[keyCode] = time;
 				}
 				if(Input.GetKeyUp(key)){
-					listener.onKeyUp(keyCode, timeMaster.GetTime());
+					long time = timeMaster.GetTime();
+//					listener.onKeyUp(keyCode, time);
+					keyUps [keyCode] = time;
 				}
 			}
 		}
 		#else
 		foreach(int keyCode in listener.keys){
-			KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);
-			if(Input.GetKeyDown(key)){
-			listener.onKeyDown(keyCode, timeMaster.GetTime());
-			}
-			if(Input.GetKeyUp(key)){
-			listener.onKeyUp(keyCode, timeMaster.GetTime());
-			}
+		KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);
+		if(Input.GetKeyDown(key)){
+		long time = timeMaster.GetTime();
+		listener.onKeyDown(keyCode, time);
+		keyDowns.Add(new KeyEvent(keyCode, time));
+		}
+		if(Input.GetKeyUp(key)){
+		long time = timeMaster.GetTime();
+		listener.onKeyUp(keyCode, time);
+		keyUps.Add(new KeyEvent(keyCode, time));
+		}
 		}
 		#endif
+
+
+	}
+
+	//Polling. Returns -1 if none
+	public long GetKeyDown(int code){
+		if (keyDowns.ContainsKey (code)) {
+			return keyDowns [code];
+		}else{
+			return -1;
+		}
+	}
+	public long GetKeyUp(int code){
+		if (keyUps.ContainsKey (code)) {
+			return keyUps [code];
+		}else{
+			return -1;
+		}
 	}
 }

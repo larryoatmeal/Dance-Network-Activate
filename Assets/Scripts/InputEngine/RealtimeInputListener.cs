@@ -8,7 +8,6 @@ public class RealtimeInputListener{
 	public onKey onKeyUp;
 	public onKey onKeyDown;
 
-
 	public RealtimeInputListener (int[] keys, onKey onKeyUp, onKey onKeyDown)
 	{
 		this.keys = keys;
@@ -21,5 +20,6 @@ public class RealtimeInputListener{
 //	public const int D = 2;
 //	public const int F = 3;
 }
+
 
 

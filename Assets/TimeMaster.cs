@@ -54,14 +54,18 @@ public class AverageTimer{
 	}
 }
 
-public class TimeMaster : MonoBehaviour {
-	
+public class TimeMaster : Singleton<TimeMaster> {	
 	Stopwatch stopwatch = new Stopwatch();
 	// Use this for initialization
 	void Start () {
 		stopwatch.Start ();
 	}
 
+	protected override void Init(){
+		UnityEngine.Debug.Log ("[TimeMaster] init");
+		Persist = false;
+	}
+		
 	public AverageTimer CreateAverageTimer(int interval, string name){
 		return new AverageTimer (this, interval, name);
 	}

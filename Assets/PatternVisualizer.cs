@@ -172,4 +172,8 @@ public class PatternVisualizer : MonoBehaviour {
 		}
 		return padList [padNum];
 	}
+
+
+
+
 }

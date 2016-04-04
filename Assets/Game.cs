@@ -16,44 +16,70 @@ public class KeyEvent{
 
 public class Game : MonoBehaviourThreading {
 
+	List<int> gameKeys = new List<int> () {
+		StandardKeyCodes.A,
+		StandardKeyCodes.S,
+		StandardKeyCodes.D,
+		StandardKeyCodes.F
+	};
+
+
 	public RealtimeInput inputManager;
 	public TimeMaster timeMaster;
 	public List<ParticleSystem> particles;
 	private Dictionary<int, int> keyCodeToParticleNumber = new Dictionary<int, int>();
 	public ScoreCalculator scoreCalculator;
 
-	public RealtimeInputListener listener;
-	void onKeyDown(int keyCode, long time){
-		callOnMainThread (new Lauren (particleDisplay, keyCode));
-		callOnMainThread (new Lauren (registerKeyDown, new KeyEvent(keyCode, time)));
+//	public RealtimeInputListener listener;
+//	void onKeyDown(int keyCode, long time){
+//		callOnMainThread (new Lauren (particleDisplay, keyCode));
+//		callOnMainThread (new Lauren (registerKeyDown, new KeyEvent(keyCode, time)));
+//	}
+
+//	void registerKeyDown(object keyEvent){
+//		KeyEvent keyE = keyEvent as KeyEvent;
+//		scoreCalculator.processKey (keyE.keycode, keyE.time);
+//	}
+
+	void registerKeyDown(KeyEvent keyEvent){
+		scoreCalculator.processKey (keyEvent.keycode, keyEvent.time);
 	}
 
-	void registerKeyDown(object keyEvent){
-		KeyEvent keyE = keyEvent as KeyEvent;
-		scoreCalculator.processKey (keyE.keycode, keyE.time);
-	}
+//	void particleDisplay(object keycode){//integer
+//		int key = Convert.ToInt32(keycode);	
+////		Debug.LogFormat ("playing particle");
+//		int particleNum = keyCodeToParticleNumber [key];
+//		ParticleSystem particle = particles [particleNum];
+//		particle.gameObject.SetActive(true);
+//	}
 
-	void particleDisplay(object keycode){//integer
-		int key = Convert.ToInt32(keycode);	
-//		Debug.LogFormat ("playing particle");
-		int particleNum = keyCodeToParticleNumber [key];
+	void particleDisplay(int keycode){//integer
+//		int key = Convert.ToInt32(keycode);	
+		//		Debug.LogFormat ("playing particle");
+		int particleNum = keyCodeToParticleNumber [keycode];
 		ParticleSystem particle = particles [particleNum];
 		particle.gameObject.SetActive(true);
 	}
 
-	void turnOffParticle(object keycode){
-		int key = Convert.ToInt32(keycode);
 
+//	void turnOffParticle(object keycode){
+//		int key = Convert.ToInt32(keycode);
+//
+//		int particleNum = keyCodeToParticleNumber [key];
+//		ParticleSystem particle = particles [particleNum];
+//		particle.gameObject.SetActive(false);
+//	}
+	void turnOffParticle(int key){
 		int particleNum = keyCodeToParticleNumber [key];
 		ParticleSystem particle = particles [particleNum];
 		particle.gameObject.SetActive(false);
 	}
 		
-	void onKeyUp(int keyCode, long time){
-//		Debug.LogFormat ("Keyup {0}", keyCode);
-		callOnMainThread(new Lauren(turnOffParticle, keyCode));
-//		Debug.LogFormat ("Time {0}", timeMaster.GetTime ());
-	}
+//	void onKeyUp(int keyCode, long time){
+////		Debug.LogFormat ("Keyup {0}", keyCode);
+//		callOnMainThread(new Lauren(turnOffParticle, keyCode));
+////		Debug.LogFormat ("Time {0}", timeMaster.GetTime ());
+//	}
 
 	// Use this for initialization
 	void Start () {
@@ -65,20 +91,50 @@ public class Game : MonoBehaviourThreading {
 
 		particles.ForEach (p => p.gameObject.SetActive (false));
 
-		inputManager.listener = new RealtimeInputListener (
-//			new int[] {RealtimeInputListener.A,
-//				RealtimeInputListener.S,
-//				RealtimeInputListener.D,
-//				RealtimeInputListener.F
-//			}, 
-			new int[] {StandardKeyCodes.A,
-								StandardKeyCodes.S,
-								StandardKeyCodes.D,
-								StandardKeyCodes.F
-							}, 
-			this.onKeyUp, 
-			this.onKeyDown);
+//		inputManager.listener = new RealtimeInputListener (
+////			new int[] {RealtimeInputListener.A,
+////				RealtimeInputListener.S,
+////				RealtimeInputListener.D,
+////				RealtimeInputListener.F
+////			}, 
+//			new int[] {StandardKeyCodes.A,
+//								StandardKeyCodes.S,
+//								StandardKeyCodes.D,
+//								StandardKeyCodes.F
+//							}, 
+//			this.onKeyUp, 
+//			this.onKeyDown);
+
+
+		inputManager.trackedKeys = gameKeys;
+
 	}
+
+	void Update(){
+//		Debug.Log ("HI");
+		foreach (int key in gameKeys) {
+			long downTime = inputManager.GetKeyDown (key);
+			if (downTime >= 0) {
+				OnKeyDown (key, downTime);
+			}
+			long upTime = inputManager.GetKeyUp (key);
+			if (upTime >= 0) {
+				OnKeyUp (key, upTime);
+			}
+		}
+	}
+
+	void OnKeyDown(int key, long time){
+		particleDisplay (key);
+		scoreCalculator.processKey (key, time);
+	}
+
+	void OnKeyUp(int key, long time){
+		turnOffParticle (key);
+	}
+
+
+
 
 	public void MainMenu(){
 		Application.LoadLevel ("SongBrowser");

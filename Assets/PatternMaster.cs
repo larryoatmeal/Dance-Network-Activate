@@ -39,8 +39,8 @@ public class LP {
 
 public class PatternMaster : MonoBehaviour {
 	public MainMusic rhythm;
-	public TimeMaster timeMaster;
-	public DebugPanel debugPanel;//
+	private TimeMaster timeMaster;
+	private DebugPanel debugPanel;//
 	public SoundEffect soundEffect;
 	public PatternVisualizer patternVisualizer;
 	public ScoreCalculator scoreCalculator;
@@ -77,16 +77,16 @@ public class PatternMaster : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		timeMaster = TimeMaster.Instance;
+		debugPanel = DebugPanel.Instance;
 		pattern = new Pattern (new BeatGenerator ().quarters(numQuarters));
 	}
-
-
+		
 
 	// Update is called once per frame
 	void Update () {
 		if (started) {
 			int time = rhythm.timeMillis ();
-
 
 			long adjustedStartTime = timeMaster.GetTime () - time;
 
@@ -95,7 +95,7 @@ public class PatternMaster : MonoBehaviour {
 
 			float timeSeconds = time / 1000f;
 			debugPanel.log ("MS", time.ToString ());
-			debugPanel.log ("Seconds", timeSeconds.ToString ());
+//			Debug.Log (timeMaster.GetTime());
 
 			if (deltaLp.updateReady ()) {
 				debugPanel.log ("Delta", deltaLp.output ().ToString ());
@@ -106,14 +106,11 @@ public class PatternMaster : MonoBehaviour {
 //			startTime = timeMaster.GetTime () - time;
 
 			pattern.Process (timeMaster.GetTime (), processEvent);
-
 //			if (pattern.isFinished ()) {
 //				Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
 //				Stop ();
 //			} else {
 //			}
-
-
 		}
 	}
 
@@ -123,6 +120,7 @@ public class PatternMaster : MonoBehaviour {
 //		Debug.Log (delta/1000f);
 //		soundEffect.PlayScheduled (delta / 1000f);
 		if (e.eventType == MusicEventTypes.End) {
+			Stop ();
 			Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
 		} else {
 			scoreCalculator.addEvent (e);
