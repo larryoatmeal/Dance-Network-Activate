@@ -118,13 +118,6 @@ public class ScoreCalculator: MonoBehaviour
 
 			//find first matching event
 			int index = events.FindIndex (e => actionMatches(eventType, e));
-
-
-
-
-
-
-
 			//		Debug.Log (events[0]);
 
 			if (index != -1) {

@@ -41,7 +41,7 @@ public class PatternMaster : MonoBehaviour {
 	public MainMusic rhythm;
 	private TimeMaster timeMaster;
 	private DebugPanel debugPanel;//
-	public SoundEffect soundEffect;
+//	public SoundEffect soundEffect;
 	public PatternVisualizer patternVisualizer;
 	public ScoreCalculator scoreCalculator;
 	public LP deltaLp = new LP(100);
@@ -49,15 +49,15 @@ public class PatternMaster : MonoBehaviour {
 //	List<MusicEvent> events = new BeatGenerator().quarters();
 //	EventIterator iterator;
 //	bool started = false;
-	public long startTime;
-	public Pattern pattern;
+//	public long startTime;
+	private Pattern pattern;
 	public int numQuarters = 30;
 	public bool started = false;
 
 	public void Play(){
+		pattern.Play (timeMaster.GetTime () + (int)(GameManager.Instance.preStart * 1000));
 		started = true;
-		pattern.Play (timeMaster.GetTime ());
-		startTime = pattern.startTime;
+//		startTime = pattern.startTime + 1000;
 		patternVisualizer.reset ();
 		scoreCalculator.reset ();
 	}
@@ -67,8 +67,8 @@ public class PatternMaster : MonoBehaviour {
 	}
 		
 	public void Restart(){
-		startTime = timeMaster.GetTime () - rhythm.timeMillis ();
-		pattern.startTime = startTime;
+		pattern.startTime = timeMaster.GetTime () - rhythm.timeMillis ();
+//		pattern.startTime = startTime;
 		started = true;
 	}
 	void Stop(){
@@ -87,9 +87,7 @@ public class PatternMaster : MonoBehaviour {
 	void Update () {
 		if (started) {
 			int time = rhythm.timeMillis ();
-
 			long adjustedStartTime = timeMaster.GetTime () - time;
-
 			long delta = adjustedStartTime - pattern.startTime;
 			deltaLp.input ((double)delta);
 
@@ -106,11 +104,7 @@ public class PatternMaster : MonoBehaviour {
 //			startTime = timeMaster.GetTime () - time;
 
 			pattern.Process (timeMaster.GetTime (), processEvent);
-//			if (pattern.isFinished ()) {
-//				Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
-//				Stop ();
-//			} else {
-//			}
+
 		}
 	}
 
@@ -129,10 +123,10 @@ public class PatternMaster : MonoBehaviour {
 	}
 
 	public long absTime(long songTime){
-		return songTime + startTime;
+		return songTime + pattern.startTime;
 	}
 
 	public long currentSongTime(){
-		return timeMaster.GetTime () - startTime;
+		return timeMaster.GetTime () - pattern.startTime;
 	}
 }

@@ -49,13 +49,11 @@ public class MainMusic : MonoBehaviour {
 	public void playFromBeginning(){
 		if (!audioSource.isPlaying) {
 //			audioSource.clip.
-			audioSource.Play ();
+//			audioSource.Play ();
+			audioSource.PlayDelayed(GameManager.Instance.preStart);
 			audioSource.timeSamples = 0;
 		} else {
 			audioSource.timeSamples = 0;
 		}
 	}
-
-
-
 }

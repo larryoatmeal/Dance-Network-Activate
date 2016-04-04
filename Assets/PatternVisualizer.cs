@@ -54,7 +54,7 @@ public class PatternVisualizer : MonoBehaviour {
 			foreach(KeyValuePair<MusicEvent, GameObject> pair in musicEvents)
 			{
 				MusicEvent e = pair.Key;
-				long delta = e.startTime + patternMaster.startTime - timeMaster.GetTime ();
+				long delta = e.startTime - patternMaster.currentSongTime();
 
 				GameObject pokeball = pair.Value;
 				//			Debug.Log (delta);
