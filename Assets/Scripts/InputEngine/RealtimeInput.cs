@@ -135,17 +135,17 @@ public class RealtimeInput : MonoBehaviour {
 			}
 		}
 		#else
-		foreach(int keyCode in listener.keys){
-		KeyCode key = StandardKeyCodes.ToUnityKey(keyCode);
+		foreach(StandardKeyCodes keyCode in trackedKeys){
+		KeyCode key = KeyConverter.ToUnityKey(keyCode);
 		if(Input.GetKeyDown(key)){
 		long time = timeMaster.GetTime();
-		listener.onKeyDown(keyCode, time);
-		keyDowns.Add(new KeyEvent(keyCode, time));
+		//					listener.onKeyDown(keyCode, time);
+		keyDowns[keyCode] = time;
 		}
 		if(Input.GetKeyUp(key)){
 		long time = timeMaster.GetTime();
-		listener.onKeyUp(keyCode, time);
-		keyUps.Add(new KeyEvent(keyCode, time));
+		//					listener.onKeyUp(keyCode, time);
+		keyUps [keyCode] = time;
 		}
 		}
 		#endif
