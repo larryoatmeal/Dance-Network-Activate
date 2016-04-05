@@ -21,8 +21,8 @@ namespace NAudio.Midi
         /// Opens a MIDI file for reading
         /// </summary>
         /// <param name="filename">Name of MIDI file</param>
-        public MidiFile(string filename)
-            : this(filename,true)
+        public MidiFile(Stream stream)
+            : this(stream,true)
         {
         }
 
@@ -39,11 +39,11 @@ namespace NAudio.Midi
         /// </summary>
         /// <param name="filename">Name of MIDI file</param>
         /// <param name="strictChecking">If true will error on non-paired note events</param>
-        public MidiFile(string filename, bool strictChecking)
+        public MidiFile(Stream stream, bool strictChecking)
         {
             this.strictChecking = strictChecking;
-            
-            var br = new BinaryReader(File.OpenRead(filename));
+//            var br = new BinaryReader(File.OpenRead(filename));
+			var br = new BinaryReader(stream);
             using(br) 
             {
                 string chunkHeader = Encoding.UTF8.GetString(br.ReadBytes(4));

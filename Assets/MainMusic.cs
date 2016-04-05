@@ -8,18 +8,28 @@ public class MainMusic : MonoBehaviour {
 	float ratio;
 	// Use this for initialization
 	void Start () {
+//		audioSource = gameObject.GetComponent<AudioSource> ();
+//		string path = "Audio/" + GameManager.Instance.musicFile;
+//		AudioClip clip = Resources.Load(path) as AudioClip;
+//		Debug.Log (path);
+//		audioSource.clip = clip;
+//
+//		Debug.Log (audioSource.clip.name);
+//		ratio = 1000f / audioSource.clip.frequency;
+		setAudio (GameManager.Instance.musicFile);
+	}
+
+	public void setAudio(string fileName){
 		audioSource = gameObject.GetComponent<AudioSource> ();
-		string path = "Audio/" + GameManager.Instance.musicFile;
+		string path = "Audio/" + fileName;
 		AudioClip clip = Resources.Load(path) as AudioClip;
 		Debug.Log (path);
-
-
 		audioSource.clip = clip;
 
 		Debug.Log (audioSource.clip.name);
 		ratio = 1000f / audioSource.clip.frequency;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -46,14 +56,17 @@ public class MainMusic : MonoBehaviour {
 		}
 	}
 
-	public void playFromBeginning(){
-		if (!audioSource.isPlaying) {
-//			audioSource.clip.
-//			audioSource.Play ();
-			audioSource.PlayDelayed(GameManager.Instance.preStart);
-			audioSource.timeSamples = 0;
-		} else {
-			audioSource.timeSamples = 0;
-		}
+	public void playFromBeginning(float delay){
+		audioSource.Stop ();
+		audioSource.timeSamples = 0;
+		audioSource.PlayDelayed (delay);
+
+//		if (!audioSource.isPlaying) {
+////			audioSource.clip.
+////			audioSource.Play ();
+////			audioSource.Stop();
+//		} else {
+//			audioSource.timeSamples = 0;
+//		}
 	}
 }

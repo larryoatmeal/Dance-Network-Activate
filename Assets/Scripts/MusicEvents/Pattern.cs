@@ -4,19 +4,17 @@ public class Pattern{
 	public long startTime = 0;
 	readonly List<MusicEvent> events;
 	readonly EventIterator iterator;
-	public bool started = false;
+//	public bool started = false;
 	int LookAhead;
 	public void Play(long time){
-		started = true;
+//		started = true;
 		startTime = time;
 		iterator.start ();
 	}
 
-	public void Stop(){
-		started = false;
-	}
-
-
+//	public void Stop(){
+//		started = false;
+//	}
 
 	public Pattern (List<MusicEvent> events, int lookAhead)
 	{

@@ -29,7 +29,12 @@ public class Calibrator : MonoBehaviour {
 		foreach(int datum in data){
 			sum += datum;
 		}
-		return (int)(sum / data.Count);
+		if (data.Count > 0) {
+			return (int)(sum / data.Count);
+		} else {
+			return 0;
+		}
+
 	}
 
 	float standardDeviation(List<int> data){
@@ -54,11 +59,11 @@ public class Calibrator : MonoBehaviour {
 
 		//remove outliers
 //		const float numSd = 1;
-		double offset = data
+
+		double offset = avg (data
 //			.Where (n => Mathf.Abs (n - average) > m_sdCutoff)
-			.Where( n=> Mathf.Abs(n) < m_outlierCutoff)
-			.ToList ()
-			.Average ();
+			.Where (n => Mathf.Abs (n) < m_outlierCutoff)
+			.ToList ());
 		Debug.LogFormat ("Offset {0}", offset);
 
 		if (sd < m_acceptableSD) {

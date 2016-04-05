@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager> {
 	public float preStart = 1.0f;
 
 
+
 	public void SetMusicFile(string fileName){
 	}
 
@@ -24,4 +25,5 @@ public class GameManager : Singleton<GameManager> {
 	void Update () {
 	
 	}
+
 }

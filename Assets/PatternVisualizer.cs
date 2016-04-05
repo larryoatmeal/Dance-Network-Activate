@@ -48,7 +48,7 @@ public class PatternVisualizer : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (patternMaster.started) {
+		if (patternMaster.isPlaying()) {
 			List<MusicEvent> events = new List<MusicEvent> ();
 
 			foreach(KeyValuePair<MusicEvent, GameObject> pair in musicEvents)

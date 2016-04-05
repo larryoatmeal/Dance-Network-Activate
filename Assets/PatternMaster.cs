@@ -51,28 +51,35 @@ public class PatternMaster : MonoBehaviour {
 //	bool started = false;
 //	public long startTime;
 	private Pattern pattern;
-	public bool started = false;
+//	public bool started = false;
 
-	public void Play(){
-		pattern.Play (timeMaster.GetTime () + (int)(GameManager.Instance.preStart * 1000));
-		started = true;
-//		startTime = pattern.startTime + 1000;
+//	public void PlayDelayed(){
+//		long startTime = timeMaster.GetTime () + delay;
+//
+//		Invoke ("ReadyToPlay", delay/1000f);
+//	}
+	private bool playing = false;
+
+	public bool isPlaying(){
+		return playing;
+	}
+
+	public void Play(int delay){
+		pattern.Play (timeMaster.GetTime () + delay);
 		patternVisualizer.reset ();
 		scoreCalculator.reset ();
+		playing = true;
+	}
+	public void Pause(){
+		playing = false;
 	}
 
-	public void Pause(){
-		started = false;
-	}
-		
 	public void Restart(){
 		pattern.startTime = timeMaster.GetTime () - rhythm.timeMillis ();
-//		pattern.startTime = startTime;
-		started = true;
+		playing = true;
 	}
 	void Stop(){
-		started = false;
-		pattern.Stop ();
+		playing = false;
 	}
 	// Use this for initialization
 	void Start () {
@@ -84,7 +91,7 @@ public class PatternMaster : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
-		if (started) {
+		if (playing) {
 			int time = rhythm.timeMillis ();
 			long adjustedStartTime = timeMaster.GetTime () - time;
 			long delta = adjustedStartTime - pattern.startTime;

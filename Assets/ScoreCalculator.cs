@@ -113,7 +113,7 @@ public class ScoreCalculator: MonoBehaviour
 	}
 
 	public void processKey(StandardKeyCodes keycode, long downTime){
-		if (patternMaster.started) {
+		if (patternMaster.isPlaying()) {
 			StandardControls eventType = KeyMappings.keyToControl (keycode);
 
 			//find first matching event
