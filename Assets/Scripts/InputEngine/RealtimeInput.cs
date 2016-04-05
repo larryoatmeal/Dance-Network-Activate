@@ -113,8 +113,8 @@ public class RealtimeInput : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		keyUps.Clear ();
-		keyDowns.Clear ();
+//		keyUps.Clear ();
+//		keyDowns.Clear ();
 
 		#if UNITY_EDITOR_OSX
 		if(!UseRealTimeInput){
@@ -152,19 +152,33 @@ public class RealtimeInput : MonoBehaviour {
 
 	}
 
-	//Polling. Returns -1 if none
+	//Polling. Returns -1 if none. SHOULD ONLY BE CALLED BY ONE CALLER
 	public long GetKeyDown(StandardKeyCodes code){
 		if (keyDowns.ContainsKey (code)) {
-			return keyDowns [code];
+			long time = keyDowns [code];
+			keyDowns.Remove (code);
+			return time;
 		}else{
 			return -1;
 		}
 	}
 	public long GetKeyUp(StandardKeyCodes code){
 		if (keyUps.ContainsKey (code)) {
-			return keyUps [code];
+			long time = keyUps [code];
+			keyUps.Remove (code);
+			return time;
 		}else{
 			return -1;
 		}
 	}
+//
+//	public long PollKeyDown(StandardKeyCodes code){
+//		if (keyDowns.ContainsKey (code)) {
+//			return keyDowns [code];
+//		}else{
+//			return -1;
+//		}
+//	}
+
+
 }

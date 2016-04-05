@@ -7,7 +7,7 @@ public class MainMusic : MonoBehaviour {
 
 	float ratio;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 //		audioSource = gameObject.GetComponent<AudioSource> ();
 //		string path = "Audio/" + GameManager.Instance.musicFile;
 //		AudioClip clip = Resources.Load(path) as AudioClip;
@@ -32,9 +32,6 @@ public class MainMusic : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-
-
 	}
 
 	public int timeSamples(){
@@ -57,6 +54,7 @@ public class MainMusic : MonoBehaviour {
 	}
 
 	public void playFromBeginning(float delay){
+		Debug.Log ("PLAYING");
 		audioSource.Stop ();
 		audioSource.timeSamples = 0;
 		audioSource.PlayDelayed (delay);
