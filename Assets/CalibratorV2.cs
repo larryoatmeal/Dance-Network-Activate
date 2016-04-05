@@ -24,6 +24,11 @@ public class CalibratorV2 : MonoBehaviour {
 
 	public long prevTime;
 
+//	void Awake(){
+//		Application.targetFrameRate = 1;
+//		QualitySettings.vSyncCount = 0;
+//	}
+//
 
 	// Use this for initialization
 	void Start () {
