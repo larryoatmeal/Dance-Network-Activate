@@ -4,7 +4,7 @@ using System.Collections;
 public class Coordinator : MonoBehaviour {
 
 	public MainMusic music;
-	public Calibrator calibrator;
+	public CalibratorV2 calibrator;
 
 	public RealtimeInput input;
 
@@ -16,8 +16,5 @@ public class Coordinator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		music.playFromBeginning (0);	
-
-
-
 	}
 }

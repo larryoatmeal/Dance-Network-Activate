@@ -7,7 +7,9 @@ public enum StandardKeyCodes{
 	A,
 	S,
 	D,
-	F
+	F,
+	J,
+	K
 }
 
 public class KeyConverter
@@ -24,14 +26,19 @@ public class KeyConverter
 		{StandardKeyCodes.A, KeyCode.A},
 		{StandardKeyCodes.S, KeyCode.S},
 		{StandardKeyCodes.D, KeyCode.D},
-		{StandardKeyCodes.F, KeyCode.F}
+		{StandardKeyCodes.F, KeyCode.F},
+		{StandardKeyCodes.J, KeyCode.J},
+		{StandardKeyCodes.K, KeyCode.K},
 	};
 
 	private static Dictionary<StandardKeyCodes, int> MacNative = new Dictionary<StandardKeyCodes, int>(){
 		{StandardKeyCodes.A, 0},
 		{StandardKeyCodes.S, 1},
 		{StandardKeyCodes.D, 2},
-		{StandardKeyCodes.F, 3}
+		{StandardKeyCodes.F, 3},
+		{StandardKeyCodes.J, 6},
+		{StandardKeyCodes.K, 7}
+
 	};
 		
 	public static KeyCode ToUnityKey(StandardKeyCodes key){

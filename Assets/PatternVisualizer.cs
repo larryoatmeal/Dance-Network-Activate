@@ -156,13 +156,13 @@ public class PatternVisualizer : MonoBehaviour {
 		switch (e.eventType) 
 		{
 		case MusicEventTypes.Down:
-			padNum = 0;
-			break;
-		case MusicEventTypes.Up:
 			padNum = 1;
 			break;
-		case MusicEventTypes.Left:
+		case MusicEventTypes.Up:
 			padNum = 2;
+			break;
+		case MusicEventTypes.Left:
+			padNum = 0;
 			break;
 		case MusicEventTypes.Right:
 			padNum = 3;

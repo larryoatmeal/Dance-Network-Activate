@@ -13,11 +13,10 @@ using System.Diagnostics;
 public class RealtimeInput : MonoBehaviour {
 
 	public List<StandardKeyCodes> trackedKeys = new List<StandardKeyCodes> () {
-		StandardKeyCodes.A,
-		StandardKeyCodes.S,
 		StandardKeyCodes.D,
-		StandardKeyCodes.F
-
+		StandardKeyCodes.F,
+		StandardKeyCodes.J,
+		StandardKeyCodes.K
 	};
 
 	public bool UseRealTimeInput = true;

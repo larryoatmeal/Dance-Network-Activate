@@ -15,9 +15,9 @@ public class InputVisualizer : MonoBehaviour {
 
 		Debug.Log ("START");
 		keyCodeToParticleNumber.Add (StandardControls.LEFT, 0);
-		keyCodeToParticleNumber.Add (StandardControls.RIGHT, 1);
+		keyCodeToParticleNumber.Add (StandardControls.RIGHT, 3);
 		keyCodeToParticleNumber.Add (StandardControls.UP, 2);
-		keyCodeToParticleNumber.Add (StandardControls.DOWN, 3);
+		keyCodeToParticleNumber.Add (StandardControls.DOWN, 1);
 		particles.ForEach (p => p.SetActive (false));
 	}
 
