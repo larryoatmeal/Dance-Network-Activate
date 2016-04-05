@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class Coordinator : MonoBehaviour {
 
 	public MainMusic music;
@@ -24,7 +24,7 @@ public class Coordinator : MonoBehaviour {
 		}
 	}
 
-	void Play(){
+	public void Play(){
 		Debug.Log ("Playing");
 		TimeMaster time = TimeMaster.Instance;
 
@@ -33,5 +33,13 @@ public class Coordinator : MonoBehaviour {
 		calibrator.Play (delay * 1000 + time.GetTime());
 	}
 
+	public void Done(){
+		music.pause ();
+		calibrator.finish ();
+	}
+
+	public void MainMenu(){
+		SceneManager.LoadScene ("SongBrowser");
+	}
 
 }

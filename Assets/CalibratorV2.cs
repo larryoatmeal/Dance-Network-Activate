@@ -95,5 +95,23 @@ public class CalibratorV2 : MonoBehaviour {
 			.Select (n => Mathf.Pow (n - avg, 2))
 			.Average ());
 	}
+	public int Avg(List<int> numbers, int window){
+		if (numbers.Count > window) {
+			return (int)numbers
+				.Skip (numbers.Count () - window)
+				.Average ();
+		} else {
+			if (numbers.Count > 0) {
+				return (int) numbers.Average ();
+			} else {
+				return 0;
+			}
+		}
+	}
 
+	public void finish(){
+		int offset = Avg(offsets, windowSize);
+		debugPanel.log("Final offset", offset.ToString());
+		PlayerPrefs.SetInt(PlayerPrefKeys.AudioLatencyOffset, offset);
+	}
 }

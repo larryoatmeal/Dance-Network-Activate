@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 public class SongBrowser : MonoBehaviour {
 
 	public List<SongEntry> entries;
@@ -48,4 +48,9 @@ public class SongBrowser : MonoBehaviour {
 		}
 
 	}
+
+	public void Calibrator(){
+		SceneManager.LoadScene ("calibrator");
+	}
+
 }
