@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System;
 public class Averager{
 	float avg = 0;
 
@@ -60,6 +60,8 @@ public class PatternMaster : MonoBehaviour {
 //	}
 	private bool playing = false;
 
+	public int errorSynchThreshold = 15;
+
 	public bool isPlaying(){
 		return playing;
 	}
@@ -89,16 +91,26 @@ public class PatternMaster : MonoBehaviour {
 		pattern = patternLoader.loadPattern (GameManager.Instance.musicFile);
 	}
 		
+	private long lastReportedTime = 0;
+
+
 	// Update is called once per frame
 	void Update () {
 		if (playing) {
-			int time = rhythm.timeMillis ();
-			long adjustedStartTime = timeMaster.GetTime () - time;
-			long delta = adjustedStartTime - pattern.startTime;
-			deltaLp.input ((double)delta);
+			int audioReportedTime = rhythm.timeMillis ();
 
-			float timeSeconds = time / 1000f;
-			debugPanel.log ("MS", time.ToString ());
+			if (audioReportedTime != lastReportedTime) {
+				long error = currentSongTime () - audioReportedTime;
+//				Debug.Log (error);
+				deltaLp.input ((double)error);
+				if (Math.Abs(error) > errorSynchThreshold ) {
+					pattern.startTime += error;
+					Debug.LogFormat ("Adjusted time by {0}", error);
+				}
+			}
+
+
+			debugPanel.log ("MS", audioReportedTime.ToString ());
 //			Debug.Log (timeMaster.GetTime());
 
 			if (deltaLp.updateReady ()) {
@@ -111,6 +123,8 @@ public class PatternMaster : MonoBehaviour {
 
 			pattern.Process (timeMaster.GetTime (), processEvent);
 
+
+			lastReportedTime = audioReportedTime;
 		}
 	}
 

@@ -5,7 +5,7 @@ public class PatternLoader
 
 	public const string CALIBRATION = "calibration"; 
 
-	public int numQuartersCalibration = 10;
+	public int numQuartersCalibration = 100;
 
 	public PatternLoader ()
 	{

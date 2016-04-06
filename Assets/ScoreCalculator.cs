@@ -35,6 +35,16 @@ public enum ScoreCalculatorMode{
 	Calibration
 }
 
+public enum ScoreLevels{
+	GoodShit,
+	Perfect,
+	Great,
+	Good,
+	Bad
+}
+
+
+
 
 public class ScoreCalculator: MonoBehaviour
 {
@@ -42,26 +52,57 @@ public class ScoreCalculator: MonoBehaviour
 	public List<MusicEvent> events = new List<MusicEvent>();
 	public DebugPanel panel;
 
-	public Calibrator calibrator;
+	private int latencyAdjustment;
+
+	public int goodShit = 20;
+	public int perfect = 40;
+	public int great = 60;
+	public int good = 120;
+	public int bad = 200;
+
+	public string GoodShitString = "GoodShit";
+	public string PerfectString = "Perfect";
+	public string GreatString = "Great";
+	public string GoodString = "Okay";
+	public string BadString = "Coffin";
+
+	public Dictionary<ScoreLevels, string> scoreToString;
+
+
+//	public Calibrator calibrator;
 //	public CalibrationScoringModule calibrationScoringModule;
  
-	public ScoreCalculatorMode mode = ScoreCalculatorMode.Calibration;
+//	public ScoreCalculatorMode mode = ScoreCalculatorMode.Calibration;
 
-	public void setToCalibrationMode(){
-		mode = ScoreCalculatorMode.Calibration;
-	}
+//	public void setToCalibrationMode(){
+//		mode = ScoreCalculatorMode.Calibration;
+//	}
 
 	public PatternMaster patternMaster;
 //	public TimeMaster timeMaster;
 
-	public ScoreCalculator ()
-	{
-		
-	}
+//	public ScoreCalculator ()
+//	{
+//		
+//		
+//	}
 
 	void Awake(){
 		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_OUT_OF_RANGE, EventOutOfRange);
 		Messenger.AddListener (MessengerKeys.EVENT_PATTERN_FINISHED, EventPatternFinished);
+
+		latencyAdjustment = PlayerPrefs.GetInt (PlayerPrefKeys.AudioLatencyOffset);
+		Debug.LogFormat ("Using latency settings {0}", latencyAdjustment);
+
+		scoreToString = new Dictionary<ScoreLevels, string>(){
+			{ScoreLevels.GoodShit, GoodShitString},
+			{ScoreLevels.Perfect, PerfectString},
+			{ScoreLevels.Great, GreatString},
+			{ScoreLevels.Good, GoodString},
+			{ScoreLevels.Bad, BadString}
+		};
+
+
 	}
 	void OnDisable(){
 		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_OUT_OF_RANGE, EventOutOfRange);
@@ -75,9 +116,9 @@ public class ScoreCalculator: MonoBehaviour
 
 	void EventPatternFinished(){
 		Debug.Log ("Pattern finished");
-		if (mode == ScoreCalculatorMode.Calibration) {
-			int offset = calibrator.finish ();
-		}
+//		if (mode == ScoreCalculatorMode.Calibration) {
+//			int offset = calibrator.finish ();
+//		}
 	}
 
 	public void addEvent(MusicEvent e){
@@ -86,10 +127,10 @@ public class ScoreCalculator: MonoBehaviour
 		
 	public void reset(){
 		events.Clear ();
-
-		if (mode == ScoreCalculatorMode.Calibration) {
-			calibrator.reset ();
-		}
+//
+//		if (mode == ScoreCalculatorMode.Calibration) {
+//			calibrator.reset ();
+//		}
 	}
 
 	bool actionMatches(StandardControls control, MusicEvent e){
@@ -124,13 +165,24 @@ public class ScoreCalculator: MonoBehaviour
 				MusicEvent e = events[index];
 				long expectedTime = patternMaster.absTime (e.startTime);
 				long delta = expectedTime - downTime;
+
+
+
+				long adjustedError = delta + latencyAdjustment;
+
+
+
 				//only consider if within scoring range
 				if (delta < ScorableThreshold) {
 					Debug.LogFormat ("Delta {0}", delta);
+					Debug.LogFormat ("Adjusted delta {0}", adjustedError);
 
-					if (mode == ScoreCalculatorMode.Calibration) {
-						calibrator.addDelta ((int)delta);
-					}
+					string score = ReportQuality (adjustedError);
+					panel.log ("Score", score);
+
+//					if (mode == ScoreCalculatorMode.Calibration) {
+//						calibrator.addDelta ((int)delta);
+//					}
 					events.RemoveAt (index);
 
 					Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_VANISH, e);
@@ -150,6 +202,24 @@ public class ScoreCalculator: MonoBehaviour
 //			events.RemoveAt (0);
 //		}
 	}
+
+	string ReportQuality(long delta){
+		int error = Math.Abs ((int)delta);
+
+		if (error < goodShit) {
+			return scoreToString [ScoreLevels.GoodShit];
+		} else if (error < perfect) {
+			return scoreToString [ScoreLevels.Perfect];
+		} else if (error < great) {
+			return scoreToString [ScoreLevels.Great];
+		} else if (error < good) {
+			return scoreToString [ScoreLevels.Good];
+		} else{
+			return scoreToString [ScoreLevels.Bad];
+		} 
+			
+	}
+
 
 
 
