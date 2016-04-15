@@ -7,7 +7,7 @@ public class GameManager : Singleton<GameManager> {
 	public string patternFile = "demo";
 	public int lookAhead = 3000;
 	public float preStart = 1.0f;
-
+	public string midiFile = "bicycle-ride";
 
 
 	public void SetMusicFile(string fileName){

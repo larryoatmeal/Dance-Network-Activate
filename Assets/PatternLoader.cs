@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 public class PatternLoader
 {
 
@@ -16,7 +17,15 @@ public class PatternLoader
 			return new Pattern (new BeatGenerator ().quarters (numQuartersCalibration), GameManager.Instance.lookAhead);
 		} else {
 			//load file here
-			return new Pattern (new BeatGenerator ().quarters (numQuartersCalibration), GameManager.Instance.lookAhead);
+			MIDI midi = new MIDI();
+			List<MusicEvent> musicEvents = midi.processMidi (midifile);
+
+			foreach (MusicEvent m in musicEvents) {
+				Debug.Log (m);
+			}
+
+			return new Pattern (musicEvents, GameManager.Instance.lookAhead);
+//			return new Pattern (new BeatGenerator ().quarters (numQuartersCalibration), GameManager.Instance.lookAhead);
 		}
 	}
 }

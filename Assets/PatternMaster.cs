@@ -88,7 +88,7 @@ public class PatternMaster : MonoBehaviour {
 		timeMaster = TimeMaster.Instance;
 		debugPanel = DebugPanel.Instance;
 		PatternLoader patternLoader = new PatternLoader ();
-		pattern = patternLoader.loadPattern (GameManager.Instance.musicFile);
+		pattern = patternLoader.loadPattern (GameManager.Instance.midiFile);
 	}
 		
 	private long lastReportedTime = 0;
