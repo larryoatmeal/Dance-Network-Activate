@@ -177,8 +177,10 @@ public class ScoreCalculator: MonoBehaviour
 					Debug.LogFormat ("Delta {0}", delta);
 					Debug.LogFormat ("Adjusted delta {0}", adjustedError);
 
-					string score = ReportQuality (adjustedError);
-					panel.log ("Score", score);
+					ScoreLevels score = ReportQuality (adjustedError);
+
+					Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
+					panel.log ("Score", scoreToString[score]);
 
 //					if (mode == ScoreCalculatorMode.Calibration) {
 //						calibrator.addDelta ((int)delta);
@@ -203,21 +205,23 @@ public class ScoreCalculator: MonoBehaviour
 //		}
 	}
 
-	string ReportQuality(long delta){
+//	string ReportQualityString(long delta){
+//		return scoreToString [ReportQuality2 (delta)];
+//	}
+	ScoreLevels ReportQuality(long delta){
 		int error = Math.Abs ((int)delta);
 
 		if (error < goodShit) {
-			return scoreToString [ScoreLevels.GoodShit];
+			return ScoreLevels.GoodShit;
 		} else if (error < perfect) {
-			return scoreToString [ScoreLevels.Perfect];
+			return ScoreLevels.Perfect;
 		} else if (error < great) {
-			return scoreToString [ScoreLevels.Great];
+			return ScoreLevels.Great;
 		} else if (error < good) {
-			return scoreToString [ScoreLevels.Good];
+			return ScoreLevels.Good;
 		} else{
-			return scoreToString [ScoreLevels.Bad];
+			return ScoreLevels.Bad;
 		} 
-			
 	}
 
 
