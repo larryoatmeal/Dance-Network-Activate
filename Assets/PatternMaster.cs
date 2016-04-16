@@ -5,9 +5,31 @@ using System;
 public class Averager{
 	float avg = 0;
 
+//	int reset;
+	int reportInterval;
+
+	int intCounter = 0;
+	int resetCounter = 0;
+	public Averager (int reportInterval)
+	{
+//		this.reset = reset;
+		this.reportInterval = reportInterval;
+	}
+
 	public void tick(float num){
 		avg = (num + avg)/2.0f;
+		intCounter = (intCounter + 1) % reportInterval;
+		intCounter = (intCounter + 1) % reportInterval;
 	}
+
+	public bool reportReady(){
+		return intCounter == 0;
+	}
+
+	public float output(){
+		return avg;
+	}
+
 }
 
 public class LP {
@@ -99,11 +121,13 @@ public class PatternMaster : MonoBehaviour {
 		if (playing) {
 			int audioReportedTime = rhythm.timeMillis ();
 
+
+
 			if (audioReportedTime != lastReportedTime) {
 				long error = currentSongTime () - audioReportedTime;
 //				Debug.Log (error);
 				deltaLp.input ((double)error);
-				if (Math.Abs(error) > errorSynchThreshold ) {
+				if (Math.Abs(error) > errorSynchThreshold && currentSongTime() > 0 ) {//want to make sure pattern has already started
 					pattern.startTime += error;
 					Debug.LogFormat ("Adjusted time by {0}", error);
 				}

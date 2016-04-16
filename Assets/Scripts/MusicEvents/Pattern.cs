@@ -33,12 +33,17 @@ public class Pattern{
 
 	public void Process(long absTime, HandleEvent handler){
 		long songTime = absTime - startTime;
-		MusicEvent e = iterator.peek ();
-		if (e != null && songTime + LookAhead > e.startTime) {
-			//			Debug.Log (e);
-			iterator.poll ();
-			handler (e);
-		} 
+
+//		if (songTime > 0) {
+			MusicEvent e = iterator.peek ();
+			if (e != null && songTime + LookAhead > e.startTime) {
+				//			Debug.Log (e);
+				iterator.poll ();
+				handler (e);
+			} 
+//		}s
+
+
 	}
 
 }

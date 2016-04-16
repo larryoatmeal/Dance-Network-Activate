@@ -9,4 +9,5 @@ public static class MessengerKeys
 	public const string EVENT_PAD_PRESSED = "PAD_PRESSED";
 	public const string EVENT_PAD_RELEASED = "PAD_RELEASED";
 	public const string EVENT_SCORE = "EVENT_SCORE";
+	public const string EVENT_NO_LONGER_ACTIVE = "EVENT_NO_LONGER_ACTIVE";
 }

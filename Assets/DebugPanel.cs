@@ -13,11 +13,11 @@ public class DebugPanel : Singleton<DebugPanel> {
 		Persist = true;
 	}
 
-	public void log(string key, string entry){
+	public void log(string key, object entry){
 		if (entries.ContainsKey (key)) {
-			entries [key] = entry;
+			entries [key] = entry.ToString();
 		} else {
-			entries.Add (key, entry);
+			entries.Add (key, entry.ToString());
 		}
 		dirty = true;
 	}

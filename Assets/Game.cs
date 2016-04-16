@@ -37,6 +37,7 @@ public class Game : MonoBehaviourThreading {
 		music.playFromBeginning (preStart);
 		patternMaster.Play (preStartMS);
 	}
+
 	public void PauseGame(){
 		music.pause ();
 		patternMaster.Pause ();

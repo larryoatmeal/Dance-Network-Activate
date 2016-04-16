@@ -21,9 +21,12 @@ public class PatternVisualizer : MonoBehaviour {
 
 	Dictionary<MusicEvent, GameObject> musicEvents = new Dictionary<MusicEvent, GameObject> ();
 
+	private int latencyAdjustment;
+	List<GameObject> destoryQueue = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
 		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_VANISH, removeMusicEvent);
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_NO_LONGER_ACTIVE, disableEvent);
 
 
 		bottomLeftCorner = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, Camera.main.nearClipPlane));
@@ -36,12 +39,13 @@ public class PatternVisualizer : MonoBehaviour {
 		padList = pads.GetComponentsInChildren<Pad> ();
 		Debug.Log (padList.Length);
 		scale = GameManager.Instance.lookAhead;
+		latencyAdjustment = PlayerPrefs.GetInt (PlayerPrefKeys.AudioLatencyOffset);
 //		Debug.Log (bottomPosition);
 	}
 
 	private void removeMusicEvent(MusicEvent e){
 		if (musicEvents.ContainsKey (e)) {
-			Destroy (musicEvents [e]);
+			AnimateThenDestory (musicEvents [e]);
 			musicEvents.Remove (e);
 		}
 	}
@@ -49,21 +53,25 @@ public class PatternVisualizer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (patternMaster.isPlaying()) {
-			List<MusicEvent> events = new List<MusicEvent> ();
+			List<MusicEvent> noLongerScorable = new List<MusicEvent> ();
 
 			foreach(KeyValuePair<MusicEvent, GameObject> pair in musicEvents)
 			{
 				MusicEvent e = pair.Key;
 				long delta = e.startTime - patternMaster.currentSongTime();
 
+				delta += latencyAdjustment;
+
 				GameObject pokeball = pair.Value;
 				//			Debug.Log (delta);
 
 
+				//if objects are past pad point, no longer take scoring into account
 				if (delta < -ttl) {
-					events.Add (e);
+					noLongerScorable.Add (e);
 				}
 
+				//if objects are visible
 				if (delta < scale) {
 					float travelHeight = padPosition - bottomLeftCorner.y;
 					float y = padPosition - delta / scale * travelHeight;
@@ -71,15 +79,28 @@ public class PatternVisualizer : MonoBehaviour {
 				}
 
 
+
 				//			float y = padPosition - velocity * delta / 1000f;
 				// do something with entry.Value or entry.Key
 			}
 
-			foreach (MusicEvent e in events) {
-				Destroy (musicEvents [e]);
-				musicEvents.Remove (e);
+			foreach (MusicEvent e in noLongerScorable) {
+//				Destroy (musicEvents [e]);
+
+//				removeMusicEvent (e);
+//				GameObject musicEventObj = musicEvents [e];
+				removeMusicEvent (e);
+
 				Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_OUT_OF_RANGE, e);
 			}
+
+			//clean up
+			foreach (GameObject obj in destoryQueue) {
+				Destroy (obj);
+			}
+			destoryQueue.Clear ();
+
+
 			//		foreach (var e in musicEvents) {			
 			//			long delta = e.startTime + patternMaster.startTime - timeMaster.GetTime ();
 			//
@@ -87,8 +108,26 @@ public class PatternVisualizer : MonoBehaviour {
 //		}
 	}
 		
+	void AnimateThenDestory(GameObject eventObject){
+		LeanTween
+			.scaleX (eventObject, 1.1f, 0.1f);
+		LeanTween
+			.scaleY (eventObject, 1.1f, 0.1f)
+			.setOnComplete(() => destoryQueue.Add(eventObject));
+	}
+
 	void OnDisable(){
 		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_VANISH, removeMusicEvent);
+		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_NO_LONGER_ACTIVE, disableEvent);
+
+	}
+
+	void disableEvent(MusicEvent e){
+		if (musicEvents.ContainsKey (e)) {
+			GameObject obj = musicEvents [e];
+			SpriteRenderer renderer = obj.GetComponent<SpriteRenderer> ();
+			renderer.color = new Color (1f, 1f, 1f, 0.5f);
+		}
 	}
 
 	public void addEvent(MusicEvent e){

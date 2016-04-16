@@ -10,7 +10,7 @@ public class ScoreVisualizer : MonoBehaviour {
 	public GameObject great;
 	public GameObject okay;
 	public GameObject coffin;
-
+	public GameObject miss;
 
 	public List<GameObject> prefabs;
 	public Dictionary<ScoreLevels, GameObject> scoreToPrefab;
@@ -24,7 +24,8 @@ public class ScoreVisualizer : MonoBehaviour {
 			perfect,
 			great,
 			okay,
-			coffin
+			coffin,
+			miss
 		};
 
 		scoreToPrefab = new Dictionary<ScoreLevels, GameObject>(){
@@ -32,7 +33,8 @@ public class ScoreVisualizer : MonoBehaviour {
 			{ScoreLevels.Perfect, perfect},
 			{ScoreLevels.Great, great},
 			{ScoreLevels.Good, okay},
-			{ScoreLevels.Bad, coffin}
+			{ScoreLevels.Bad, coffin},
+			{ScoreLevels.Miss, miss}
 		};
 
 		foreach (GameObject prefab in prefabs) {

@@ -40,7 +40,8 @@ public enum ScoreLevels{
 	Perfect,
 	Great,
 	Good,
-	Bad
+	Bad,
+	Miss
 }
 
 
@@ -66,6 +67,8 @@ public class ScoreCalculator: MonoBehaviour
 	public string GoodString = "Okay";
 	public string BadString = "Coffin";
 
+
+	public int missThreshold = 50;
 	public Dictionary<ScoreLevels, string> scoreToString;
 
 
@@ -93,7 +96,7 @@ public class ScoreCalculator: MonoBehaviour
 
 		latencyAdjustment = PlayerPrefs.GetInt (PlayerPrefKeys.AudioLatencyOffset);
 		Debug.LogFormat ("Using latency settings {0}", latencyAdjustment);
-
+		DebugPanel.Instance.log ("Latency adj", latencyAdjustment.ToString());
 		scoreToString = new Dictionary<ScoreLevels, string>(){
 			{ScoreLevels.GoodShit, GoodShitString},
 			{ScoreLevels.Perfect, PerfectString},
@@ -154,6 +157,8 @@ public class ScoreCalculator: MonoBehaviour
 	}
 
 	public void processKey(StandardKeyCodes keycode, long downTime){
+
+
 		if (patternMaster.isPlaying()) {
 			StandardControls eventType = KeyMappings.keyToControl (keycode);
 
@@ -194,6 +199,12 @@ public class ScoreCalculator: MonoBehaviour
 	}
 
 	void Update(){
+		//if beyond missThreshold, no longer take into account for scoring
+		while (events.Count > 0 && patternMaster.currentSongTime() - events [0].startTime > missThreshold) {
+			Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, ScoreLevels.Miss);
+			Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_NO_LONGER_ACTIVE, events[0]);
+			events.RemoveAt (0);
+		}
 //		int i = 0;
 //		while (i < events.Count && events [i].startTime + 700 < patternMaster.currentSongTime ()) {
 ////			Debug.LogFormat ("Removing {0}", events [i]);
