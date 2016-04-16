@@ -25,7 +25,7 @@ public class PatternVisualizer : MonoBehaviour {
 	List<GameObject> destoryQueue = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_VANISH, removeMusicEvent);
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_VANISH, removeMusicEventWithAnimation);
 		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_NO_LONGER_ACTIVE, disableEvent);
 
 
@@ -45,7 +45,8 @@ public class PatternVisualizer : MonoBehaviour {
 
 	private void removeMusicEvent(MusicEvent e){
 		if (musicEvents.ContainsKey (e)) {
-			AnimateThenDestory (musicEvents [e]);
+//			AnimateThenDestory (musicEvents [e]);
+			destoryQueue.Add (musicEvents [e]);
 			musicEvents.Remove (e);
 		}
 	}
@@ -108,6 +109,13 @@ public class PatternVisualizer : MonoBehaviour {
 //		}
 	}
 		
+	void removeMusicEventWithAnimation(MusicEvent m){
+		if (musicEvents.ContainsKey (m)) {
+			AnimateThenDestory (musicEvents [m]);
+			musicEvents.Remove (m);
+		}
+	}
+
 	void AnimateThenDestory(GameObject eventObject){
 		LeanTween
 			.scaleX (eventObject, 1.1f, 0.1f);
@@ -126,7 +134,8 @@ public class PatternVisualizer : MonoBehaviour {
 		if (musicEvents.ContainsKey (e)) {
 			GameObject obj = musicEvents [e];
 			SpriteRenderer renderer = obj.GetComponent<SpriteRenderer> ();
-			renderer.color = new Color (1f, 1f, 1f, 0.5f);
+//			renderer.color = Color.Lerp (renderer.color, new Color(1f,1f,1f, 0.01f), 0.1f);
+			renderer.color = new Color(1f,1f,1f,0.1f);
 		}
 	}
 
