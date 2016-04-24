@@ -28,6 +28,7 @@ public class PatternVisualizer : MonoBehaviour {
 	//the bool indicates whether or not the hold is currently active
 	Dictionary<MusicEvent, bool> activeHolds = new Dictionary<MusicEvent, bool> ();
 	Dictionary<MusicEvent, NoteTrail> noteTrails = new Dictionary<MusicEvent, NoteTrail> ();
+	Dictionary<MusicEvent, GameObject> noteTrailEnds = new Dictionary<MusicEvent, GameObject> ();
 
 
 	private int latencyAdjustment;
@@ -95,16 +96,10 @@ public class PatternVisualizer : MonoBehaviour {
 			foreach(KeyValuePair<MusicEvent, GameObject> pair in musicEvents)
 			{
 				MusicEvent e = pair.Key;
-//				long delta = e.startTime - patternMaster.currentSongTime();
-//
-//				delta += latencyAdjustment;
-
 				GameObject pokeball = pair.Value;
-				//			Debug.Log (delta);
 
 				float delta = timeToDelta (e.startTime);
 				float y = timeToY (e.startTime);
-
 
 				//if objects are past pad point
 				if (delta < -ttl) {
@@ -114,16 +109,7 @@ public class PatternVisualizer : MonoBehaviour {
 				//if objects are visible
 				if (delta < scale) {
 					pokeball.transform.position = new Vector3 (pokeball.transform.position.x, y, pokeball.transform.position.z);
-
-//					if (e.isHeldEvent ()) {
-//						NoteTrail trail = noteTrails [laneForEvent (e)];
-//						trail.setTopY (y);
-//						trail.setBottomY(timeToY(e.endTime))	;
-//					}
 				}
-
-				//			float y = padPosition - velocity * delta / 1000f;
-				// do something with entry.Value or entry.Key
 			}
 
 			foreach (MusicEvent e in outOfRange) {
@@ -235,6 +221,8 @@ public class PatternVisualizer : MonoBehaviour {
 			noteTrails [e] = trail;
 			trail.setX (xForEvent (e));
 			Debug.Log (trail);
+
+//			GameObject newBall = prefabForEvent(e);
 		}
 	}
 

@@ -51,6 +51,7 @@ public class ScoreCalculator: MonoBehaviour
 
 	public Dictionary<MusicEventTypes, List<MusicEvent>> events;
 	public Dictionary<MusicEventTypes, List<MusicEvent>> releaseEvents;
+	public Dictionary<MusicEvent, bool> releaseEventActive = new Dictionary<MusicEvent, bool>();
 
 
 	public DebugPanel panel;
@@ -150,6 +151,7 @@ public class ScoreCalculator: MonoBehaviour
 
 		if (e.isHeldEvent ()) {
 			releaseEvents [e.eventType].Add (e);
+
 		}
 //		events.Add (e);
 	}
@@ -192,7 +194,7 @@ public class ScoreCalculator: MonoBehaviour
 		return false;
 	}
 
-	public void processKey(StandardKeyCodes keycode, long downTime, bool keyDown = true){
+	public void processKey(StandardKeyCodes keycode, long time, bool keyDown = true){
 		if (patternMaster.isPlaying()) {
 			StandardControls control = KeyMappings.keyToControl (keycode);
 			MusicEventTypes musicEventType = controlToEventType [control];
@@ -208,12 +210,13 @@ public class ScoreCalculator: MonoBehaviour
 
 			if (relevantEvents [musicEventType].Count > 0) {
 				MusicEvent e = relevantEvents[musicEventType][0];
-				long expectedTime = patternMaster.absTime (e.startTime);
-				long delta = expectedTime - downTime;
 
-				long adjustedError = delta + latencyAdjustment;
 
 				if (keyDown) {
+					long expectedTime = patternMaster.absTime (e.startTime);
+					long delta = expectedTime - time;
+
+					long adjustedError = delta + latencyAdjustment;
 					//only consider if within scoring range
 					if (delta < ScorableThreshold) {
 						Debug.LogFormat ("Delta {0}", delta);
@@ -230,13 +233,21 @@ public class ScoreCalculator: MonoBehaviour
 						relevantEvents [musicEventType].RemoveAt (0);
 
 						Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_HIT, e);
+
+
+						if (e.isHeldEvent ()) {
+							releaseEventActive [e] = true;
+						}
 					}
 				} else {
-					//for releases, we need to check whether or not the event has been hit already
-					if (delta < ScorableThreshold) {//releasing after start
-						long expectedDownTime = patternMaster.absTime (e.endTime);
-						long adjusted = expectedDownTime + latencyAdjustment;
-						ScoreLevels score = ReportQuality (adjustedError);
+					
+					long expectedUpTime = patternMaster.absTime (e.endTime);
+					long delta = expectedUpTime - time;
+					long adjusted = delta + latencyAdjustment;
+					//only register relases if already down
+					if (releaseEventActive.ContainsKey(e)) {
+						ScoreLevels score = ReportQuality (adjusted);
+						Debug.LogFormat ("Release {0}", adjusted);
 
 						relevantEvents [musicEventType].RemoveAt (0);
 						Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
