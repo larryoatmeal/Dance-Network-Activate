@@ -21,7 +21,13 @@ public class SongEntry : MonoBehaviour {
 	void onClick(){
 		Debug.Log (path);
 		GameManager.Instance.musicFile = path;
+		GameManager.Instance.midiFile = getAssociatedMidi ();	
 		SceneManager.LoadScene ("rhythmTester");
+	}
+		
+	//for now just use same name
+	string getAssociatedMidi(){
+		return path;
 	}
 
 	public void SetPath(string path){

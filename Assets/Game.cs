@@ -69,11 +69,13 @@ public class Game : MonoBehaviourThreading {
 
 	void OnKeyDown(StandardKeyCodes key, long time){
 		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_PRESSED, KeyMappings.keyToControl (key));
-		scoreCalculator.processKey (key, time);
+		scoreCalculator.processKey (key, time, true);
 	}
 
 	void OnKeyUp(StandardKeyCodes key, long time){
 		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_RELEASED, KeyMappings.keyToControl (key));
+		scoreCalculator.processKey (key, time, false);
+
 	}
 
 	public void MainMenu(){

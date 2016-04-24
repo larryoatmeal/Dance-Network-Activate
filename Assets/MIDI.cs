@@ -2,10 +2,23 @@
 using UnityEngine;
 using NAudio.Midi;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-
+using System.Collections.Generic;
 public class MIDI{
+
+	public static List<MusicEvent> heldNotesTest(){
+		int numNotes = 20;
+
+		List<MusicEvent> events = new List<MusicEvent> ();
+		for (int i = 0; i < numNotes; i++) {
+			var start = i * 4000;
+			var duration = 2000;
+			MusicEvent e = new MusicEvent (MusicEventTypes.Down, start, start + duration);
+			events.Add (e);
+		}
+		return events;
+	}
+
 
 	public List<MusicEvent> processMidi(string name){
 
@@ -113,7 +126,7 @@ public class MIDI{
 			}
 		}
 
-		return musicEvents;
+		return cleandUpEvents;
 
 	}
 

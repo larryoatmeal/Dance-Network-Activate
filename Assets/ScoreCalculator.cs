@@ -44,15 +44,13 @@ public enum ScoreLevels{
 	Miss
 }
 
-
-
-
 public class ScoreCalculator: MonoBehaviour
 {
 	public int ScorableThreshold = 3000; 
 //	public List<MusicEvent> events = new List<MusicEvent>();
 
 	public Dictionary<MusicEventTypes, List<MusicEvent>> events;
+	public Dictionary<MusicEventTypes, List<MusicEvent>> releaseEvents;
 
 
 	public DebugPanel panel;
@@ -114,6 +112,12 @@ public class ScoreCalculator: MonoBehaviour
 			{MusicEventTypes.Left, new List<MusicEvent>()},
 			{MusicEventTypes.Right, new List<MusicEvent>()}
 		};
+		releaseEvents = new Dictionary<MusicEventTypes, List<MusicEvent>>(){
+			{MusicEventTypes.Down, new List<MusicEvent>()},
+			{MusicEventTypes.Up, new List<MusicEvent>()},
+			{MusicEventTypes.Left, new List<MusicEvent>()},
+			{MusicEventTypes.Right, new List<MusicEvent>()}
+		};
 
 
 	}
@@ -139,10 +143,14 @@ public class ScoreCalculator: MonoBehaviour
 
 	public void addEvent(MusicEvent e){
 //		Debug.Log (events[MusicEventTypes.Left]);
-		Debug.Log (events.Count);
+//		Debug.Log (events.Count);
 
 		events[e.eventType].Add(e);
+		Debug.Log (e);
 
+		if (e.isHeldEvent ()) {
+			releaseEvents [e.eventType].Add (e);
+		}
 //		events.Add (e);
 	}
 		
@@ -184,7 +192,7 @@ public class ScoreCalculator: MonoBehaviour
 		return false;
 	}
 
-	public void processKey(StandardKeyCodes keycode, long downTime){
+	public void processKey(StandardKeyCodes keycode, long downTime, bool keyDown = true){
 		if (patternMaster.isPlaying()) {
 			StandardControls control = KeyMappings.keyToControl (keycode);
 			MusicEventTypes musicEventType = controlToEventType [control];
@@ -192,48 +200,83 @@ public class ScoreCalculator: MonoBehaviour
 			//find first matching event
 //			int index = events[eventType].FindIndex (e => actionMatches(eventType, e));
 			//		Debug.Log (events[0]);
-			if (events [musicEventType].Count > 0) {
-				MusicEvent e = events[musicEventType][0];
+
+			var relevantEvents = events;
+			if (!keyDown) {//keyup
+				relevantEvents = releaseEvents;
+			}
+
+			if (relevantEvents [musicEventType].Count > 0) {
+				MusicEvent e = relevantEvents[musicEventType][0];
 				long expectedTime = patternMaster.absTime (e.startTime);
 				long delta = expectedTime - downTime;
 
-
 				long adjustedError = delta + latencyAdjustment;
 
+				if (keyDown) {
+					//only consider if within scoring range
+					if (delta < ScorableThreshold) {
+						Debug.LogFormat ("Delta {0}", delta);
+						Debug.LogFormat ("Adjusted delta {0}", adjustedError);
 
-				//only consider if within scoring range
-				if (delta < ScorableThreshold) {
-					Debug.LogFormat ("Delta {0}", delta);
-					Debug.LogFormat ("Adjusted delta {0}", adjustedError);
+						ScoreLevels score = ReportQuality (adjustedError);
 
-					ScoreLevels score = ReportQuality (adjustedError);
+						Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
+						panel.log ("Score", scoreToString [score]);
 
-					Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
-					panel.log ("Score", scoreToString[score]);
+						//					if (mode == ScoreCalculatorMode.Calibration) {
+						//						calibrator.addDelta ((int)delta);
+						//					}
+						relevantEvents [musicEventType].RemoveAt (0);
 
-					//					if (mode == ScoreCalculatorMode.Calibration) {
-					//						calibrator.addDelta ((int)delta);
-					//					}
-					events[musicEventType].RemoveAt (0);
+						Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_HIT, e);
+					}
+				} else {
+					//for releases, we need to check whether or not the event has been hit already
+					if (delta < ScorableThreshold) {//releasing after start
+						long expectedDownTime = patternMaster.absTime (e.endTime);
+						long adjusted = expectedDownTime + latencyAdjustment;
+						ScoreLevels score = ReportQuality (adjustedError);
 
-					Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_VANISH, e);
+						relevantEvents [musicEventType].RemoveAt (0);
+						Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
+						Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_HELD_RELEASED, e);
+					}
 				}
-
 			}
-
 		}
 	}
 
 	void Update(){
 		//if beyond missThreshold, no longer take into account for scoring
-		foreach (List<MusicEvent> eventList in events.Values) {
-			while (eventList.Count > 0 && patternMaster.currentSongTime() - eventList [0].startTime > missThreshold) {
-				Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, ScoreLevels.Miss);
-				Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_NO_LONGER_ACTIVE, eventList[0]);
-				eventList.RemoveAt (0);
+		if (patternMaster.isPlaying()) {
+
+
+
+			foreach (List<MusicEvent> eventList in events.Values) {
+				while (eventList.Count > 0 && patternMaster.currentSongTime() - eventList [0].startTime > missThreshold) {
+					Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, ScoreLevels.Miss);
+
+					//if held note is missed, miss the release automatically
+					MusicEvent e = eventList[0];
+					if (e.isHeldEvent ()) {
+						releaseEvents [e.eventType].Remove (e);
+					}
+
+					Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_NO_LONGER_SCORABLE, e);
+					eventList.RemoveAt (0);
+				}
+			}
+			foreach (List<MusicEvent> eventList in releaseEvents.Values) {
+				while (eventList.Count > 0 && patternMaster.currentSongTime() - eventList [0].endTime > missThreshold) 
+				{
+					Debug.Log ("Removing release");
+					Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, ScoreLevels.Miss);
+					Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_RELEASE_NO_LONGER_SCORABLE, eventList[0]);
+					eventList.RemoveAt (0);
+				}
 			}
 		}
-
 
 //		int i = 0;
 //		while (i < events.Count && events [i].startTime + 700 < patternMaster.currentSongTime ()) {

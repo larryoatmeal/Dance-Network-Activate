@@ -2,8 +2,9 @@
 
 public class MusicEvent{
 	public readonly MusicEventTypes eventType;
+
 	public readonly long startTime;
-	long endTime;
+	public readonly long endTime;
 
 	public bool isLastEvent = false;
 
@@ -20,6 +21,9 @@ public class MusicEvent{
 		this.startTime = startTime;
 		this.endTime = startTime;
 	}
+	public bool isHeldEvent(){
+		return this.startTime != this.endTime;
+	}
 
 	public static MusicEvent DummyEvent(long startTime){
 		return new MusicEvent (MusicEventTypes.Down, startTime);
@@ -27,6 +31,7 @@ public class MusicEvent{
 
 	public override string ToString ()
 	{
-		return string.Format ("[MusicEvent: eventType={0}, startTime={1}]", eventType, startTime);
+		return string.Format ("[MusicEvent: eventType={0}, startTime={1}, endTime={2}, isHeldEvent={3}]", eventType, startTime, endTime, isHeldEvent());
 	}
+	
 }

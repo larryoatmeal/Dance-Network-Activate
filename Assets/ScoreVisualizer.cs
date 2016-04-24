@@ -88,23 +88,26 @@ public class ScoreVisualizer : MonoBehaviour {
 			var time = 0.2f;
 
 
-
 			//cancel outstanding hides
 			CancelInvoke ("hideActivePrefab");
 			if (activePrefab != null && activePrefab != scorePrefab) {
 				activePrefab.SetActive (false);
 			}
-
-
+				
 			activePrefab = scorePrefab;
 			scorePrefab.SetActive (true);
 
 
+//			if (scorePrefab != activePrefab) {
+////				scorePrefab.transform.localScale = new Vector3 (0, 0, 1);
+//				
+////				LeanTween.scaleX (scorePrefab, 1f, 0.05f);
+////				LeanTween.scaleY (scorePrefab, 1f, 0.05f);
+//			} else {
+//
+//			}
 
-			scorePrefab.transform.localScale = new Vector3 (0, 0, 1);
 
-			LeanTween.scaleX (scorePrefab, 1f, 0.05f);
-			LeanTween.scaleY (scorePrefab, 1f, 0.05f);
 
 
 //			LeanTween.scaleX (scorePrefab, scaleFactor, time).setDelay (animationDelay)

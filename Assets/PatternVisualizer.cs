@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PatternVisualizer : MonoBehaviour {
 
 	public Pads pads;
+//	public GameObject trails;
 	float padPosition;
 	float bottomPosition;
 	Vector3 bottomLeftCorner;
@@ -15,19 +16,28 @@ public class PatternVisualizer : MonoBehaviour {
 	private float scale;
 	public int ttl = 100;
 	Pad[] padList;
+//	NoteTrail[] noteTrails;
+
+
 //	List<MusicEvent> musicEvents = new List<MusicEvent> ();
 
 //	List<MusicEvent> musicEventsToRemove = new List<MusicEvent>();
 
 	Dictionary<MusicEvent, GameObject> musicEvents = new Dictionary<MusicEvent, GameObject> ();
 
+	//the bool indicates whether or not the hold is currently active
+	Dictionary<MusicEvent, bool> activeHolds = new Dictionary<MusicEvent, bool> ();
+	Dictionary<MusicEvent, NoteTrail> noteTrails = new Dictionary<MusicEvent, NoteTrail> ();
+
+
 	private int latencyAdjustment;
 	List<GameObject> destoryQueue = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_VANISH, removeMusicEventWithAnimation);
-		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_NO_LONGER_ACTIVE, disableEvent);
-
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_HIT, eventHit);
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_NO_LONGER_SCORABLE, disableEvent);
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_HELD_RELEASED, releaseEvent);
+		Messenger<MusicEvent>.AddListener (MessengerKeys.EVENT_RELEASE_NO_LONGER_SCORABLE, releaseEvent);
 
 		bottomLeftCorner = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0, Camera.main.nearClipPlane));
 		topRightCorner = Camera.main.ViewportToWorldPoint (new Vector3 (1, 1, Camera.main.nearClipPlane));
@@ -37,15 +47,41 @@ public class PatternVisualizer : MonoBehaviour {
 
 
 		padList = pads.GetComponentsInChildren<Pad> ();
-		Debug.Log (padList.Length);
+//		noteTrails = trails.GetComponentsInChildren<NoteTrail> ();
+
+//		if (noteTrails.Length == padList.Length) {
+//			for (int i = 0; i < padList.Length; i++) {
+//				Pad pad = padList [i];
+//				NoteTrail trail = noteTrails [i];
+//				trail.setX (pad.transform.position.x);
+//				trail.setTopY (1);
+//				trail.setBottomY (-1);
+//			}
+//		} else {
+//			Debug.LogWarning ("Not an equal number of pads and trails");
+//		}
+
+
 		scale = GameManager.Instance.lookAhead;
 		latencyAdjustment = PlayerPrefs.GetInt (PlayerPrefKeys.AudioLatencyOffset);
 //		Debug.Log (bottomPosition);
 	}
 
+	void releaseEvent(MusicEvent e){
+		Debug.Log (e);
+
+		if (noteTrails.ContainsKey (e)) {
+			activeHolds.Remove (e);
+			NoteTrail trail = noteTrails [e];
+			Destroy (trail.gameObject);
+			noteTrails.Remove (e);
+		}
+	}
+
 	private void removeMusicEvent(MusicEvent e){
 		if (musicEvents.ContainsKey (e)) {
 //			AnimateThenDestory (musicEvents [e]);
+
 			destoryQueue.Add (musicEvents [e]);
 			musicEvents.Remove (e);
 		}
@@ -54,46 +90,78 @@ public class PatternVisualizer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (patternMaster.isPlaying()) {
-			List<MusicEvent> noLongerScorable = new List<MusicEvent> ();
+			List<MusicEvent> outOfRange = new List<MusicEvent> ();
 
 			foreach(KeyValuePair<MusicEvent, GameObject> pair in musicEvents)
 			{
 				MusicEvent e = pair.Key;
-				long delta = e.startTime - patternMaster.currentSongTime();
-
-				delta += latencyAdjustment;
+//				long delta = e.startTime - patternMaster.currentSongTime();
+//
+//				delta += latencyAdjustment;
 
 				GameObject pokeball = pair.Value;
 				//			Debug.Log (delta);
 
+				float delta = timeToDelta (e.startTime);
+				float y = timeToY (e.startTime);
 
-				//if objects are past pad point, no longer take scoring into account
+
+				//if objects are past pad point
 				if (delta < -ttl) {
-					noLongerScorable.Add (e);
+					outOfRange.Add (e);
 				}
 
 				//if objects are visible
 				if (delta < scale) {
-					float travelHeight = padPosition - bottomLeftCorner.y;
-					float y = padPosition - delta / scale * travelHeight;
 					pokeball.transform.position = new Vector3 (pokeball.transform.position.x, y, pokeball.transform.position.z);
+
+//					if (e.isHeldEvent ()) {
+//						NoteTrail trail = noteTrails [laneForEvent (e)];
+//						trail.setTopY (y);
+//						trail.setBottomY(timeToY(e.endTime))	;
+//					}
 				}
-
-
 
 				//			float y = padPosition - velocity * delta / 1000f;
 				// do something with entry.Value or entry.Key
 			}
 
-			foreach (MusicEvent e in noLongerScorable) {
+			foreach (MusicEvent e in outOfRange) {
 //				Destroy (musicEvents [e]);
 
 //				removeMusicEvent (e);
 //				GameObject musicEventObj = musicEvents [e];
 				removeMusicEvent (e);
+				releaseEvent (e);
 
 				Messenger<MusicEvent>.Invoke (MessengerKeys.EVENT_OUT_OF_RANGE, e);
 			}
+
+			foreach (MusicEvent e in activeHolds.Keys) {
+				bool active = activeHolds [e];
+				NoteTrail trail = noteTrails [e];
+
+				if (active) {
+					trail.setTopY (padList[0].transform.position.y);
+					trail.setBottomY (timeToY (e.endTime));
+				} else {
+
+					trail.setTopY (timeToY (e.startTime));
+					trail.setBottomY (timeToY (e.endTime));
+
+//					NoteTrail trail = noteTrails [laneForEvent (e)];
+//					trail.setTopY (timeToY(e.startTime));
+//					trail.setBottomY(timeToY(e.endTime));
+				}
+			}
+
+
+
+//			foreach (MusicEvent e in activeHolds.K) {
+//				NoteTrail trail = noteTrails [laneForEvent (e)];
+//				trail.setTopY (timeToY(e.startTime));
+//				trail.setBottomY(timeToY(e.endTime));
+//			}
 
 			//clean up
 			foreach (GameObject obj in destoryQueue) {
@@ -108,11 +176,26 @@ public class PatternVisualizer : MonoBehaviour {
 		}
 //		}
 	}
+
+	float timeToDelta(long time){
+		return time - patternMaster.currentSongTime () + latencyAdjustment;
+	}
+
+	float timeToY(long time){
+		float delta = timeToDelta (time);
+		float travelHeight = padPosition - bottomLeftCorner.y;
+		float y = padPosition - delta / scale * travelHeight;
+		return y;
+	}
 		
-	void removeMusicEventWithAnimation(MusicEvent m){
+	void eventHit(MusicEvent m){
 		if (musicEvents.ContainsKey (m)) {
 			AnimateThenDestory (musicEvents [m]);
 			musicEvents.Remove (m);
+
+			if (activeHolds.ContainsKey (m)) {
+				activeHolds [m] = true;
+			}
 		}
 	}
 
@@ -125,24 +208,34 @@ public class PatternVisualizer : MonoBehaviour {
 	}
 
 	void OnDisable(){
-		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_VANISH, removeMusicEvent);
-		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_NO_LONGER_ACTIVE, disableEvent);
+		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_HIT, removeMusicEvent);
+		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_NO_LONGER_SCORABLE, disableEvent);
+		Messenger<MusicEvent>.RemoveListener (MessengerKeys.EVENT_HELD_RELEASED, releaseEvent);
 
 	}
 
 	void disableEvent(MusicEvent e){
-		if (musicEvents.ContainsKey (e)) {
-			GameObject obj = musicEvents [e];
-			SpriteRenderer renderer = obj.GetComponent<SpriteRenderer> ();
-//			renderer.color = Color.Lerp (renderer.color, new Color(1f,1f,1f, 0.01f), 0.1f);
-			renderer.color = new Color(1f,1f,1f,0.1f);
-		}
+//		if (musicEvents.ContainsKey (e)) {
+////			GameObject obj = musicEvents [e];
+////			SpriteRenderer renderer = obj.GetComponent<SpriteRenderer> ();
+////			renderer.color = Color.Lerp (renderer.color, new Color(1f,1f,1f, 0.01f), 0.1f);
+////			renderer.color = new Color(1f,1f,1f,0.1f);
+//		}
+
 	}
 
 	public void addEvent(MusicEvent e){
 //		Debug.Log (Instantiate(Resources.Load("Pokeball1")));
 		GameObject ball = generateBall (e);
 		musicEvents.Add (e, ball);
+		if (e.isHeldEvent ()) {
+			activeHolds[e] = false;
+
+			NoteTrail trail = (Instantiate (Resources.Load ("Trail")) as GameObject).GetComponent<NoteTrail>();
+			noteTrails [e] = trail;
+			trail.setX (xForEvent (e));
+			Debug.Log (trail);
+		}
 	}
 
 	public void reset(){
@@ -200,6 +293,9 @@ public class PatternVisualizer : MonoBehaviour {
 
 	//not safe
 	private Pad padForEvent(MusicEvent e){
+		return padList [laneForEvent(e)];
+	}
+	private int laneForEvent(MusicEvent e){
 		int padNum = 0;
 		switch (e.eventType) 
 		{
@@ -219,7 +315,10 @@ public class PatternVisualizer : MonoBehaviour {
 			break;
 
 		}
-		return padList [padNum];
+		return padNum;
+	}
+	private float xForEvent(MusicEvent e){
+		return padList [laneForEvent (e)].transform.position.x;
 	}
 
 
