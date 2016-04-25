@@ -234,8 +234,19 @@ public class PatternVisualizer : MonoBehaviour {
 			//			float y = padPosition - velocity * delta / 1000f;
 			// do something with entry.Value or entry.Key
 		}
+		foreach(KeyValuePair<MusicEvent, NoteTrail> pair in noteTrails)
+		{
+			Destroy (pair.Value.gameObject);
+			//			float y = padPosition - velocity * delta / 1000f;
+			// do something with entry.Value or entry.Key
+		}
+		foreach(KeyValuePair<MusicEvent, NoteTrail> pair in noteTrails)
+		{
+			Destroy (pair.Value.gameObject);
+		}
 
-
+		activeHolds.Clear ();
+		noteTrails.Clear ();
 
 		musicEvents.Clear ();
 	}

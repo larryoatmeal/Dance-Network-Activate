@@ -161,6 +161,10 @@ public class ScoreCalculator: MonoBehaviour
 		foreach (var eventList in events.Values) {
 			eventList.Clear ();
 		}
+		foreach (var eventList in releaseEvents.Values) {
+			eventList.Clear ();
+		}
+		releaseEventActive.Clear ();
 //
 //		if (mode == ScoreCalculatorMode.Calibration) {
 //			calibrator.reset ();

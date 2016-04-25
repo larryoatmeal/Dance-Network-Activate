@@ -7,7 +7,7 @@ public class DebugPanel : Singleton<DebugPanel> {
 	public Dictionary<string, string> entries = new Dictionary<string, string>();
 	private Text textMesh;
 	private bool dirty = false;
-
+	private bool showing = true;
 	protected override void Init(){
 		Debug.Log ("[DebugPanel] init");
 		Persist = true;
@@ -39,10 +39,29 @@ public class DebugPanel : Singleton<DebugPanel> {
 	
 	// Update is called once per frame
 	void Update () {
-		if (dirty) {
+		if (dirty && showing) {
 //			Debug.Log (genString ());
 			textMesh.text = genString ();
 			dirty = false;
 		}
 	}
+	public void Toggle(){
+		if (showing) {
+			Hide ();
+		} else {
+			Show ();
+		}
+	}
+
+
+	public void Hide(){
+		textMesh.enabled = false;
+		showing = false;
+
+	}
+	public void Show(){
+		textMesh.enabled = true;
+		showing = true;
+	}
+
 }

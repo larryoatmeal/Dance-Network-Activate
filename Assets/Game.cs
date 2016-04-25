@@ -11,11 +11,12 @@ public class KeyEvent{
 		this.keycode = keycode;
 		this.time = time;
 	}
+
+
 	
 }
 
 public class Game : MonoBehaviourThreading {
-
 
 	List<StandardControls> controls = new List<StandardControls> () {
 		StandardControls.DOWN,
@@ -28,7 +29,9 @@ public class Game : MonoBehaviourThreading {
 	public TimeMaster timeMaster;
 	public ScoreCalculator scoreCalculator;
 	public PatternMaster patternMaster;
-	public MainMusic music; 
+	public MainMusic music;
+	public List<GameObject> menuItems;
+
 
 	public float preStart = 1.0f;
 	int preStartMS;
@@ -65,6 +68,19 @@ public class Game : MonoBehaviourThreading {
 				OnKeyUp (key, upTime);
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			DebugPanel.Instance.Toggle ();
+		}
+		if (Input.GetKeyDown (KeyCode.W)) {
+			foreach(GameObject menuItem in menuItems) {
+				menuItem.SetActive (!menuItem.activeSelf);
+			}
+		};
+
+
+
+
 	}
 
 	void OnKeyDown(StandardKeyCodes key, long time){
