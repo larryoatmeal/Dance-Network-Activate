@@ -39,7 +39,18 @@ public class Game : MonoBehaviourThreading {
 	public void BeginGame(){
 		music.playFromBeginning (preStart);
 		patternMaster.Play (preStartMS);
+
+		Messenger.AddListener (MessengerKeys.TOGGLE_MENU, MenuToggled);
 	}
+	
+	public void MenuToggled(){
+		if (patternMaster.isPlaying ()) {
+			PauseGame ();
+		} else {
+			RestartGame ();
+		}
+	}
+
 
 	public void PauseGame(){
 		music.pause ();
@@ -50,10 +61,12 @@ public class Game : MonoBehaviourThreading {
 		patternMaster.Restart ();
 	}
 
+
+
 	// Use this for initialization
 	void Start () {
 		preStartMS = (int)(preStart * 1000);
-//		BeginGame ();
+		BeginGame ();
 	}
 
 	void Update(){
@@ -76,9 +89,6 @@ public class Game : MonoBehaviourThreading {
 //			}
 //		};
 
-
-
-
 	}
 
 	void OnKeyDown(StandardKeyCodes key, long time){
@@ -90,6 +100,10 @@ public class Game : MonoBehaviourThreading {
 		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_RELEASED, KeyMappings.keyToControl (key));
 		scoreCalculator.processKey (key, time, false);
 
+	}
+
+	public void OnDestroy(){
+		Messenger.RemoveListener (MessengerKeys.TOGGLE_MENU, MenuToggled);
 	}
 
 	public void MainMenu(){

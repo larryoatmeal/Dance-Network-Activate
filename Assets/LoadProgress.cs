@@ -16,8 +16,12 @@ public class LoadProgress : MonoBehaviour {
 
 	void display(){
 		this.gameObject.SetActive (true);
+	}
+
+	void OnDestroy(){
 		Messenger.RemoveListener (MessengerKeys.LOAD_SCENE, display);
 	}
+
 	// Update is called once per frame
 	void Update () {
 	
