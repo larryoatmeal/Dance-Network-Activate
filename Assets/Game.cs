@@ -30,7 +30,7 @@ public class Game : MonoBehaviourThreading {
 	public ScoreCalculator scoreCalculator;
 	public PatternMaster patternMaster;
 	public MainMusic music;
-	public List<GameObject> menuItems;
+//	public List<GameObject> menuItems;
 
 
 	public float preStart = 1.0f;
@@ -53,6 +53,7 @@ public class Game : MonoBehaviourThreading {
 	// Use this for initialization
 	void Start () {
 		preStartMS = (int)(preStart * 1000);
+//		BeginGame ();
 	}
 
 	void Update(){
@@ -69,11 +70,11 @@ public class Game : MonoBehaviourThreading {
 			}
 		}
 			
-		if (Input.GetKeyDown (KeyCode.W)) {
-			foreach(GameObject menuItem in menuItems) {
-				menuItem.SetActive (!menuItem.activeSelf);
-			}
-		};
+//		if (Input.GetKeyDown (KeyCode.W)) {
+//			foreach(GameObject menuItem in menuItems) {
+//				menuItem.SetActive (!menuItem.activeSelf);
+//			}
+//		};
 
 
 

@@ -14,5 +14,7 @@ public static class MessengerKeys
 	public const string EVENT_NO_LONGER_SCORABLE = "EVENT_NO_LONGER_ACTIVE";
 	public const string EVENT_RELEASE_NO_LONGER_SCORABLE = "EVENT_RELEASE_NO_LONGER_ACTIVE";
 	public const string LOAD_SCENE = "LOAD_SCENE";
+	public const string TOGGLE_MENU = "TOGGLE_MENU";
+
 
 }
