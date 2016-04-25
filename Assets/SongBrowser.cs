@@ -9,19 +9,30 @@ public class SongBrowser : MonoBehaviour {
 
 	int index = 0;
 
-	bool dirty = true; //initially dirty since need to draw
+//	bool dirty = true; //initially dirty since need to draw
 
 	public void Next(){
-		if (index + 1 + entries.Count - 1 < songList.songs.Count) {
-			index += 1;
-			dirty = true;
-		}
+		index = (index + 1) % songList.songs.Count;
+
+//
+//		if (index + 1 + entries.Count - 1 < songList.songs.Count) {
+//			index += 1;
+//			dirty = true;
+//		}
 	}
 	public void Prev(){
-		if (index - 1 >= 0) {
-			index -= 1;
-			dirty = true;
+
+
+
+		index -= 1;
+		if (index < 0) {
+			index = songList.songs.Count - 1;
 		}
+//
+//		if (index - 1 >= 0) {
+//			index -= 1;
+//			dirty = true;
+//		}
 	}
 
 	// Use this for initialization
@@ -33,19 +44,24 @@ public class SongBrowser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (dirty) {
+//		if (dirty) {
 			for (int i = 0; i < entries.Count; i++) {
 				string songName;
-				if (i + index < songList.songs.Count) {
-					songName = songList.songs [i + index];
-				} else {
-					songName = "NO SONG";
-				}
+//				if (i + index < songList.songs.Count) {
+				songName = songList.songs [(i + index)%songList.songs.Count];
 				entries [i].SetText (songName);
 				entries [i].SetPath (songName);
 			}
-			dirty = false;
+//			dirty = false;
+//		}
+
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			Prev ();
 		}
+		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+			Next ();
+		}
+
 
 	}
 
