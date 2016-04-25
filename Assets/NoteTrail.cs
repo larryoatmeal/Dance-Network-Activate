@@ -21,10 +21,10 @@ public class NoteTrail : MonoBehaviour {
 		lineRenderer.SetPosition (1, pos);
 	}
 	public void setTopY(float y){
-		lineRenderer.SetPosition (0, new Vector3(x, y, 0));
+		lineRenderer.SetPosition (0, new Vector3(x, y, 2));
 	}
 	public void setBottomY(float y){
-		lineRenderer.SetPosition (1, new Vector3(x, y, 0));
+		lineRenderer.SetPosition (1, new Vector3(x, y, 2));
 	}
 
 	// Update is called once per frame
