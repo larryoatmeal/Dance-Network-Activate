@@ -22,6 +22,8 @@ public class SongEntry : MonoBehaviour {
 		Debug.Log (path);
 		GameManager.Instance.musicFile = path;
 		GameManager.Instance.midiFile = getAssociatedMidi ();	
+		Messenger.Invoke (MessengerKeys.LOAD_SCENE);
+
 		SceneManager.LoadScene ("rhythmTester");
 	}
 		

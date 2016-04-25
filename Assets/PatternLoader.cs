@@ -34,9 +34,9 @@ public class PatternLoader
 			MIDI midi = new MIDI();
 			List<MusicEvent> musicEvents = midi.processMidi (midifile);
 
-			foreach (MusicEvent m in musicEvents) {
-				Debug.Log (m);
-			}
+//			foreach (MusicEvent m in musicEvents) {
+//				Debug.Log (m);
+//			}
 
 			return new Pattern (musicEvents, GameManager.Instance.lookAhead);
 //			return new Pattern (new BeatGenerator ().quarters (numQuartersCalibration), GameManager.Instance.lookAhead);

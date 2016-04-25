@@ -68,10 +68,7 @@ public class Game : MonoBehaviourThreading {
 				OnKeyUp (key, upTime);
 			}
 		}
-
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			DebugPanel.Instance.Toggle ();
-		}
+			
 		if (Input.GetKeyDown (KeyCode.W)) {
 			foreach(GameObject menuItem in menuItems) {
 				menuItem.SetActive (!menuItem.activeSelf);

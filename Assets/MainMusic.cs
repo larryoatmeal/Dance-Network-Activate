@@ -19,6 +19,20 @@ public class MainMusic : MonoBehaviour {
 		setAudio (GameManager.Instance.musicFile);
 	}
 
+
+	public void setAudioStream(string fileName){
+
+
+		string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
+		WWW request = new WWW (filePath);
+
+		Debug.Log (filePath);
+		Debug.Log (request);
+		audioSource = gameObject.GetComponent<AudioSource> ();
+		AudioClip clip = request.GetAudioClip (false, true);;
+		audioSource.clip = clip;
+	}
+
 	public void setAudio(string fileName){
 		audioSource = gameObject.GetComponent<AudioSource> ();
 		string path = "Audio/" + fileName;
@@ -28,6 +42,7 @@ public class MainMusic : MonoBehaviour {
 
 		Debug.Log (audioSource.clip.name);
 		ratio = 1000f / audioSource.clip.frequency;
+//		setAudioStream (fileName);
 	}
 
 	// Update is called once per frame

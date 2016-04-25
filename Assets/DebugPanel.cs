@@ -7,7 +7,7 @@ public class DebugPanel : Singleton<DebugPanel> {
 	public Dictionary<string, string> entries = new Dictionary<string, string>();
 	private Text textMesh;
 	private bool dirty = false;
-	private bool showing = true;
+	private bool showing = false;
 	protected override void Init(){
 		Debug.Log ("[DebugPanel] init");
 		Persist = true;
@@ -35,6 +35,7 @@ public class DebugPanel : Singleton<DebugPanel> {
 	// Use this for initialization
 	void Start () {
 		textMesh = GetComponent<Text> ();
+		Hide ();
 	}
 	
 	// Update is called once per frame
