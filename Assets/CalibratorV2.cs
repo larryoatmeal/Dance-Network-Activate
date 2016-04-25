@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 public class CalibratorV2 : MonoBehaviour {
 
 	private long startTime = 0;
@@ -9,20 +10,25 @@ public class CalibratorV2 : MonoBehaviour {
 
 	public int maxSubsPerBeat = 2;
 
-	public int minimumSamples = 10;
-	public int minimumSD = 20;
+//	public int minimumSamples = 10;
+//	public int minimumSD = 20;
 	public int windowSize = 10;
 	public int windowSum = 0;
 //	public int windowSumSquared = 0;
 
-	public DebugPanel debugPanel;
+	DebugPanel debugPanel;
 
 	public List<int> offsets = new List<int> ();
 
 	public MainMusic mainMusic;
-	public TimeMaster timeMaster;
+	TimeMaster timeMaster;
 
 	public long prevTime;
+
+	public Text offsetText;
+	public Text sdText;
+	public Button confirmButton;
+
 
 //	void Awake(){
 //		Application.targetFrameRate = 1;
@@ -55,6 +61,7 @@ public class CalibratorV2 : MonoBehaviour {
 	}
 
 	public void Play(long time){
+		confirmButton.interactable = false;
 		startTime = time;
 	}
 
@@ -75,11 +82,16 @@ public class CalibratorV2 : MonoBehaviour {
 //		windowSumSquared += offset;
 
 		if (offsets.Count > windowSize) {
+			confirmButton.interactable = true;
+
 			windowSum -= offsets [offsets.Count - windowSize];
 			int average = windowSum / windowSize;
 			int sd = SD (offsets, average, windowSize);
 			debugPanel.log ("Avg", average.ToString());
 			debugPanel.log ("SD", sd.ToString());
+
+			offsetText.text = string.Format ("Offset: {0}", average);
+			sdText.text = string.Format ("Tightness: {0}", sd);
 
 			int err = offset - average;
 

@@ -36,6 +36,7 @@ public class Coordinator : MonoBehaviour {
 	public void Done(){
 		music.pause ();
 		calibrator.finish ();
+		MainMenu ();
 	}
 
 	public void MainMenu(){
