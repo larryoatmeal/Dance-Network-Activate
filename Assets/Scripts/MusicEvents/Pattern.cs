@@ -19,7 +19,7 @@ public class Pattern{
 	public Pattern (List<MusicEvent> events, int lookAhead)
 	{
 		this.events = events;
-		events.Add (new MusicEvent (MusicEventTypes.End, events [events.Count - 1].startTime + 4000));
+//		events.Add (new MusicEvent (MusicEventTypes.End, events [events.Count - 1].endTime + LookAhead + 4000));
 		this.iterator = new EventIterator (events);
 		this.LookAhead = lookAhead;
 		events [events.Count - 1].isLastEvent = true;

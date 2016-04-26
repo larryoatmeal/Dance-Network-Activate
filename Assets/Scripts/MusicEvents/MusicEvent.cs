@@ -6,7 +6,7 @@ public class MusicEvent{
 	public readonly long startTime;
 	public readonly long endTime;
 
-	public bool isLastEvent = false;
+//	public bool isLastEvent = false;
 
 	public MusicEvent (MusicEventTypes eventType, long startTime, long endTime)
 	{

@@ -26,4 +26,12 @@ public class GameManager : Singleton<GameManager> {
 	
 	}
 
+	public bool firstTime(){
+		return !PlayerPrefs.HasKey (PlayerPrefKeys.FIRST_TIME);
+	}
+
+	public void setNotFirstTime(){
+		PlayerPrefs.SetInt (PlayerPrefKeys.FIRST_TIME, 1);
+	}
+
 }

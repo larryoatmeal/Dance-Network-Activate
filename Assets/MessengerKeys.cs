@@ -17,4 +17,10 @@ public static class MessengerKeys
 	public const string TOGGLE_MENU = "TOGGLE_MENU";
 
 
+//	public const string PLAY = "TOGGLE_MENU";
+//	public const string PAUSE = "TOGGLE_MENU";
+//	public const string RESUME = "TOGGLE_MENU";
+//
+//
+
 }

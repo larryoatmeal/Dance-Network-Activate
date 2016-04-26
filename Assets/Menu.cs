@@ -5,7 +5,7 @@ public class Menu : MonoBehaviour {
 
 	void Awake(){
 		Messenger.AddListener (MessengerKeys.TOGGLE_MENU, Toggle);
-		this.gameObject.SetActive (false);
+//		this.gameObject.SetActive (t);
 	}
 	void Toggle(){
 		this.gameObject.SetActive (!gameObject.activeSelf);

@@ -81,26 +81,30 @@ public class PatternMaster : MonoBehaviour {
 //		Invoke ("ReadyToPlay", delay/1000f);
 //	}
 	private bool playing = false;
-
+	private bool paused = false;
 	public int errorSynchThreshold = 15;
 
 	public bool isPlaying(){
 		return playing;
 	}
-
+	public bool isPaused() {
+		return paused;
+	}
 	public void Play(int delay){
 		pattern.Play (timeMaster.GetTime () + delay);
 		patternVisualizer.reset ();
 		scoreCalculator.reset ();
 		playing = true;
+		paused = false;
 	}
 	public void Pause(){
+		paused = true;
 		playing = false;
 	}
-
 	public void Restart(){
 		pattern.startTime = timeMaster.GetTime () - rhythm.timeMillis ();
 		playing = true;
+		paused = false;
 	}
 	void Stop(){
 		playing = false;
@@ -157,13 +161,17 @@ public class PatternMaster : MonoBehaviour {
 		var delta = e.startTime + pattern.startTime -  timeMaster.GetTime ();
 //		Debug.Log (delta/1000f);
 //		soundEffect.PlayScheduled (delta / 1000f);
-		if (e.eventType == MusicEventTypes.End) {
-			Stop ();
-			Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
-		} else {
-			scoreCalculator.addEvent (e);
-			patternVisualizer.addEvent (e);
-		}
+
+		scoreCalculator.addEvent (e);
+		patternVisualizer.addEvent (e);
+
+//		if (e.eventType == MusicEventTypes.End) {
+//			Stop ();
+//			Messenger.Invoke (MessengerKeys.EVENT_PATTERN_FINISHED);
+//		} else {
+//			scoreCalculator.addEvent (e);
+//			patternVisualizer.addEvent (e);
+//		}
 	}
 
 	public long absTime(long songTime){

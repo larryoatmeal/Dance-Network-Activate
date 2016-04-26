@@ -46,8 +46,8 @@ public class Game : MonoBehaviourThreading {
 	public void MenuToggled(){
 		if (patternMaster.isPlaying ()) {
 			PauseGame ();
-		} else {
-			RestartGame ();
+		} else if(patternMaster.isPaused()) {
+			ResumeGame ();
 		}
 	}
 
@@ -56,7 +56,7 @@ public class Game : MonoBehaviourThreading {
 		music.pause ();
 		patternMaster.Pause ();
 	}
-	public void RestartGame(){
+	public void ResumeGame(){
 		music.play ();
 		patternMaster.Restart ();
 	}
@@ -66,7 +66,14 @@ public class Game : MonoBehaviourThreading {
 	// Use this for initialization
 	void Start () {
 		preStartMS = (int)(preStart * 1000);
-		BeginGame ();
+
+		//do not immediately start playing if first time
+//		BeginGame ();
+//
+//		if (GameManager.Instance.firstTime ()) {
+//			GameManager.Instance.setNotFirstTime ();
+//		} else {
+//		}
 	}
 
 	void Update(){
@@ -83,11 +90,23 @@ public class Game : MonoBehaviourThreading {
 			}
 		}
 			
-//		if (Input.GetKeyDown (KeyCode.W)) {
-//			foreach(GameObject menuItem in menuItems) {
-//				menuItem.SetActive (!menuItem.activeSelf);
-//			}
-//		};
+
+		//WARN: This code is far more complex then it has to be
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			if (!patternMaster.isPlaying()) {
+
+				//order matters here. Once invoke is called, paused may be modified 
+				bool paused = patternMaster.isPaused ();
+
+				Messenger.Invoke (MessengerKeys.TOGGLE_MENU);
+
+				if (paused) {
+					ResumeGame ();
+				} else {
+					BeginGame ();
+				}
+			}
+		};
 
 	}
 

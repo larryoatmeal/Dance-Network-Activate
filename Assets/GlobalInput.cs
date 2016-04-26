@@ -8,7 +8,7 @@ public class GlobalInput : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.F1)) {
 			DebugPanel.Instance.Toggle ();
 		}
-		if(Input.GetKeyDown (KeyCode.Q)){
+		if(Input.GetKeyDown (KeyCode.P)){
 			Messenger.Invoke(MessengerKeys.TOGGLE_MENU);
 		}
 	}
