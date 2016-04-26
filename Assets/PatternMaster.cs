@@ -123,11 +123,18 @@ public class PatternMaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (playing) {
+
+
 			int audioReportedTime = rhythm.timeMillis ();
 
-
+			if (lastReportedTime != 0 && audioReportedTime == 0) {//song has ended
+				Messenger.Invoke(MessengerKeys.EVENT_PATTERN_FINISHED);
+			}
 
 			if (audioReportedTime != lastReportedTime) {
+
+					
+
 				long error = currentSongTime () - audioReportedTime;
 //				Debug.Log (error);
 				deltaLp.input ((double)error);

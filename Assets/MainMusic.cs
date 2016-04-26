@@ -47,6 +47,7 @@ public class MainMusic : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		
 	}
 
 	public int timeSamples(){
