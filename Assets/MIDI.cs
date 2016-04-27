@@ -50,12 +50,12 @@ public class MIDI{
 		
 		foreach (NoteOnEvent noteOn in noteOns) {
 //			noteOn.CommandCode
-			Debug.Log (noteOn);
+//			Debug.Log (noteOn);
 
 		}
 		foreach (TempoEvent tempo in tempos) {
 			//			noteOn.CommandCode
-			Debug.Log (tempo);
+//			Debug.Log (tempo);
 		}
 
 		//let's assume one tempo for now

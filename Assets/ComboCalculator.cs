@@ -5,6 +5,7 @@ public class ComboCalculator : MonoBehaviour {
 //	public PatternMaster patternMaster;
 	public Dictionary<ScoreLevels, int> scoreMaping;
 
+	public ComboText comboText;
 	int combo = 0;
 	float score = 0;
 	int maxScore;
@@ -71,6 +72,8 @@ public class ComboCalculator : MonoBehaviour {
 		}
 
 		DebugPanel.Instance.log ("Score Numeric", score);
+
+		comboText.SetCombo (combo);
 	}
 
 	void OnDestroy(){
