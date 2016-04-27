@@ -34,7 +34,7 @@ public class ComboCalculator : MonoBehaviour {
 		};
 
 		DebugPanel.Instance.log ("MaxScore", maxScore);
-
+		healthBar.setFraction (0);
 	}
 
 	public void setMaxScore(int totalScorable){
@@ -75,8 +75,19 @@ public class ComboCalculator : MonoBehaviour {
 		DebugPanel.Instance.log ("Score Numeric", score);
 
 		comboText.SetCombo (combo);
-		healthBar.setFraction (score / maxScore);
+
+
+
+
+		healthBar.setFraction (healthBarDisplayFraction());
 	}
+
+	float healthBarDisplayFraction(){
+		//we don't necessarily want maxScore
+		float display = score/ maxScore * 1.05f;
+		return Mathf.Clamp (display, 0f, 1f);
+	}
+
 
 	void OnDestroy(){
 		Messenger<ScoreLevels>.RemoveListener (MessengerKeys.EVENT_SCORE, onScore);
