@@ -6,6 +6,7 @@ public class ComboCalculator : MonoBehaviour {
 	public Dictionary<ScoreLevels, int> scoreMaping;
 
 	public ComboText comboText;
+	public Healthbar healthBar;
 	int combo = 0;
 	float score = 0;
 	int maxScore;
@@ -74,6 +75,7 @@ public class ComboCalculator : MonoBehaviour {
 		DebugPanel.Instance.log ("Score Numeric", score);
 
 		comboText.SetCombo (combo);
+		healthBar.setFraction (score / maxScore);
 	}
 
 	void OnDestroy(){
