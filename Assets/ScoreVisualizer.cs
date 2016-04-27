@@ -78,11 +78,11 @@ public class ScoreVisualizer : MonoBehaviour {
 	void onScore(ScoreLevels score){
 		count = (count + 0);
 
-		Debug.LogFormat ("Score received {0}", score);
+//		Debug.LogFormat ("Score received {0}", score);
 
 		GameObject scorePrefab = scoreToPrefab [score];
 		if (scorePrefab != null) {
-			Debug.Log ("Found prefab");
+//			Debug.Log ("Found prefab");
 
 			var scaleFactor = 1.5f;
 			var time = 0.2f;
@@ -108,8 +108,6 @@ public class ScoreVisualizer : MonoBehaviour {
 //			}
 
 
-
-
 //			LeanTween.scaleX (scorePrefab, scaleFactor, time).setDelay (animationDelay)
 //				.setOnComplete (() => LeanTween.scaleX (scorePrefab, 1.0f, time));
 //			LeanTween.scaleY (scorePrefab, scaleFactor, time).setDelay (animationDelay)
@@ -119,8 +117,6 @@ public class ScoreVisualizer : MonoBehaviour {
 
 
 //			LeanTween.scaleY (scorePrefab, scaleFactor, 0.1f);
-
-
 
 
 

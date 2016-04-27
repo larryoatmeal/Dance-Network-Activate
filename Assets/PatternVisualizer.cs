@@ -69,7 +69,7 @@ public class PatternVisualizer : MonoBehaviour {
 	}
 
 	void releaseEvent(MusicEvent e){
-		Debug.Log (e);
+//		Debug.Log (e);
 
 		if (noteTrails.ContainsKey (e)) {
 			activeHolds.Remove (e);
@@ -220,7 +220,7 @@ public class PatternVisualizer : MonoBehaviour {
 			NoteTrail trail = (Instantiate (Resources.Load ("Trail")) as GameObject).GetComponent<NoteTrail>();
 			noteTrails [e] = trail;
 			trail.setX (xForEvent (e));
-			Debug.Log (trail);
+//			Debug.Log (trail);
 
 //			GameObject newBall = prefabForEvent(e);
 		}

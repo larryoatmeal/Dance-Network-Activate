@@ -16,9 +16,31 @@ public class MainMusic : MonoBehaviour {
 //
 //		Debug.Log (audioSource.clip.name);
 //		ratio = 1000f / audioSource.clip.frequency;
+
 		setAudio (GameManager.Instance.musicFile);
+//		StartCoroutine(DownloadMusic(GameManager.Instance.musicFile));
 	}
 
+	AudioClip _clip;
+
+	IEnumerator DownloadMusic(string fileName) {
+		string filePath = "file://" + System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
+		WWW request = new WWW (filePath);
+		yield return request;
+
+		Debug.Log (filePath);
+		Debug.Log (request);
+
+		if (request.error != null) {
+			Debug.LogWarningFormat ("Request error {0}", request.error);
+		} else {
+			audioSource = gameObject.GetComponent<AudioSource> ();
+
+
+			_clip = request.GetAudioClip (false, true);
+			audioSource.clip = _clip;
+		}
+	}
 
 	public void setAudioStream(string fileName){
 
@@ -29,7 +51,7 @@ public class MainMusic : MonoBehaviour {
 		Debug.Log (filePath);
 		Debug.Log (request);
 		audioSource = gameObject.GetComponent<AudioSource> ();
-		AudioClip clip = request.GetAudioClip (false, true);;
+		AudioClip clip = request.GetAudioClip (false, true);
 		audioSource.clip = clip;
 	}
 

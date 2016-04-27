@@ -67,6 +67,9 @@ public class Game : MonoBehaviourThreading {
 	void Start () {
 		preStartMS = (int)(preStart * 1000);
 
+
+
+
 		//do not immediately start playing if first time
 //		BeginGame ();
 //

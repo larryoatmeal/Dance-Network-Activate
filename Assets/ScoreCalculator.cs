@@ -147,7 +147,7 @@ public class ScoreCalculator: MonoBehaviour
 //		Debug.Log (events.Count);
 
 		events[e.eventType].Add(e);
-		Debug.Log (e);
+//		Debug.Log (e);
 
 		if (e.isHeldEvent ()) {
 			releaseEvents [e.eventType].Add (e);
@@ -223,8 +223,8 @@ public class ScoreCalculator: MonoBehaviour
 					long adjustedError = delta + latencyAdjustment;
 					//only consider if within scoring range
 					if (delta < ScorableThreshold) {
-						Debug.LogFormat ("Delta {0}", delta);
-						Debug.LogFormat ("Adjusted delta {0}", adjustedError);
+//						Debug.LogFormat ("Delta {0}", delta);
+//						Debug.LogFormat ("Adjusted delta {0}", adjustedError);
 
 						ScoreLevels score = ReportQuality (adjustedError);
 
@@ -251,7 +251,7 @@ public class ScoreCalculator: MonoBehaviour
 					//only register relases if already down
 					if (releaseEventActive.ContainsKey(e)) {
 						ScoreLevels score = ReportQuality (adjusted);
-						Debug.LogFormat ("Release {0}", adjusted);
+//						Debug.LogFormat ("Release {0}", adjusted);
 
 						relevantEvents [musicEventType].RemoveAt (0);
 						Messenger<ScoreLevels>.Invoke (MessengerKeys.EVENT_SCORE, score);
