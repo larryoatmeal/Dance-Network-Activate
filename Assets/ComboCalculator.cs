@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 
 public class ComboCalculator : MonoBehaviour {
-
+//	public PatternMaster patternMaster;
 	public Dictionary<ScoreLevels, int> scoreMaping;
 
 	int combo = 0;
 	float score = 0;
+	int maxScore;
 
+	public int comboLogBase = 10;
 
  	public int badScore = -200;
 	public int missScore = -400;
@@ -28,6 +30,27 @@ public class ComboCalculator : MonoBehaviour {
 			{ ScoreLevels.Perfect, perfectScore },
 			{ ScoreLevels.GoodShit, perfectScore }
 		};
+
+		DebugPanel.Instance.log ("MaxScore", maxScore);
+
+	}
+
+	public void setMaxScore(int totalScorable){
+		maxScore = calculateMaxScore (totalScorable);
+		Debug.Log (maxScore);
+	}
+
+	int calculateMaxScore(int totalScorable){
+		//max score is all perfects and all combos
+		//essentially perfects * sum(log(n))
+		//we know integral of log(x) is (xln(x) -x)/ln10 (from 1 to x)
+		//we want a lower bound
+
+		float x = totalScorable - 1;//ensurs that integral is bounded below sum
+		float integral = (x * Mathf.Log (x) - x) / Mathf.Log (comboLogBase);
+
+		DebugPanel.Instance.log ("Total score", integral.ToString());
+		return perfectScore * (int)integral;
 	}
 
 	void onScore(ScoreLevels scoreLevel){
@@ -40,7 +63,7 @@ public class ComboCalculator : MonoBehaviour {
 		if (combo == 0) {
 			score += scoreMaping [scoreLevel];
 		} else {
-			score += scoreMaping [scoreLevel] * Mathf.Log10 (combo);
+			score += scoreMaping [scoreLevel] * Mathf.Log (combo, comboLogBase);
 		}
 
 		if (score < 0) {

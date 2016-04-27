@@ -66,6 +66,7 @@ public class PatternMaster : MonoBehaviour {
 //	public SoundEffect soundEffect;
 	public PatternVisualizer patternVisualizer;
 	public ScoreCalculator scoreCalculator;
+	public ComboCalculator comboCalculator;
 	public LP deltaLp = new LP(100);
 //	long startTime = 0;
 //	List<MusicEvent> events = new BeatGenerator().quarters();
@@ -115,15 +116,11 @@ public class PatternMaster : MonoBehaviour {
 		debugPanel = DebugPanel.Instance;
 		PatternLoader patternLoader = new PatternLoader ();
 		pattern = patternLoader.loadPattern (GameManager.Instance.midiFile);
+		comboCalculator.setMaxScore (pattern.totalScorable ());
 	}
 
 		
 	private long lastReportedTime = 0;
-
-	public int TotalScorable(){
-		return pattern.totalScorable ();
-	}
-
 
 	// Update is called once per frame
 	void Update () {
