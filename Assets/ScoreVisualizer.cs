@@ -32,7 +32,7 @@ public class ScoreVisualizer : MonoBehaviour {
 			{ScoreLevels.GoodShit, goodShit},
 			{ScoreLevels.Perfect, perfect},
 			{ScoreLevels.Great, great},
-			{ScoreLevels.Good, okay},
+			{ScoreLevels.Okay, okay},
 			{ScoreLevels.Bad, coffin},
 			{ScoreLevels.Miss, miss}
 		};

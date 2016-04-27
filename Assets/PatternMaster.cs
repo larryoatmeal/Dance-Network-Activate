@@ -116,8 +116,13 @@ public class PatternMaster : MonoBehaviour {
 		PatternLoader patternLoader = new PatternLoader ();
 		pattern = patternLoader.loadPattern (GameManager.Instance.midiFile);
 	}
+
 		
 	private long lastReportedTime = 0;
+
+	public int TotalScorable(){
+		return pattern.totalScorable ();
+	}
 
 
 	// Update is called once per frame

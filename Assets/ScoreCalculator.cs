@@ -39,7 +39,7 @@ public enum ScoreLevels{
 	GoodShit,
 	Perfect,
 	Great,
-	Good,
+	Okay,
 	Bad,
 	Miss
 }
@@ -104,7 +104,7 @@ public class ScoreCalculator: MonoBehaviour
 			{ScoreLevels.GoodShit, GoodShitString},
 			{ScoreLevels.Perfect, PerfectString},
 			{ScoreLevels.Great, GreatString},
-			{ScoreLevels.Good, GoodString},
+			{ScoreLevels.Okay, GoodString},
 			{ScoreLevels.Bad, BadString}
 		};
 		events = new Dictionary<MusicEventTypes, List<MusicEvent>>(){
@@ -317,7 +317,7 @@ public class ScoreCalculator: MonoBehaviour
 		} else if (error < great) {
 			return ScoreLevels.Great;
 		} else if (error < good) {
-			return ScoreLevels.Good;
+			return ScoreLevels.Okay;
 		} else{
 			return ScoreLevels.Bad;
 		} 

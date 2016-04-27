@@ -31,8 +31,18 @@ public class Pattern{
 	public bool isFinished(){
 		return iterator.peek () == null;
 	}
-
-
+		
+	public int totalScorable(){
+		int n = 0;
+		foreach (MusicEvent e in events) {
+			if (e.isHeldEvent ()) {
+				n += 2;
+			} else {
+				n += 1;
+			}
+		}
+		return n;
+	}
 
 	public void Process(long absTime, HandleEvent handler){
 		long songTime = absTime - startTime;
