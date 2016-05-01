@@ -23,8 +23,6 @@ public class SongList : MonoBehaviour {
 			List<string> songNames = obj.keys;
 			songs = songNames;
 		}
-			
-
 //		string fullPath = Application.dataPath + audioPath;
 //
 //		Debug.Log (fullPath);
@@ -46,7 +44,7 @@ public class SongList : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		
 
 	}
 	

@@ -5,8 +5,8 @@ public class TestDummy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MIDI midi = new MIDI ();
-		midi.processMidi ("bicycle-ride");
+		MIDI midi = new MIDI ("bicycle-ride");
+		midi.dumbMapping ();
 
 
 

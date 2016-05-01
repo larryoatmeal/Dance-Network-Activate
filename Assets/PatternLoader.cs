@@ -31,8 +31,8 @@ public class PatternLoader
 
 		else {
 			//load file here
-			MIDI midi = new MIDI();
-			List<MusicEvent> musicEvents = midi.processMidi (midifile);
+			MIDI midi = new MIDI(midifile);
+			List<MusicEvent> musicEvents = midi.dumbMapping ();
 
 //			foreach (MusicEvent m in musicEvents) {
 //				Debug.Log (m);
