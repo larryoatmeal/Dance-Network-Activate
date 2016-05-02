@@ -11,7 +11,7 @@ public class API {
 		}
 	}
 
-	static IEnumerator publicSongs(System.Action<List<SongMeta>> callback){
+	public static IEnumerator publicSongs(System.Action<List<SongMeta>> callback){
 		string url = endpoint + "publicsongs";
 		WWW www = new WWW(url);
 		yield return www;
@@ -21,29 +21,70 @@ public class API {
 		callback (metas);
 	}
 
-	static IEnumerator downloadAudio(string audioPath, System.Action<AudioClip> callback){
-		WWW www = new WWW(audioPath);
-		yield return www;
-		callback (www.GetAudioClip (false, true));
+	public static void logError(string err){
+		Debug.LogWarning (err);
 	}
 
-	static IEnumerator downloadImage(string audioPath, System.Action<Texture2D> callback){
+	public static IEnumerator downloadAudio(string audioPath, System.Action<AudioClip> callback){
+		return downloadAudio (audioPath, callback, logError);
+	}
+
+	public static IEnumerator downloadAudio(string audioPath, System.Action<AudioClip> callback, System.Action<string> error){
+		WWW www = new WWW(audioPath);
+		yield return www;
+	
+		if (www.error != null)	
+			error ("Audio failed to download");
+		else{
+			try{
+				Debug.Log(audioPath);
+				AudioClip clip = www.GetAudioClip (false, true, AudioType.OGGVORBIS);
+				callback (clip);
+			}catch{
+				error ("Audio failed to download");
+			}
+		}
+	}
+
+	public static IEnumerator downloadImage(string audioPath, System.Action<Texture2D> callback){
 		WWW www = new WWW(audioPath);
 		yield return www;
 		callback (www.texture);
 	}
 
-	static IEnumerator downloadAndSetImage(string audioPath, Texture2D texture, System.Action callback){
+	public static IEnumerator downloadAndCreateTexture(string audioPath, System.Action<Texture2D> callback){
 		WWW www = new WWW(audioPath);
 		yield return www;
-		www.LoadImageIntoTexture (texture);
-		callback ();
+
+		Texture2D newTexture = new Texture2D(www.texture.width, www.texture.height, TextureFormat.DXT1, false);
+		www.LoadImageIntoTexture (newTexture);
+
+		www.Dispose();
+		www = null;
+
+		callback (newTexture);
 	}
 
-	static IEnumerator downloadMIDI(string midiPath, System.Action<MIDI> callback){
+	public static IEnumerator downloadMIDI(string midiPath, System.Action<MIDI> callback){
+		return downloadMIDI (midiPath, callback, logError);
+
+	}
+
+	public static IEnumerator downloadMIDI(string midiPath, System.Action<MIDI> callback, System.Action<string> error){
 		WWW www = new WWW(midiPath);
 		yield return www;
-		callback (new MIDI(www.bytes));
+
+		if (www.error != null) {
+			error ("Error downloading midi");
+		}
+
+		try{
+			callback (new MIDI(www.bytes));
+		}catch{
+			error ("Error parsing midi");
+		}
+
 	}
+
 
 }

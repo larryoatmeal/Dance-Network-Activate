@@ -50,8 +50,7 @@ public class Game : MonoBehaviourThreading {
 			ResumeGame ();
 		}
 	}
-
-
+		
 	public void PauseGame(){
 		music.pause ();
 		patternMaster.Pause ();
@@ -67,9 +66,15 @@ public class Game : MonoBehaviourThreading {
 	void Start () {
 		preStartMS = (int)(preStart * 1000);
 
-
-
-
+//		SongMeta song = GameManager.Instance.currentSong;
+//		StartCoroutine (API.downloadAudio (song.musicPath, audioclip => {
+//			Debug.Log("Finished downloading audio");
+//			StartCoroutine (API.downloadMIDI (song.midiPath, midi => {
+//				Debug.Log("Finished downloading midi");
+//			}));
+//
+//		}));
+	
 		//do not immediately start playing if first time
 //		BeginGame ();
 //
@@ -78,6 +83,10 @@ public class Game : MonoBehaviourThreading {
 //		} else {
 //		}
 	}
+
+
+
+
 
 	void Update(){
 		foreach (StandardControls control in controls) {

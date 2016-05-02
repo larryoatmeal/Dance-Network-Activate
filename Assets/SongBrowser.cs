@@ -9,52 +9,90 @@ public class SongBrowser : MonoBehaviour {
 
 	int index = 0;
 
-//	bool dirty = true; //initially dirty since need to draw
+	public bool aside = true;
 
 	public void Next(){
-		index = (index + 1) % songList.songs.Count;
+		if (aside) {
+			index = (index + 1) % songList.localSongs.Count;
 
-//
-//		if (index + 1 + entries.Count - 1 < songList.songs.Count) {
-//			index += 1;
-//			dirty = true;
-//		}
+		} else {
+			if (songList.isBsideReady ()) {
+				index = (index + 1) % songList.onlineSongs.Count;
+
+			}
+		}
+		playMiddle ();
 	}
 	public void Prev(){
-
-
-
 		index -= 1;
 		if (index < 0) {
-			index = songList.songs.Count - 1;
+			if (aside) {
+				index = songList.localSongs.Count - 1;
+
+			} else {
+				if (songList.isBsideReady ()) {
+					index = songList.onlineSongs.Count - 1;
+				} else {
+					index = 0;
+				}
+			}
 		}
+		playMiddle ();
 //
+
 //		if (index - 1 >= 0) {
 //			index -= 1;
 //			dirty = true;
 //		}
+
+	}
+
+	public void playMiddle(){
+		if (aside || songList.isBsideReady ()) {
+			Messenger<SongMeta>.Invoke (MessengerKeys.PLAY_SONG, getMiddleSong ());
+		}
+
+	}
+
+
+	public SongMeta getMiddleSong(){
+		int midIndex = (index + entries.Count / 2);
+
+		if (aside) {
+			return songList.localSongs [midIndex % songList.localSongs.Count];
+		} else {
+			return songList.onlineSongs [midIndex % songList.onlineSongs.Count];
+		}
 	}
 
 	// Use this for initialization
-	void Start () {
-		if (songList.songs.Count < entries.Count) {
+	IEnumerator Start () {
+		if (songList.localSongs.Count < entries.Count) {
 			Debug.Log ("Not enough songs");
 		}
+
+		while (!songList.isBsideReady ()) {
+			yield return new WaitForSeconds (0.1f);
+		}
+
+		playMiddle ();
+
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
-//		if (dirty) {
-			for (int i = 0; i < entries.Count; i++) {
-				string songName;
-//				if (i + index < songList.songs.Count) {
-				songName = songList.songs [(i + index)%songList.songs.Count];
-				entries [i].SetText (songName);
-				entries [i].SetPath (songName);
+		for (int i = 0; i < entries.Count; i++) {
+			if (aside) {
+				entries [i].SetSongMeta (songList.localSongs [(i + index)%songList.localSongs.Count]);
+			} else {//bside
+				if (songList.isBsideReady ()) {
+					entries[i].SetSongMeta (songList.onlineSongs [(i + index)%songList.onlineSongs.Count]);
+				} else {
+					entries [i].setNotReady ();
+				}
 			}
-//			dirty = false;
-//		}
-
+		}
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			Prev ();
 		}
@@ -63,7 +101,14 @@ public class SongBrowser : MonoBehaviour {
 		}
 
 
+
 	}
+
+	public void toggle(){
+		aside = !aside;
+		playMiddle ();
+	}
+
 
 	public void Calibrator(){
 		SceneManager.LoadScene ("calibrator");

@@ -17,8 +17,12 @@ public class MainMusic : MonoBehaviour {
 //		Debug.Log (audioSource.clip.name);
 //		ratio = 1000f / audioSource.clip.frequency;
 
-		setAudio (GameManager.Instance.musicFile);
+//		setAudio (GameManager.Instance.currentSong.musicPath);
 //		StartCoroutine(DownloadMusic(GameManager.Instance.musicFile));
+
+		audioSource = gameObject.GetComponent<AudioSource> ();
+		audioSource.clip = GameManager.Instance.currentAudio;
+
 	}
 
 	AudioClip _clip;
@@ -61,6 +65,9 @@ public class MainMusic : MonoBehaviour {
 		AudioClip clip = Resources.Load(path) as AudioClip;
 		Debug.Log (path);
 		audioSource.clip = clip;
+
+
+
 
 		Debug.Log (audioSource.clip.name);
 		ratio = 1000f / audioSource.clip.frequency;

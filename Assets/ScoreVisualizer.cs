@@ -124,9 +124,7 @@ public class ScoreVisualizer : MonoBehaviour {
 //				new Vector2(1, 1),
 //				1.0f
 //				);
-		} else {
-			Debug.LogWarningFormat ("Score {0} has no associated prefab", score);
-		}
+		} 
 	}
 
 

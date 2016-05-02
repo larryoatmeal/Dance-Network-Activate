@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class LoadProgress : MonoBehaviour {
-
 	// Use this for initialization
-
 	void Awake(){
-		Messenger.AddListener (MessengerKeys.LOAD_SCENE, display);
+		Messenger.AddListener (MessengerKeys.LOAD_PROGRESS, display);
+//		Messenger.AddListener (MessengerKeys.HIDE_PROGRESS, display);
+
 	}
 
 	void Start () {
@@ -18,13 +18,15 @@ public class LoadProgress : MonoBehaviour {
 		this.gameObject.SetActive (true);
 	}
 
+
 	void OnDestroy(){
-		Messenger.RemoveListener (MessengerKeys.LOAD_SCENE, display);
+		Messenger.RemoveListener (MessengerKeys.LOAD_PROGRESS, display);
+//		Messenger.AddListener (MessengerKeys.HIDE_PROGRESS, display);
+
 	}
 
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
 }

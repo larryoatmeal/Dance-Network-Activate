@@ -3,15 +3,18 @@ using System.Collections;
 
 public class GameManager : Singleton<GameManager> {
 	
-	public string musicFile = "wave";
-	public string patternFile = "demo";
+//	public string musicFile = "wave";
+//	public string patternFile = "demo";
 	public int lookAhead = 3000;
 	public float preStart = 1.0f;
-	public string midiFile = "bicycle-ride";
+//	public string midiFile = "bicycle-ride";
 
+	public SongMeta currentSong; 
+	public AudioClip currentAudio;
+	public MIDI currentMidi;
 
-	public void SetMusicFile(string fileName){
-	}
+//	public void SetMusicFile(string fileName){
+//	}
 
 	protected override void Init(){
 		Debug.Log ("[GameManager] init");

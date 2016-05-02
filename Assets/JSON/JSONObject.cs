@@ -616,6 +616,24 @@ public class JSONObject {
 					return list[i];
 		return null;
 	}
+	public string GetString(string name) {
+		JSONObject field = GetField(name);
+		if (field != null) {
+			return field.str;
+		} else {
+			return null;
+		}
+	}
+	public bool GetBool(string name) {
+		JSONObject field = GetField(name);
+		if (field != null && field.IsBool) {
+			return field.b;
+		} else {
+			return false;
+		}
+	}
+
+
 	public bool HasFields(string[] names) {
 		if(!IsObject)
 			return false;

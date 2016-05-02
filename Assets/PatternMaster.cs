@@ -115,7 +115,10 @@ public class PatternMaster : MonoBehaviour {
 		timeMaster = TimeMaster.Instance;
 		debugPanel = DebugPanel.Instance;
 		PatternLoader patternLoader = new PatternLoader ();
-		pattern = patternLoader.loadPattern (GameManager.Instance.midiFile);
+		pattern = patternLoader.loadPattern (GameManager.Instance.currentMidi);
+
+		Debug.LogFormat("Total scorable {0}",pattern.totalScorable ());
+
 		comboCalculator.setMaxScore (pattern.totalScorable ());
 	}
 

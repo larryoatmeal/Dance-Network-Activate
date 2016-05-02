@@ -37,10 +37,15 @@ def convertToJson(fileNames):
 	preJson = {}
 
 	for fileName in fileNames:
+		# meta = {
+		# 	"enabled": True
+		# }
 		meta = {
-			"enabled": True
-		}
-
+			"local": True,
+	  		"name":  fileName,
+	  		"audio": fileName,
+	  		"midi": fileName
+	  	};
 		preJson[fileName] = meta
 	# print(preJson
 

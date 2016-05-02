@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 public class SongMeta
 {
-	bool local = true;
-	string musicPath;
-	string midiPath;
-	string thumbnail;
-	string background;
-	string author;
-	string album;
+	public bool local = true;
+	public string musicPath;
+	public string midiPath;
+	public string thumbnail;
+	public string background;
+	public string author;
+	public string album;
+	public string name;
 
-	public SongMeta (bool local, string musicPath, string midiPath, string thumbnail, string background, string author, string album)
+	public SongMeta (bool local, string name, string musicPath, string midiPath, string thumbnail, string background, string author, string album)
 	{
 		this.local = local;
 		this.musicPath = musicPath;
@@ -20,6 +21,7 @@ public class SongMeta
 		this.background = background;
 		this.author = author;
 		this.album = album;
+		this.name = name;
 	}
 	public override string ToString ()
 	{
@@ -27,15 +29,15 @@ public class SongMeta
 	}
 
 	public static SongMeta parse(JSONObject songJson){
-
-		string musicPath = songJson.GetField ("audio").str;
-		string midiPath = songJson.GetField ("midi").str;
-		string background = songJson.GetField ("background").str;
-		string thumbnail = songJson.GetField ("thumbnail").str;
-		string author = songJson.GetField ("composer").str;
-		string album = songJson.GetField ("album").str;
-
-		return new SongMeta(false, musicPath, midiPath, thumbnail, background, author, album);	
+		string name = songJson.GetString ("name");
+		string musicPath = songJson.GetString ("audio");
+		string midiPath = songJson.GetString ("midi");
+		string background = songJson.GetString ("background");
+		string thumbnail = songJson.GetString ("thumbnail");
+		string author = songJson.GetString ("composer");
+		string album = songJson.GetString ("album");
+		bool local = songJson.GetBool ("local");
+		return new SongMeta(local, name, musicPath, midiPath, thumbnail, background, author, album);	
 	}
 
 	public static List<SongMeta> parseMultiple(JSONObject songJson){
@@ -46,6 +48,10 @@ public class SongMeta
 		}
 			
 		return songMetas;
+	}
+	public static List<SongMeta> parseString(String songJsonString){
+
+		return parseMultiple(new JSONObject(songJsonString));
 	}
 
 }
