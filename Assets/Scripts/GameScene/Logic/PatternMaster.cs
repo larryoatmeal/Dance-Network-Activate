@@ -128,8 +128,6 @@ public class PatternMaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (playing) {
-
-
 			int audioReportedTime = rhythm.timeMillis ();
 
 			if (lastReportedTime != 0 && audioReportedTime == 0) {//song has ended
@@ -138,7 +136,6 @@ public class PatternMaster : MonoBehaviour {
 
 			if (audioReportedTime != lastReportedTime) {
 
-					
 
 				long error = currentSongTime () - audioReportedTime;
 //				Debug.Log (error);

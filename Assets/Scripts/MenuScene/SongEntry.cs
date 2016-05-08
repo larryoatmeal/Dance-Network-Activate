@@ -10,10 +10,11 @@ public class SongEntry : MonoBehaviour {
 	Button imageButton;
 //	string path;
 	SongMeta songMeta;
+	PreloadSong localSong;
 
+	public Texture2D defaultImage;
 
-	Texture2D defaultImage;
-
+	private bool local = false;
 	public bool isReady = true;
 
 	// Use this for initialization
@@ -24,7 +25,7 @@ public class SongEntry : MonoBehaviour {
 		imageButton = image.GetComponentInChildren<Button>();
 
 		imageButton.onClick.AddListener (onClick);
-		defaultImage = Resources.Load ("leafball") as Texture2D;
+//		defaultImage = Resources.Load ("leafball") as Texture2D;
 	}
 
 	void onClick(){
@@ -33,25 +34,33 @@ public class SongEntry : MonoBehaviour {
 //		GameManager.Instance.midiFile = getAssociatedMidi ();	
 
 		if (isReady) {
-			GameManager.Instance.currentSong = songMeta;
-			Messenger.Invoke (MessengerKeys.LOAD_PROGRESS);
+			if (!local) {
+				GameManager.Instance.currentSong = songMeta;
+				StartCoroutine (APICacheManager.Instance.downloadAudio (songMeta.musicPath, clip => {
+					Debug.Log ("Music ready");
+					GameManager.Instance.currentAudio = clip;
 
-			StartCoroutine(APICacheManager.Instance.downloadAudio(songMeta.musicPath, clip => {
-				Debug.Log("Music ready");
-				GameManager.Instance.currentAudio = clip;
+					StartCoroutine (API.downloadMIDI (songMeta.midiPath, midi => {
+						Debug.Log ("MIDI ready");
 
-				StartCoroutine(API.downloadMIDI(songMeta.midiPath, midi => {
-					Debug.Log("MIDI ready");
+						GameManager.Instance.currentMidi = midi;
+						SceneManager.LoadScene ("rhythmTester");
+					}, e => {
+						Debug.LogWarning ("MIDI not found using default");
+						MIDI m = new MIDI ("bike2");
+						GameManager.Instance.currentMidi = m;
+						SceneManager.LoadScene ("rhythmTester");
+					}));
+				}, songMeta.local));
+			} else {
+				GameManager.Instance.currentAudio = localSong.getAudioClip ();
+				GameManager.Instance.currentMidi = localSong.getMIDI ();
+				GameManager.Instance.currentSong = localSong.getSongMeta ();
 
-					GameManager.Instance.currentMidi = midi;
-					SceneManager.LoadScene ("rhythmTester");
-				}, e => {
-					Debug.LogWarning("MIDI not found using default");
-					MIDI m = new MIDI("bike2");
-					GameManager.Instance.currentMidi = m;
-					SceneManager.LoadScene ("rhythmTester");
-				}));
-			}, songMeta.local));
+				Messenger.Invoke (MessengerKeys.LOAD_PROGRESS);
+				SceneManager.LoadScene ("rhythmTester");
+
+			}
 		}
 	}
 		
@@ -61,30 +70,37 @@ public class SongEntry : MonoBehaviour {
 //	}
 
 	public void SetSongMeta(SongMeta song){
+		local = false;
 		isReady = true;
 		if (song != this.songMeta) {
 			this.songMeta = song;
 			this.text.text = song.name;
 
-			if (song.local) {
-
-
+			if (song.thumbnail != "" && song.thumbnail != null) {
+				StartCoroutine (APICacheManager.Instance.downloadAndCreateTexture (song.thumbnail, song.local, 
+					(texture) => {
+						this.image.texture = texture;
+					}
+				));
 			} else {
-				if (song.thumbnail != "" && song.thumbnail != null) {
-					StartCoroutine (APICacheManager.Instance.downloadAndCreateTexture (song.thumbnail, 
-						(texture) => {
-							this.image.texture = texture;
-						}
-					));
-				} else {
-					this.image.texture = defaultImage;
-				}
+				this.image.texture = defaultImage;
 			}
 		}
-
-
 	}
 
+	public void SetSongLocal(PreloadSong song){
+		local = true;
+		isReady = true;
+		if (localSong != song) {
+			this.text.text = song.songName;
+			if (song.thumbnail != null) {
+				this.image.texture = song.thumbnail;
+			} else {
+				this.image.texture = defaultImage;
+			}
+		}
+		localSong = song;
+	}
 
 	public void setNotReady(){
 		isReady = false;

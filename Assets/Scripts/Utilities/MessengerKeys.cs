@@ -18,6 +18,7 @@ public static class MessengerKeys
 
 
 	public const string PLAY_SONG = "PLAY_SONG";
+	public const string PLAY_LOCAL_SONG = "PLAY_LOCAL_SONG";
 
 
 //	public const string PLAY = "TOGGLE_MENU";

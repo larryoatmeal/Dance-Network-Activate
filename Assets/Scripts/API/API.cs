@@ -34,14 +34,14 @@ public class API {
 		yield return www;
 	
 		if (www.error != null)	
-			error ("Audio failed to download");
+			error ("Audio path bad " + audioPath);
 		else{
 			try{
 				Debug.Log(audioPath);
 				AudioClip clip = www.GetAudioClip (false, true, AudioType.OGGVORBIS);
 				callback (clip);
 			}catch{
-				error ("Audio failed to download");
+				error ("Audio failed to parse"  + audioPath);
 			}
 		}
 	}

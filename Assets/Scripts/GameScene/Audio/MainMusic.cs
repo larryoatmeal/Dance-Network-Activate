@@ -15,13 +15,13 @@ public class MainMusic : MonoBehaviour {
 //		audioSource.clip = clip;
 //
 //		Debug.Log (audioSource.clip.name);
-//		ratio = 1000f / audioSource.clip.frequency;
 
 //		setAudio (GameManager.Instance.currentSong.musicPath);
 //		StartCoroutine(DownloadMusic(GameManager.Instance.musicFile));
 
 		audioSource = gameObject.GetComponent<AudioSource> ();
 		audioSource.clip = GameManager.Instance.currentAudio;
+		ratio = 1000f / audioSource.clip.frequency;
 
 	}
 
@@ -46,27 +46,24 @@ public class MainMusic : MonoBehaviour {
 		}
 	}
 
-	public void setAudioStream(string fileName){
-
-
-		string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
-		WWW request = new WWW (filePath);
-
-		Debug.Log (filePath);
-		Debug.Log (request);
-		audioSource = gameObject.GetComponent<AudioSource> ();
-		AudioClip clip = request.GetAudioClip (false, true);
-		audioSource.clip = clip;
-	}
-
+//	public void setAudioStream(string fileName){
+//
+//		string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
+//		WWW request = new WWW (filePath);
+//
+//		Debug.Log (filePath);
+//		Debug.Log (request);
+//		audioSource = gameObject.GetComponent<AudioSource> ();
+//		AudioClip clip = request.GetAudioClip (false, true);
+//		audioSource.clip = clip;
+//	}
+//
 	public void setAudio(string fileName){
 		audioSource = gameObject.GetComponent<AudioSource> ();
 		string path = "Audio/" + fileName;
 		AudioClip clip = Resources.Load(path) as AudioClip;
 		Debug.Log (path);
 		audioSource.clip = clip;
-
-
 
 
 		Debug.Log (audioSource.clip.name);

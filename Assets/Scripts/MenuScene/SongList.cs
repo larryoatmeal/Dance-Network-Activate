@@ -13,11 +13,18 @@ public class SongList : MonoBehaviour {
 
 	public List<SongMeta> onlineSongs = new List<SongMeta>();
 	public SongBrowser songBrowser;
+	public LocalSongs preloadSongManager;
+	private List<PreloadSong> preloadSongs;
+
+
 
 	bool bsideReady = false;
 
 
 	void Awake(){
+		preloadSongs = preloadSongManager.getPreloadedSongs ().ToList ();
+		Debug.Log (preloadSongs);
+
 		TextAsset text = Resources.Load ("Audio/songList") as TextAsset;
 		if (text == null) {
 			Debug.LogError ("songList.json not found in Audio folder");
@@ -46,23 +53,32 @@ public class SongList : MonoBehaviour {
 		
 	// Use this for initialization
 	void Start () {
-		StartCoroutine (API.publicSongs (s => {
+		
+		StartCoroutine (APICacheManager.Instance.publicSongs (s => {
 			onlineSongs = s;
 			bsideReady = true;
 //
 //			StartCoroutine (APICacheManager.Instance.downloadAudio (song.musicPath, (a) => {}));
 //
 //
-
 //			songBrowser.playMiddle();
-
-//			foreach (SongMeta song in onlineSongs) {
-//				StartCoroutine (APICacheManager.Instance.downloadAudio (song.musicPath, (a) => {}));
-//			}
+			const int preDownloadRange = 6;
+			for(int i = 0; i < Mathf.Min(onlineSongs.Count, preDownloadRange); i++){
+				//half backwards, half forwards
+				int index = i - preDownloadRange/2;
+				if(index < 0){
+					index = onlineSongs.Count + index;
+				}
+				StartCoroutine (APICacheManager.Instance.downloadAudio (onlineSongs[index].musicPath, (a) => {}));
+			}
 		}));
-			
-	
 
+	}
+
+	public List<PreloadSong> PreloadSongs {
+		get {
+			return this.preloadSongs;
+		}
 	}
 
 

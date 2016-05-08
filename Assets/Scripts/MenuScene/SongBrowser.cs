@@ -7,9 +7,14 @@ public class SongBrowser : MonoBehaviour {
 	public List<SongEntry> entries;
 	public SongList songList;
 
+
+
 	int index = 0;
 
 	public bool aside = true;
+
+
+
 
 	public void Next(){
 		if (aside) {
@@ -48,22 +53,92 @@ public class SongBrowser : MonoBehaviour {
 	}
 
 	public void playMiddle(){
-		if (aside || songList.isBsideReady ()) {
-			Messenger<SongMeta>.Invoke (MessengerKeys.PLAY_SONG, getMiddleSong ());
-		}
 
+	
+//		preCache ();
+
+//		if (aside || songList.isBsideReady ()) {
+//			Messenger<SongMeta>.Invoke (MessengerKeys.PLAY_SONG, getMiddleSong ());
+//		}
+		if (aside) {
+			Messenger<PreloadSong>.Invoke (MessengerKeys.PLAY_LOCAL_SONG, getMiddleLocal ());
+		} else {
+			if (songList.isBsideReady ()) {
+				Messenger<SongMeta>.Invoke (MessengerKeys.PLAY_SONG, getMiddleOnline ());
+			}
+		}
+	}
+	public void preCache(){
+		Debug.Log ("Precaching");
+		var active = songList.onlineSongs;
+		int lookahead = 4;
+
+		for (int i = 1; i <= lookahead; i++) {
+			preDownload (getSongCyclic (index + i, active));
+			preDownload (getSongCyclic (index - i, active));
+		}
+	}
+
+	private void preDownload(SongMeta song){
+		Debug.LogFormat ("Predonwloading {0}", song);
+		StartCoroutine(APICacheManager.Instance.downloadAudio (song.musicPath, (clip) => {
+		}, song.local));
 	}
 
 
-	public SongMeta getMiddleSong(){
-		int midIndex = (index + entries.Count / 2);
+	private T getSongCyclic<T>(int index, List<T> songs){
+		return songs [mod (index, songs.Count)];
+	}
+
+	private int mod(int x, int y){
+		if (x < 0) {
+			return y + x;
+		} else {
+			return x % y;
+		}
+	}
+
+
+
+	private List<SongMeta> getActiveList(){
+		List<SongMeta> activeList;
 
 		if (aside) {
-			return songList.localSongs [midIndex % songList.localSongs.Count];
+			activeList = songList.localSongs;
 		} else {
-			return songList.onlineSongs [midIndex % songList.onlineSongs.Count];
+			if (songList.isBsideReady ()) {
+				activeList = songList.onlineSongs;
+			} else {
+				activeList = new List<SongMeta> ();
+			}
 		}
+		return activeList;
 	}
+		
+//	public SongMeta getMiddleSong(){
+//		int midIndex = (index + entries.Count / 2);
+//
+//		if (aside) {
+//			return songList.localSongs [midIndex % songList.localSongs.Count];
+//		} else {
+//			return songList.onlineSongs [midIndex % songList.onlineSongs.Count];
+//		}
+//	}
+
+	public T getMiddle<T>(int startIndex, int viewSize, List<T> items){
+		int midIndex = (startIndex + viewSize / 2);
+		return items [midIndex % items.Count];
+	}
+
+	public SongMeta getMiddleOnline(){
+		return getMiddle<SongMeta> (index, entries.Count, songList.onlineSongs);
+	}
+
+	public PreloadSong getMiddleLocal(){
+		
+		return getMiddle<PreloadSong> (index, entries.Count, songList.PreloadSongs);
+	}
+
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -71,25 +146,54 @@ public class SongBrowser : MonoBehaviour {
 			Debug.Log ("Not enough songs");
 		}
 
-		while (!songList.isBsideReady ()) {
-			yield return new WaitForSeconds (0.1f);
+		if (!aside) {
+			while (!songList.isBsideReady ()) {
+				yield return new WaitForSeconds (0.1f);
+			}
+			playMiddle ();
+		} else {
+			playMiddle ();
 		}
-
-		playMiddle ();
+//		preCache ();
 
 	}
 
 
 	// Update is called once per frame
-	void Update () {
+//	void Update () {
+//		for (int i = 0; i < entries.Count; i++) {
+//			if (aside) {
+//				entries [i].SetSongMeta (songList.localSongs [(i + index)%songList.localSongs.Count]);
+//			} else {//bside
+//				if (songList.isBsideReady ()) {
+//					entries[i].SetSongMeta (songList.onlineSongs [(i + index)%songList.onlineSongs.Count]);
+//				} else {
+//					entries [i].setNotReady ();
+//				}
+//			}
+//		}
+//		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+//			Prev ();
+//		}
+//		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+//			Next ();
+//		}
+//	}
+
+
+	void Update(){
 		for (int i = 0; i < entries.Count; i++) {
+			var songEntry = entries [i];
 			if (aside) {
-				entries [i].SetSongMeta (songList.localSongs [(i + index)%songList.localSongs.Count]);
-			} else {//bside
+				var localSong = getSongCyclic<PreloadSong> (index + i, songList.PreloadSongs);
+				songEntry.SetSongLocal (localSong);
+			} else {
+
 				if (songList.isBsideReady ()) {
-					entries[i].SetSongMeta (songList.onlineSongs [(i + index)%songList.onlineSongs.Count]);
+					var onlineSong = getSongCyclic<SongMeta> (index + i, songList.onlineSongs);
+					songEntry.SetSongMeta (onlineSong);
 				} else {
-					entries [i].setNotReady ();
+					songEntry.setNotReady ();
 				}
 			}
 		}
@@ -100,11 +204,10 @@ public class SongBrowser : MonoBehaviour {
 			Next ();
 		}
 
-
-
 	}
 
 	public void toggle(){
+		index = 0;
 		aside = !aside;
 		playMiddle ();
 	}
