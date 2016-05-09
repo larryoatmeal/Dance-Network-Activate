@@ -70,9 +70,8 @@ public class SongEntry : MonoBehaviour {
 //	}
 
 	public void SetSongMeta(SongMeta song){
-		local = false;
 		isReady = true;
-		if (song != this.songMeta) {
+		if (song != this.songMeta || local) {//new song or changed song
 			this.songMeta = song;
 			this.text.text = song.name;
 
@@ -85,21 +84,33 @@ public class SongEntry : MonoBehaviour {
 			} else {
 				this.image.texture = defaultImage;
 			}
+		} else {
+			
 		}
+
+		local = false;
+
 	}
 
 	public void SetSongLocal(PreloadSong song){
-		local = true;
 		isReady = true;
-		if (localSong != song) {
+
+		if (song != localSong || !local) {
 			this.text.text = song.songName;
 			if (song.thumbnail != null) {
 				this.image.texture = song.thumbnail;
 			} else {
 				this.image.texture = defaultImage;
 			}
+
+		} else {
+
 		}
 		localSong = song;
+
+		local = true;
+
+
 	}
 
 	public void setNotReady(){

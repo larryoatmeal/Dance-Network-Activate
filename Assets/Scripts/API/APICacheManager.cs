@@ -11,6 +11,10 @@ public class APICacheManager : Singleton<APICacheManager> {
 
 
 	HashSet<string> activeAudioDownloads = new HashSet<string>();
+//	HashSet<string> activeAudioDownloads = new HashSet<string>();
+
+
+
 
 	protected override void Init(){
 		Debug.Log ("[GameManager] init");

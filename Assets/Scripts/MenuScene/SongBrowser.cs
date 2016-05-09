@@ -185,11 +185,12 @@ public class SongBrowser : MonoBehaviour {
 		for (int i = 0; i < entries.Count; i++) {
 			var songEntry = entries [i];
 			if (aside) {
+//				Debug.Log ("HERE");
 				var localSong = getSongCyclic<PreloadSong> (index + i, songList.PreloadSongs);
 				songEntry.SetSongLocal (localSong);
 			} else {
-
 				if (songList.isBsideReady ()) {
+//					Debug.Log ("THERE");
 					var onlineSong = getSongCyclic<SongMeta> (index + i, songList.onlineSongs);
 					songEntry.SetSongMeta (onlineSong);
 				} else {
