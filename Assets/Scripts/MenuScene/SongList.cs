@@ -69,7 +69,7 @@ public class SongList : MonoBehaviour {
 				if(index < 0){
 					index = onlineSongs.Count + index;
 				}
-				StartCoroutine (APICacheManager.Instance.downloadAudio (onlineSongs[index].musicPath, (a) => {}));
+				APICacheManager.Instance.downloadAudio (onlineSongs[index].musicPath, (a) => {});
 			}
 		}));
 

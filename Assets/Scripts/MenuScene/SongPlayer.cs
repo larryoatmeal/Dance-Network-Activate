@@ -47,7 +47,7 @@ public class SongPlayer : MonoBehaviour {
 		}
 		source.Stop();
 		Debug.Log ("Attempting to play " + song.name);
-		StartCoroutine (APICacheManager.Instance.downloadAudio(song.musicPath, onReady, song.local));
+		APICacheManager.Instance.downloadAudio(song.musicPath, onReady);
 	}
 
 	void playSongLocal(PreloadSong song){

@@ -81,8 +81,8 @@ public class SongBrowser : MonoBehaviour {
 
 	private void preDownload(SongMeta song){
 		Debug.LogFormat ("Predonwloading {0}", song);
-		StartCoroutine(APICacheManager.Instance.downloadAudio (song.musicPath, (clip) => {
-		}, song.local));
+		APICacheManager.Instance.downloadAudio (song.musicPath, (clip) => {
+		});
 	}
 
 

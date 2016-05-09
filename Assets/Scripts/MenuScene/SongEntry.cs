@@ -36,7 +36,7 @@ public class SongEntry : MonoBehaviour {
 		if (isReady) {
 			if (!local) {
 				GameManager.Instance.currentSong = songMeta;
-				StartCoroutine (APICacheManager.Instance.downloadAudio (songMeta.musicPath, clip => {
+				APICacheManager.Instance.downloadAudio (songMeta.musicPath, clip => {
 					Debug.Log ("Music ready");
 					GameManager.Instance.currentAudio = clip;
 
@@ -51,7 +51,7 @@ public class SongEntry : MonoBehaviour {
 						GameManager.Instance.currentMidi = m;
 						SceneManager.LoadScene ("rhythmTester");
 					}));
-				}, songMeta.local));
+				});
 			} else {
 				GameManager.Instance.currentAudio = localSong.getAudioClip ();
 				GameManager.Instance.currentMidi = localSong.getMIDI ();
@@ -76,11 +76,15 @@ public class SongEntry : MonoBehaviour {
 			this.text.text = song.name;
 
 			if (song.thumbnail != "" && song.thumbnail != null) {
-				StartCoroutine (APICacheManager.Instance.downloadAndCreateTexture (song.thumbnail, song.local, 
-					(texture) => {
-						this.image.texture = texture;
-					}
-				));
+//				StartCoroutine (APICacheManager.Instance.downloadAndCreateTexture (song.thumbnail, song.local, 
+//					(texture) => {
+//						this.image.texture = texture;
+//					}
+//				));
+				APICacheManager.Instance.downloadTexture (song.thumbnail, (texture) => {
+					this.image.texture = texture;
+				});
+
 			} else {
 				this.image.texture = defaultImage;
 			}
