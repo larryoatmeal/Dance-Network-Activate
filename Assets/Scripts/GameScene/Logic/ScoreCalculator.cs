@@ -140,6 +140,10 @@ public class ScoreCalculator: MonoBehaviour
 //		if (mode == ScoreCalculatorMode.Calibration) {
 //			int offset = calibrator.finish ();
 //		}
+
+
+
+
 	}
 
 	public void addEvent(MusicEvent e){

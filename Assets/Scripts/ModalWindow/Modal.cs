@@ -23,16 +23,20 @@ public class Modal : MonoBehaviour {
 	}
 
 	void Start(){
-		SetCancelEnabled (false);
-		SetNoEnabled (false);
-		SetOkayText ("Continue");
-		SetTitle ("Score Test");
+//		SetCancelEnabled (false);
+//		SetNoEnabled (false);
+////		SetOkayText ("Continue");
+//		SetTitle ("Score Test");
 //		rowManager.SetRows (
 //			new List<RowMeta> () {
 //				{ new RowMeta ("Key1", "Val1") },
 //				{ new RowMeta ("Key2", "Val2") },
 //				{ new RowMeta ("Key3", "Val3") },
 //			});
+	}
+
+	public void SetRows(List<RowMeta> rows){
+		rowManager.SetRows (rows);
 	}
 
 	public void SetOkayEnabled(bool enabled){

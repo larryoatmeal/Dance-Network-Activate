@@ -14,10 +14,10 @@ public class RowMeta
 		this.sprite = sprite;
 	}
 
-	public RowMeta (string key, string value)
+	public RowMeta (string key, object value)
 	{
 		this.key = key;
-		this.value = value;
+		this.value = value.ToString();
 		this.sprite = null;
 	}
 	

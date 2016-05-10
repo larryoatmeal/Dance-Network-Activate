@@ -14,7 +14,11 @@ public class PatternLoader
 		
 	}
 	public Pattern loadPattern(MIDI midi){
-		return new Pattern (midi.regularMapping (), GameManager.Instance.lookAhead);
+		if (midi == null) {
+			return new Pattern (new BeatGenerator ().quarters (numQuartersCalibration), GameManager.Instance.lookAhead);
+		} else {
+			return new Pattern (midi.regularMapping (), GameManager.Instance.lookAhead);
+		}
 	}
 
 //	public Pattern loadPattern(string midifile){
