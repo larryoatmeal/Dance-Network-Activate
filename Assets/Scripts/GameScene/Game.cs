@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 public class KeyEvent{
 	public StandardKeyCodes keycode;
@@ -138,7 +139,7 @@ public class Game : MonoBehaviourThreading {
 	}
 
 	public void MainMenu(){
-		Application.LoadLevel ("SongBrowser");
+		SceneManager.LoadScene ("SongBrowser");
 	}
 
 }

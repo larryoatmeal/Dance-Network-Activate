@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum Grade{
 	A,
@@ -9,8 +10,7 @@ public enum Grade{
 	D,
 	F
 }
-
-
+	
 public class ScoreSummary{
 	public int maxCombo;
 	public int totalScore;
@@ -47,6 +47,11 @@ public class FinalScore : MonoBehaviour {
 		modal.SetCancelEnabled (false);
 		modal.SetNoEnabled (false);
 		modal.SetOkayText ("Continue");
+
+		modal.SetOkayOnClick (() => {
+			SceneManager.LoadScene ("SongBrowser");
+
+		});
 
 		modal.SetRows (new List<RowMeta>{
 			{new RowMeta("Perfect", scoreSummary.numPerfect)},

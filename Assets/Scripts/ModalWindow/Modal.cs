@@ -51,6 +51,17 @@ public class Modal : MonoBehaviour {
 	public void SetTitle(string titleText){
 		title.text = titleText;
 	}
+	public void SetOkayOnClick(UnityEngine.Events.UnityAction action){
+		buttonOkay.AddListener (action);
+	}
+	public void SetCancelOnClick(UnityEngine.Events.UnityAction action){
+		buttonCancel.AddListener (action);
+	}
+	public void SetNoOnClick(UnityEngine.Events.UnityAction action){
+		buttonNo.AddListener (action);
+	}
+
+
 
 	public void SetOkayText(string text){
 		buttonOkay.SetText (text);
