@@ -57,9 +57,9 @@ public class SongList : MonoBehaviour {
 		StartCoroutine (APICacheManager.Instance.publicSongs (s => {
 			onlineSongs = s;
 			bsideReady = true;
+
 //
 //			StartCoroutine (APICacheManager.Instance.downloadAudio (song.musicPath, (a) => {}));
-//
 //
 //			songBrowser.playMiddle();
 			const int preDownloadRange = 6;

@@ -31,6 +31,8 @@ public class PatternVisualizer : MonoBehaviour {
 	Dictionary<MusicEvent, GameObject> noteTrailEnds = new Dictionary<MusicEvent, GameObject> ();
 
 
+	public Pool arrowPool;
+
 	private int latencyAdjustment;
 	List<GameObject> destoryQueue = new List<GameObject>();
 	// Use this for initialization
@@ -151,7 +153,9 @@ public class PatternVisualizer : MonoBehaviour {
 
 			//clean up
 			foreach (GameObject obj in destoryQueue) {
-				Destroy (obj);
+//				Destroy (obj);
+				arrowPool.Decommision (obj);
+
 			}
 			destoryQueue.Clear ();
 
@@ -255,6 +259,8 @@ public class PatternVisualizer : MonoBehaviour {
 //		GameObject ball = Instantiate(Resources.Load("Pokeball1")) as GameObject;
 		GameObject ball = prefabForEvent (e);
 
+		//so not exactly same z
+		ball.transform.Translate (new Vector3(0, 0, Random.value * 1.0f));
 
 		Pad pad = padForEvent (e);
 		ball.transform.position = new Vector3(pad.transform.position.x, -10, 0);
@@ -265,31 +271,35 @@ public class PatternVisualizer : MonoBehaviour {
 
 
 	private GameObject prefabForEvent(MusicEvent e){
-		string prefabNum;
-		switch (e.eventType) 
-		{
-		case MusicEventTypes.Down:
-			prefabNum = "Pokeball1";
-			break;
-		case MusicEventTypes.Up:
-			prefabNum = "Pokeball2";
-			break;
-		case MusicEventTypes.Left:
-			prefabNum = "Pokeball3";
-			break;
-		case MusicEventTypes.Right:
-			prefabNum = "Pokeball4";
-			break;
-		default:
-			prefabNum = "Pokeball1";
-			Debug.LogError ("No ball this event");
-			break;
-
-		}
-		return Instantiate(Resources.Load(prefabNum)) as GameObject;;
+//		string prefabNum;
+//		switch (e.eventType) 
+//		{
+//		case MusicEventTypes.Down:
+//			prefabNum = "Pokeball1";
+//			break;
+//		case MusicEventTypes.Up:
+//			prefabNum = "Pokeball2";
+//			break;
+//		case MusicEventTypes.Left:
+//			prefabNum = "Pokeball3";
+//			break;
+//		case MusicEventTypes.Right:
+//			prefabNum = "Pokeball4";
+//			break;
+//		default:
+//			prefabNum = "Pokeball1";
+//			Debug.LogError ("No ball this event");
+//			break;
+//
+//		}
+//		return Instantiate(Resources.Load(prefabNum)) as GameObject;
+		GameObject arrowObj = arrowPool.Commission ();
+		Arrow arrow = arrowObj.GetComponent<Arrow> ();
+		arrow.SetDirection (e.eventType);
+		arrow.randomizeZ ();
+		return arrowObj;
 	}
-
-
+		
 	//not safe
 	private Pad padForEvent(MusicEvent e){
 		return padList [laneForEvent(e)];

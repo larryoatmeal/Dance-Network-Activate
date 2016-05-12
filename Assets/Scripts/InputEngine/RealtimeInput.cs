@@ -133,7 +133,16 @@ public class RealtimeInput : MonoBehaviour {
 				}
 			}
 		}
+
+//		Input.Get
+
+
 		#else
+
+
+
+
+
 		foreach(StandardKeyCodes keyCode in trackedKeys){
 		KeyCode key = KeyConverter.ToUnityKey(keyCode);
 		if(Input.GetKeyDown(key)){
