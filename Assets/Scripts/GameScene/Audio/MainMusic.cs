@@ -37,24 +37,22 @@ public class MainMusic : MonoBehaviour {
 
 	AudioClip _clip;
 
-	IEnumerator DownloadMusic(string fileName) {
-		string filePath = "file://" + System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
-		WWW request = new WWW (filePath);
-		yield return request;
-
-		Debug.Log (filePath);
-		Debug.Log (request);
-
-		if (request.error != null) {
-			Debug.LogWarningFormat ("Request error {0}", request.error);
-		} else {
-			audioSource = gameObject.GetComponent<AudioSource> ();
-
-
-			_clip = request.GetAudioClip (false, true);
-			audioSource.clip = _clip;
-		}
-	}
+//	IEnumerator DownloadMusic(string fileName) {
+//		string filePath = "file://" + System.IO.Path.Combine(Application.streamingAssetsPath, "nexthouse.ogg");
+//		WWW request = new WWW (filePath);
+//		yield return request;
+//
+//		Debug.Log (filePath);
+//		Debug.Log (request);
+//
+//		if (request.error != null) {
+//			Debug.LogWarningFormat ("Request error {0}", request.error);
+//		} else {
+//			audioSource = gameObject.GetComponent<AudioSource> ();
+//			_clip = request.GetAudioClip (false, false);
+//			audioSource.clip = _clip;
+//		}
+//	}
 
 //	public void setAudioStream(string fileName){
 //

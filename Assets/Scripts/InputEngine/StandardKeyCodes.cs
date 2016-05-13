@@ -9,7 +9,11 @@ public enum StandardKeyCodes{
 	D,
 	F,
 	J,
-	K
+	K,
+	LEFT,
+	UP,
+	RIGHT,
+	DOWN
 }
 
 public class KeyConverter
@@ -29,6 +33,11 @@ public class KeyConverter
 		{StandardKeyCodes.F, KeyCode.F},
 		{StandardKeyCodes.J, KeyCode.J},
 		{StandardKeyCodes.K, KeyCode.K},
+		{StandardKeyCodes.LEFT, KeyCode.LeftArrow},
+		{StandardKeyCodes.UP, KeyCode.UpArrow},
+		{StandardKeyCodes.RIGHT, KeyCode.RightArrow},
+		{StandardKeyCodes.DOWN, KeyCode.DownArrow},
+
 	};
 
 	private static Dictionary<StandardKeyCodes, int> MacNative = new Dictionary<StandardKeyCodes, int>(){

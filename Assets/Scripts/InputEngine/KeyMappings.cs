@@ -4,16 +4,17 @@ using System.Collections.Generic;
 static public class KeyMappings
 {
 	public static Dictionary<StandardKeyCodes, StandardControls> map = new Dictionary<StandardKeyCodes, StandardControls> () {
-		{ StandardKeyCodes.D, StandardControls.LEFT },
-		{ StandardKeyCodes.F, StandardControls.DOWN },
-		{ StandardKeyCodes.J, StandardControls.UP },
-		{ StandardKeyCodes.K, StandardControls.RIGHT }
+		{ StandardKeyCodes.LEFT, StandardControls.LEFT },
+		{ StandardKeyCodes.DOWN, StandardControls.DOWN },
+		{ StandardKeyCodes.UP, StandardControls.UP },
+		{ StandardKeyCodes.RIGHT, StandardControls.RIGHT }
 	};
+
 	public static Dictionary<StandardControls, StandardKeyCodes> reverseMap = new Dictionary<StandardControls, StandardKeyCodes>(){
-		{ StandardControls.LEFT, StandardKeyCodes.D},
-		{ StandardControls.DOWN, StandardKeyCodes.F},
-		{ StandardControls.UP, StandardKeyCodes.J},
-		{ StandardControls.RIGHT, StandardKeyCodes.K}
+		{ StandardControls.LEFT, StandardKeyCodes.LEFT},
+		{ StandardControls.DOWN, StandardKeyCodes.DOWN},
+		{ StandardControls.UP, StandardKeyCodes.UP},
+		{ StandardControls.RIGHT, StandardKeyCodes.RIGHT}
 	};
 
 	public static StandardControls keyToControl(StandardKeyCodes key){
