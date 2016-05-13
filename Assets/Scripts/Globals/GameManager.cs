@@ -11,8 +11,13 @@ public class GameManager : Singleton<GameManager> {
 
 	public SongMeta currentSong; 
 	public AudioClip currentAudio;
+
 	public MIDI currentMidi;
 
+//	public void onlineEnabled(){
+//		return false;
+//	}
+//
 //	public void SetMusicFile(string fileName){
 //	}
 

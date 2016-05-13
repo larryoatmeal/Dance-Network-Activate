@@ -31,6 +31,7 @@ public class Game : MonoBehaviourThreading {
 	public ScoreCalculator scoreCalculator;
 	public PatternMaster patternMaster;
 	public MainMusic music;
+	public MobileInput mobileInput;
 //	public List<GameObject> menuItems;
 
 
@@ -102,6 +103,23 @@ public class Game : MonoBehaviourThreading {
 				OnKeyUp (key, upTime);
 			}
 		}
+
+
+		#if UNITY_IOS 
+		//mobile only
+		foreach (StandardControls control in controls) {
+			StandardKeyCodes key = KeyMappings.controlToKey (control);
+
+			long downTime = mobileInput.keyDown (key);
+			if (downTime >= 0) {
+				OnKeyDown (key, downTime);
+			}
+			long upTime = mobileInput.keyUp (key);
+			if (upTime >= 0) {
+				OnKeyUp (key, upTime);
+			}
+		}
+		#endif
 			
 
 		//WARN: This code is far more complex then it has to be
@@ -121,14 +139,18 @@ public class Game : MonoBehaviourThreading {
 			}
 		};
 
+
+
+	
+
 	}
 
-	void OnKeyDown(StandardKeyCodes key, long time){
+	public void OnKeyDown(StandardKeyCodes key, long time){
 		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_PRESSED, KeyMappings.keyToControl (key));
 		scoreCalculator.processKey (key, time, true);
 	}
 
-	void OnKeyUp(StandardKeyCodes key, long time){
+	public void OnKeyUp(StandardKeyCodes key, long time){
 		Messenger<StandardControls>.Invoke (MessengerKeys.EVENT_PAD_RELEASED, KeyMappings.keyToControl (key));
 		scoreCalculator.processKey (key, time, false);
 

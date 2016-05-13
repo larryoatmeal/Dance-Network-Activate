@@ -20,10 +20,20 @@ public class MainMusic : MonoBehaviour {
 //		StartCoroutine(DownloadMusic(GameManager.Instance.musicFile));
 
 		audioSource = gameObject.GetComponent<AudioSource> ();
-		audioSource.clip = GameManager.Instance.currentAudio;
-		ratio = 1000f / audioSource.clip.frequency;
 
+
+		if (GameManager.Instance.currentAudio != null) {
+			Init (GameManager.Instance.currentAudio);
+		}
 	}
+
+	public void Init(AudioClip clip){
+		audioSource.clip = clip;
+
+//		audioSource.clip = GameManager.Instance.currentAudio;
+		ratio = 1000f / audioSource.clip.frequency;
+	}
+
 
 	AudioClip _clip;
 
@@ -58,18 +68,18 @@ public class MainMusic : MonoBehaviour {
 //		audioSource.clip = clip;
 //	}
 //
-	public void setAudio(string fileName){
-		audioSource = gameObject.GetComponent<AudioSource> ();
-		string path = "Audio/" + fileName;
-		AudioClip clip = Resources.Load(path) as AudioClip;
-		Debug.Log (path);
-		audioSource.clip = clip;
-
-
-		Debug.Log (audioSource.clip.name);
-		ratio = 1000f / audioSource.clip.frequency;
-//		setAudioStream (fileName);
-	}
+//	public void setAudio(string fileName){
+//		audioSource = gameObject.GetComponent<AudioSource> ();
+//		string path = "Audio/" + fileName;
+//		AudioClip clip = Resources.Load(path) as AudioClip;
+//		Debug.Log (path);
+//		audioSource.clip = clip;
+//
+//
+//		Debug.Log (audioSource.clip.name);
+//		ratio = 1000f / audioSource.clip.frequency;
+////		setAudioStream (fileName);
+//	}
 
 	// Update is called once per frame
 	void Update () {

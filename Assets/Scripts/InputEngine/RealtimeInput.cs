@@ -133,14 +133,8 @@ public class RealtimeInput : MonoBehaviour {
 				}
 			}
 		}
-
-//		Input.Get
-
-
+			
 		#else
-
-
-
 
 
 		foreach(StandardKeyCodes keyCode in trackedKeys){

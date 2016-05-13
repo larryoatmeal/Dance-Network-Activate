@@ -7,11 +7,14 @@ public class Coordinator : MonoBehaviour {
 	public CalibratorV2 calibrator;
 
 	public RealtimeInput input;
+	public AudioClip calibrationClip;
+
 
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("Start");
-		music.setAudio ("120bpmTest");
+//		music.setAudio ("120bpmTest");
+		music.Init(calibrationClip);
 		Play ();
 	}
 

@@ -76,7 +76,7 @@ public class CalibratorV2 : MonoBehaviour {
 
 		debugPanel.log ("Offset", offset.ToString());
 
-		Debug.Log (offset);
+//		Debug.Log (offset);
 		offsets.Add (offset);
 		windowSum += offset;
 //		windowSumSquared += offset;
