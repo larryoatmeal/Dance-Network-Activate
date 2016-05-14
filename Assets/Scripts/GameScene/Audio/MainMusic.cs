@@ -32,6 +32,8 @@ public class MainMusic : MonoBehaviour {
 
 //		audioSource.clip = GameManager.Instance.currentAudio;
 		ratio = 1000f / audioSource.clip.frequency;
+
+		Debug.Log (ratio);
 	}
 
 
