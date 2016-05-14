@@ -15,7 +15,7 @@ public class SongList : MonoBehaviour {
 	public SongBrowser songBrowser;
 	public LocalSongs preloadSongManager;
 	private List<PreloadSong> preloadSongs;
-
+	public bool bsideEnable = false;
 
 
 	bool bsideReady = false;
@@ -53,26 +53,26 @@ public class SongList : MonoBehaviour {
 		
 	// Use this for initialization
 	void Start () {
-		
-		StartCoroutine (APICacheManager.Instance.publicSongs (s => {
-			onlineSongs = s;
-			bsideReady = true;
 
-//
-//			StartCoroutine (APICacheManager.Instance.downloadAudio (song.musicPath, (a) => {}));
-//
-//			songBrowser.playMiddle();
-			const int preDownloadRange = 6;
-			for(int i = 0; i < Mathf.Min(onlineSongs.Count, preDownloadRange); i++){
-				//half backwards, half forwards
-				int index = i - preDownloadRange/2;
-				if(index < 0){
-					index = onlineSongs.Count + index;
+		if (bsideEnable) {
+			#if UNITY_EDITOR
+			StartCoroutine (APICacheManager.Instance.publicSongs (s => {
+				onlineSongs = s;
+				bsideReady = true;
+
+				const int preDownloadRange = 6;
+				for(int i = 0; i < Mathf.Min(onlineSongs.Count, preDownloadRange); i++){
+					//half backwards, half forwards
+					int index = i - preDownloadRange/2;
+					if(index < 0){
+						index = onlineSongs.Count + index;
+					}
+					APICacheManager.Instance.downloadAudio (onlineSongs[index].musicPath, (a) => {});
 				}
-				APICacheManager.Instance.downloadAudio (onlineSongs[index].musicPath, (a) => {});
-			}
-		}));
+			}));
+			#endif
 
+		}
 	}
 
 	public List<PreloadSong> PreloadSongs {

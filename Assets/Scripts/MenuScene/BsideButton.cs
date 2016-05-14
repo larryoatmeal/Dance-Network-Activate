@@ -12,6 +12,13 @@ public class BsideButton : MonoBehaviour {
 	void Start(){
 		text = GetComponentInChildren<Text> ();
 		displayState ();
+
+		#if UNITY_WEBGL
+		//disable Bside for web
+		this.gameObject.SetActive(false);
+		#endif
+
+
 	}
 
 	public void toggle(){

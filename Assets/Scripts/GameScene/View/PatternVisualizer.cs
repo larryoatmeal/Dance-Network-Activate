@@ -260,10 +260,10 @@ public class PatternVisualizer : MonoBehaviour {
 		GameObject ball = prefabForEvent (e);
 
 		//so not exactly same z
-		ball.transform.Translate (new Vector3(0, 0, Random.value * 1.0f));
+//		ball.transform.Translate (new Vector3(0, 0, Random.value * 1.0f));
 
 		Pad pad = padForEvent (e);
-		ball.transform.position = new Vector3(pad.transform.position.x, -10, 0);
+		ball.transform.position = new Vector3(pad.transform.position.x, -10, ball.transform.position.z);
 
 		return ball;
 	}
@@ -295,6 +295,7 @@ public class PatternVisualizer : MonoBehaviour {
 //		return Instantiate(Resources.Load(prefabNum)) as GameObject;
 		GameObject arrowObj = arrowPool.Commission ();
 		Arrow arrow = arrowObj.GetComponent<Arrow> ();
+//		arrow.transform.position = new Vector3(pad.transform.position.x, -10	, 0);
 		arrow.SetDirection (e.eventType);
 		arrow.randomizeZ ();
 		return arrowObj;

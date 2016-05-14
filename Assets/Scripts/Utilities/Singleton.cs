@@ -16,14 +16,14 @@ public abstract class Singleton<T>: MonoBehaviour where T: Singleton<T>{
 			// This would only EVER be null if some other MonoBehavior requests the instance
 			// in its' Awake method.
 			if(instance == null) {
-				Debug.Log("[UnitySingleton] Finding instance of '" + typeof(T).ToString() + 
-					"' object.");
+//				Debug.Log("[UnitySingleton] Finding instance of '" + typeof(T).ToString() + 
+//					"' object.");
 				instance = FindObjectOfType(typeof(T)) as T;
 				// This should only occur if 'T' hasn't been attached to any game
 				// objects in the scene.
 				if(instance == null) {
-					Debug.LogError("[UnitySingleton] No instance of " + typeof(T).ToString()
-						+ "found!");
+//					Debug.LogError("[UnitySingleton] No instance of " + typeof(T).ToString()
+//						+ "found!");
 					return null;
 				}
 
@@ -34,9 +34,9 @@ public abstract class Singleton<T>: MonoBehaviour where T: Singleton<T>{
 	}
 
 	void Awake() {
-		Debug.Log("[UnitySingleton] Awake");
+//		Debug.Log("[UnitySingleton] Awake");
 		if(instance == null) {
-			Debug.Log("[UnitySingleton] Initializing Singleton in Awake");
+//			Debug.Log("[UnitySingleton] Initializing Singleton in Awake");
 			instance = this as T;
 			instance.Init();
 			if(persist)

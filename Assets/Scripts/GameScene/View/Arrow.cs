@@ -9,7 +9,7 @@ public class Arrow : MonoBehaviour {
 	}
 
 	public void randomizeZ(){
-		transform.Translate (0, 0, Random.value);
+		transform.position = new Vector3(0, 0, Random.value);
 	}
 
 	public void SetDirection(MusicEventTypes type){

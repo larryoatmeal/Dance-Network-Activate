@@ -64,11 +64,6 @@ public class SongEntry : MonoBehaviour {
 		}
 	}
 		
-	//for now just use same name
-//	string getAssociatedMidi(){
-//		return songMeta;
-//	}
-
 	public void SetSongMeta(SongMeta song){
 		isReady = true;
 		if (song != this.songMeta || local) {//new song or changed song
